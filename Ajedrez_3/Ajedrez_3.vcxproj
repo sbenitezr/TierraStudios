@@ -80,6 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -120,10 +121,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>src;lib;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,11 +148,11 @@
   <ItemGroup>
     <ClCompile Include="src\Ajedrez.cpp" />
     <ClCompile Include="src\herramientasgl.cpp" />
-    <ClCompile Include="src\Tablero.cpp" />
     <ClCompile Include="src\TableroGL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\herramientasgl.h" />
+    <ClInclude Include="src\Objeto.h" />
     <ClInclude Include="src\Pieza.h" />
     <ClInclude Include="src\Tablero.h" />
     <ClInclude Include="src\TableroGL.h" />
