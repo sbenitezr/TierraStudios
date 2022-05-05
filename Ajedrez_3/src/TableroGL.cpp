@@ -30,18 +30,21 @@ void TableroGL::drawMatriz() {
 	}
 }
 void TableroGL::drawCasilla(int i, int j) {
+	//Dibuja el contenido de las celdas
+	//Empieza a contar por la esquina superior izquierda del tablero
+	//(i, j) son coordenadas, (0, 0) es la esquina superior izquierda
 	float glx, gly;
-	switch (m_tablero->getTab()[i][j].getTipo()) {
-		case Objeto::REINA_BLANCO:
+	switch (m_tablero->getTab()[i][j].getColor()) {
+		case Objeto::NEGRO:
 			casillaCentral(i, j, glx, gly);
 			glDisable(GL_LIGHTING);
-			GLTools::Color(gltools::GREEN);
+			GLTools::Color(gltools::BLACK);
 			glTranslatef(glx, gly, 0);
 			glutSolidSphere((ancho / 2.0f) * 0.9f, 50, 50);
 			glTranslatef(-glx, -gly, 0);
 			glEnable(GL_LIGHTING);
 			break;
-		case Objeto::REINA_NEGRO:
+		case Objeto::BLANCO:
 			casillaCentral(i, j, glx, gly);
 			glDisable(GL_LIGHTING);
 			GLTools::Color(gltools::BLACK);
@@ -51,7 +54,7 @@ void TableroGL::drawCasilla(int i, int j) {
 			glEnable(GL_LIGHTING);
 			break;
 		case Objeto::CASILLA_VACIA:
-
+			
 		default:
 			;
 	}
@@ -84,7 +87,7 @@ void TableroGL::draw() {
 	glDisable(GL_LIGHTING);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	GLTools::Color(gltools::WHITE, 1.0f);
+	GLTools::Color(gltools::WHITE);
 	glTranslatef(centro_x, centro_y, centro_z);
 	glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
 	glTranslatef(-centro_x, -centro_y, -centro_z);
@@ -131,6 +134,33 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 		//***WRITE ACTIONS CONNECTED TO MOUSE STATE HERE
 
 		//print cell coordinates after click
-	if (down)
-		cout << "(" << xcas_sel << "," << ycas_sel << ")" << endl;
+	if (down) {
+		int tipo = m_tablero->getTab()[xcas_sel][ycas_sel].getTipo();
+		int color = m_tablero->getTab()[xcas_sel][ycas_sel].getColor();
+
+		if (tipo == Objeto::REINA) {
+			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RB" << endl;
+			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RN" << endl;
+		}
+		if (tipo == Objeto::PEON) {
+			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PB" << endl;
+			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PN" << endl;
+		}
+		if (tipo == Objeto::REY) {
+			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KB" << endl;
+			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KN" << endl;
+		}
+		if (tipo == Objeto::CABALLO) {
+			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CB" << endl;
+			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CN" << endl;
+		}
+		if (tipo == Objeto::ALFIL) {
+			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AB" << endl;
+			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AN" << endl;
+		}
+		if (tipo == Objeto::TORRE) {
+			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TB" << endl;
+			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TN" << endl;
+		}
+	}
 }

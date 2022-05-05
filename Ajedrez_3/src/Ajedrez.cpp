@@ -74,12 +74,3 @@ void OnMouseClick(int b, int state, int x, int y)
 	escenario.MouseButton(x, y, b, down, sKey, ctrlKey);
 	glutPostRedisplay();
 }
-/*void OnTimer(int value)
-{
-	//poner aqui el código de animacion
-	ajedrez.mueve();
-	//mundo.rotarOjo();
-	//no borrar estas lineas
-	glutTimerFunc(25, OnTimer, 0);
-	glutPostRedisplay();
-}*/
