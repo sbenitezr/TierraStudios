@@ -7,8 +7,9 @@
 
 class Objeto {
 public:
-	enum tipo_t { CASILLA_VACIA = -1, REINA_BLANCO, REINA_NEGRO };
-	void getNumCasilla(int& x, int& y);
+	enum tipo_t { CASILLA_VACIA = -1, PEON, CABALLO, TORRE, ALFIL, REINA, REY};
+	enum color_p {NO_COLOR = -1, BLANCO, NEGRO};
+	void getNumCas(int& x, int& y) {}
 	virtual tipo_t getTipo() = 0;
 };
 #endif

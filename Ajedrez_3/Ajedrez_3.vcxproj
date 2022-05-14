@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="src\Ajedrez.cpp" />
     <ClCompile Include="src\herramientasgl.cpp" />
+    <ClCompile Include="src\Tablero.cpp" />
     <ClCompile Include="src\TableroGL.cpp" />
   </ItemGroup>
   <ItemGroup>

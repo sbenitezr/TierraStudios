@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Tablero.h"
+#include "Pieza.h"
 
 //Enumeraciones para no escribir sobre comandos de la glut
 enum { MOUSE_LEFT_BUTTON, MOUSE_RIGHT_BUTTON, MOUSE_MIDDLE_BUTTON };
@@ -27,7 +28,7 @@ public:
 	void draw();
 	void drawMatriz();
 	void drawCasilla(int i, int j);
-	void KeyDown(unsigned char key);
+	//void KeyDown(unsigned char key);
 	void MouseButton(int x, int y, int button, bool down, bool shiftKey, bool ctrlKey);
 	//Info
 	void setTamanio(int tam) { N = tam; }
@@ -43,6 +44,7 @@ public:
 		cas_x = (int)(abs(y / ancho));
 		cas_y = (int)(x / ancho);
 	}
+	
 
 protected:
 	float ancho;
@@ -53,6 +55,8 @@ protected:
 	double dist;
 
 	int xcas_sel, ycas_sel; //Seleccion de casilla con el raton
+
+	//int tipo;
 
 	bool controlKey;
 	bool shiftKey;

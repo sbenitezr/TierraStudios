@@ -17,7 +17,7 @@ class GLTools
 {
 public:
 	//Color utilities
-	static void Color(int color, float transparency = 1.0f);
+	static void Color(int color, int transparency = 1.0f);
 	static void BackgroundColor(int color);
 	//Textures utilities
 	static unsigned int LoadTexture(string filename);

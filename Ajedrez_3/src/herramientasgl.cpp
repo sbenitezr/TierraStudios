@@ -14,7 +14,7 @@ using namespace gltools;
 std::vector<std::string> GLTools::textures_names;
 std::vector<unsigned int> GLTools::textures_ids;
 
-void GLTools::Color(int i, float transparency)
+void GLTools::Color(int i, int transparency)
 {
 	if (i == BLACK)		glColor4f(0, 0, 0, transparency);
 	else if (i == WHITE)	glColor4f(1.0f, 1.0f, 1.0f, transparency);
@@ -166,7 +166,7 @@ void GLTools::DrawGrid(int num_cells, float size, int col, float transparency)
 	glEnable(GL_LIGHTING);
 
 	//WORLD FRAME
-	Color(col, transparency);
+	Color(col);
 
 	glLineWidth(1);
 	glBegin(GL_LINES);
@@ -195,7 +195,7 @@ void GLTools::DrawExactGrid(int N, float size, int col, float transparency) {
 	// N should be an even number
 
 	glEnable(GL_LIGHTING);
-	Color(col, transparency);
+	Color(col);
 
 	glLineWidth(1);
 	glBegin(GL_LINES);
