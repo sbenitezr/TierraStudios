@@ -1,11 +1,16 @@
 #include "Tablero.h"
 
+
 Tablero::Tablero(int n) :N(n){
 	tab = new Pieza * [N];
+
 	for (int i = 0; i < N; i++)
 	{
 		tab[i] = new Pieza[N];
 	}
+	
+
+	//Seleccion de casillas para piezas de color NEGRO
 	for (int  j = 0; j < N; j++)
 	{
 		tab[1][j].setCas(Vector(0, j), Pieza::PEON, Pieza::NEGRO);
@@ -18,6 +23,9 @@ Tablero::Tablero(int n) :N(n){
 	tab[0][N-2].setCas(Vector(0, N-2), Pieza::CABALLO, Pieza::NEGRO);
 	tab[0][2].setCas(Vector(0, 2), Pieza::ALFIL, Pieza::NEGRO);
 	tab[0][N - 3].setCas(Vector(0, N - 3), Pieza::ALFIL, Pieza::NEGRO);
+
+
+	//Seleccion de casillas para piezas de color BLANCO
 	for (int j = 0; j < N; j++)
 	{
 		tab[N - 2][j].setCas(Vector(0, j), Pieza::PEON, Pieza::BLANCO);

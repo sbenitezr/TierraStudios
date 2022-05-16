@@ -1,9 +1,1 @@
-﻿  TableroGL.cpp
-C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(392,34): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(393,36): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(393,26): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(393,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(395,38): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(395,27): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(395,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-  Ajedrez_3.vcxproj -> C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\bin\Ajedrez_3.exe
+﻿  Ajedrez_3.vcxproj -> C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\XD\TierraStudios\bin\Ajedrez_3.exe
