@@ -13,7 +13,7 @@ TableroGL escenario(&tab);
 void OnDraw(void);
 void OnKeyboardDown(unsigned char key, int x, int y);
 void OnMouseClick(int button, int state, int x, int y);
-//void OnTimer(int value); Esta es una mickey-herramienta que usaremos mas adelante
+//void OnTimer(int value);
 
 int main(int argc, char* argv[])
 {
@@ -74,3 +74,10 @@ void OnMouseClick(int b, int state, int x, int y)
 	escenario.MouseButton(x, y, b, down, sKey, ctrlKey);
 	glutPostRedisplay();
 }
+
+/*void OnTimer(int value)
+{
+	escenario.draw();
+	glutTimerFunc(25, OnTimer, 0);
+	glutPostRedisplay();
+}*/

@@ -12,7 +12,6 @@ namespace gltools {
 	enum { WHITE, RED, GREEN, BLUE, MAGENTA, CYAN, YELLOW, ORANGE, PURPLE, PINK, GREY, BLACK };
 };
 
-
 class GLTools
 {
 public:

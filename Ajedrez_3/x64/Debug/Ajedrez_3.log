@@ -1,0 +1,9 @@
+﻿  TableroGL.cpp
+D:\Programacion\Ajedrez_3\Ajedrez_3\src\TableroGL.cpp(360,33): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+D:\Programacion\Ajedrez_3\Ajedrez_3\src\TableroGL.cpp(361,35): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Programacion\Ajedrez_3\Ajedrez_3\src\TableroGL.cpp(361,25): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Programacion\Ajedrez_3\Ajedrez_3\src\TableroGL.cpp(361,15): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Programacion\Ajedrez_3\Ajedrez_3\src\TableroGL.cpp(363,37): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Programacion\Ajedrez_3\Ajedrez_3\src\TableroGL.cpp(363,26): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Programacion\Ajedrez_3\Ajedrez_3\src\TableroGL.cpp(363,15): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+  Ajedrez_3.vcxproj -> D:\Programacion\Ajedrez_3\bin\Ajedrez_3.exe

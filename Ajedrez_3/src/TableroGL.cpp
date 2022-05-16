@@ -4,7 +4,8 @@
 #include <iostream>
 #include <math.h>
 #include "freeglut.h"
-
+#include "ETSIDI.h"
+using namespace std;
 
 void TableroGL::init() {
 	glEnable(GL_LIGHT0);
@@ -29,34 +30,297 @@ void TableroGL::drawMatriz() {
 		glEnd();
 	}
 }
-void TableroGL::drawCasilla(int i, int j) {
+void TableroGL::drawCasillaIni(int i, int j) {
 	//Dibuja el contenido de las celdas
 	//Empieza a contar por la esquina superior izquierda del tablero
 	//(i, j) son coordenadas, (0, 0) es la esquina superior izquierda
 	float glx, gly;
+
 	switch (m_tablero->getTab()[i][j].getColor()) {
 		case Objeto::NEGRO:
-			casillaCentral(i, j, glx, gly);
-			glDisable(GL_LIGHTING);
-			GLTools::Color(gltools::BLACK);
-			glTranslatef(glx, gly, 0);
-			glutSolidSphere((ancho / 2.0f) * 0.9f, 50, 50);
-			glTranslatef(-glx, -gly, 0);
-			glEnable(GL_LIGHTING);
+			switch (m_tablero->getTab()[i][j].getTipo())
+			{
+			case Objeto::PEON:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritepeonN.setCenter(ancho / 2, ancho / 2);
+				spritepeonN.setSize(1, 1);
+				spritepeonN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::REINA:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritereinaN.setCenter(ancho / 2, ancho / 2);
+				spritereinaN.setSize(1, 1);
+				spritereinaN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::TORRE:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritetorreN.setCenter(ancho / 2, ancho / 2);
+				spritetorreN.setSize(1, 1);
+				spritetorreN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::ALFIL:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritealfilN.setCenter(ancho / 2, ancho / 2);
+				spritealfilN.setSize(1, 1);
+				spritealfilN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::REY:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritereyN.setCenter(ancho / 2, ancho / 2);
+				spritereyN.setSize(1, 1);
+				spritereyN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::CABALLO:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritecaballoN.setCenter(ancho / 2, ancho / 2);
+				spritecaballoN.setSize(1, 1);
+				spritecaballoN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			default:
+				;
+			}
 			break;
 		case Objeto::BLANCO:
-			casillaCentral(i, j, glx, gly);
-			glDisable(GL_LIGHTING);
-			GLTools::Color(gltools::BLACK);
-			glTranslatef(glx, gly, 0);
-			glutSolidSphere((ancho / 2.0f) * 0.9f, 50, 50);
-			glTranslatef(-glx, -gly, 0);
-			glEnable(GL_LIGHTING);
-			break;
-		case Objeto::CASILLA_VACIA:
-			
+			switch (m_tablero->getTab()[i][j].getTipo())
+			{
+			case Objeto::PEON:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritepeonB.setCenter(ancho / 2, ancho / 2);
+				spritepeonB.setSize(1, 1);
+				spritepeonB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::REINA:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritereinaB.setCenter(ancho / 2, ancho / 2);
+				spritereinaB.setSize(1, 1);
+				spritereinaB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::TORRE:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritetorreB.setCenter(ancho / 2, ancho / 2);
+				spritetorreB.setSize(1, 1);
+				spritetorreB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::ALFIL:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritealfilB.setCenter(ancho / 2, ancho / 2);
+				spritealfilB.setSize(1, 1);
+				spritealfilB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::REY:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritereyB.setCenter(ancho / 2, ancho / 2);
+				spritereyB.setSize(1, 1);
+				spritereyB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::CABALLO:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritecaballoB.setCenter(ancho / 2, ancho / 2);
+				spritecaballoB.setSize(1, 1);
+				spritecaballoB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			default:
+				;
+			}
+			break;			
 		default:
 			;
+	}
+}
+void TableroGL::drawCasilla(Vector pos) {
+	//Dibuja el contenido de las celdas
+	//Empieza a contar por la esquina superior izquierda del tablero
+	//(i, j) son coordenadas, (0, 0) es la esquina superior izquierda
+	int x = pos.x, y = pos.y;
+	int i = x, j = y;
+	float glx, gly;
+	if (x != -1 && y != 1) {
+		switch (m_tablero->getTab()[x][y].getColor()) {
+		case Objeto::NEGRO:
+			switch (m_tablero->getTab()[x][y].getTipo())
+			{
+			case Objeto::PEON:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritepeonN.setCenter(ancho / 2, ancho / 2);
+				spritepeonN.setSize(1, 1);
+				spritepeonN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::REINA:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritereinaN.setCenter(ancho / 2, ancho / 2);
+				spritereinaN.setSize(1, 1);
+				spritereinaN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::TORRE:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritetorreN.setCenter(ancho / 2, ancho / 2);
+				spritetorreN.setSize(1, 1);
+				spritetorreN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::ALFIL:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritealfilN.setCenter(ancho / 2, ancho / 2);
+				spritealfilN.setSize(1, 1);
+				spritealfilN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::REY:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritereyN.setCenter(ancho / 2, ancho / 2);
+				spritereyN.setSize(1, 1);
+				spritereyN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::CABALLO:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritecaballoN.setCenter(ancho / 2, ancho / 2);
+				spritecaballoN.setSize(1, 1);
+				spritecaballoN.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			default:
+				;
+			}
+			break;
+		case Objeto::BLANCO:
+			switch (m_tablero->getTab()[i][j].getTipo())
+			{
+			case Objeto::PEON:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritepeonB.setCenter(ancho / 2, ancho / 2);
+				spritepeonB.setSize(1, 1);
+				spritepeonB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::REINA:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritereinaB.setCenter(ancho / 2, ancho / 2);
+				spritereinaB.setSize(1, 1);
+				spritereinaB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::TORRE:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritetorreB.setCenter(ancho / 2, ancho / 2);
+				spritetorreB.setSize(1, 1);
+				spritetorreB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::ALFIL:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritealfilB.setCenter(ancho / 2, ancho / 2);
+				spritealfilB.setSize(1, 1);
+				spritealfilB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::REY:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritereyB.setCenter(ancho / 2, ancho / 2);
+				spritereyB.setSize(1, 1);
+				spritereyB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			case Objeto::CABALLO:
+				casillaCentral(i, j, glx, gly);
+				glDisable(GL_LIGHTING);
+				glTranslatef(glx, -gly - ancho, 0);
+				spritecaballoB.setCenter(ancho / 2, ancho / 2);
+				spritecaballoB.setSize(1, 1);
+				spritecaballoB.draw();
+				glTranslatef(-glx, gly + ancho, 0);
+				glEnable(GL_LIGHTING);
+				break;
+			default:
+				;
+			}
+			break;
+		default:
+			;
+		}
 	}
 }
 void TableroGL::draw() {
@@ -71,27 +335,30 @@ void TableroGL::draw() {
 	//Para definir el punto de vista
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(centro_x, centro_y, dist, centro_x, centro_y, centro_z, 0, 1, 0);
+	gluLookAt(centro_x, centro_y, -15, centro_x, centro_y, centro_z, 0, 1, 0);
 	glEnable(GL_LIGHTING);
 
 	//Pinta las celdas y el tablero
 	drawMatriz();
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
-			drawCasilla(i, j);
+			drawCasillaIni(i, j);
 		}
 	}
 
 	//Dibuja un rectangulo transparente sobre el tablero para capturar el raton
 	//con gluUnProject
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero.png").id);
 	glDisable(GL_LIGHTING);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	GLTools::Color(gltools::WHITE);
+	GLTools::Color(gltools::WHITE, 1.0f);
 	glTranslatef(centro_x, centro_y, centro_z);
 	glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
 	glTranslatef(-centro_x, -centro_y, -centro_z);
 	glEnable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
 }
 void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool ctrlKey) {
 	GLint viewport[4];
@@ -135,32 +402,47 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 
 		//print cell coordinates after click
 	if (down) {
-		int tipo = m_tablero->getTab()[xcas_sel][ycas_sel].getTipo();
-		int color = m_tablero->getTab()[xcas_sel][ycas_sel].getColor();
+		if (seleccion == TRUE) {
+			m_tablero->getTab()[xcas_sel][ycas_sel].setCas(Vector(xcas_sel, ycas_sel));
+			seleccion = FALSE;
+			cout << seleccion << endl;
+		}
+		if (seleccion == FALSE) {
+			int tipo = m_tablero->getTab()[xcas_sel][ycas_sel].getTipo();
+			int color = m_tablero->getTab()[xcas_sel][ycas_sel].getColor();
 
-		if (tipo == Objeto::REINA) {
-			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RB" << endl;
-			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RN" << endl;
-		}
-		if (tipo == Objeto::PEON) {
-			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PB" << endl;
-			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PN" << endl;
-		}
-		if (tipo == Objeto::REY) {
-			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KB" << endl;
-			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KN" << endl;
-		}
-		if (tipo == Objeto::CABALLO) {
-			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CB" << endl;
-			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CN" << endl;
-		}
-		if (tipo == Objeto::ALFIL) {
-			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AB" << endl;
-			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AN" << endl;
-		}
-		if (tipo == Objeto::TORRE) {
-			if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TB" << endl;
-			if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TN" << endl;
+			if (tipo == Objeto::REINA) {
+				if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RB" << endl;
+				if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RN" << endl;
+
+			}
+			if (tipo == Objeto::PEON) {
+				if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PB" << endl;
+				if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PN" << endl;
+			}
+			if (tipo == Objeto::REY) {
+				if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KB" << endl;
+				if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KN" << endl;
+			}
+			if (tipo == Objeto::CABALLO) {
+				if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CB" << endl;
+				if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CN" << endl;
+			}
+			if (tipo == Objeto::ALFIL) {
+				if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AB" << endl;
+				if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AN" << endl;
+			}
+			if (tipo == Objeto::TORRE) {
+				if (color == Objeto::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TB" << endl;
+				if (color == Objeto::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TN" << endl;
+			}
+			if (tipo == Objeto::CASILLA_VACIA) {
+
+			}
+			else {}
+			m_tablero->getTab()[xcas_sel][ycas_sel].setPos2(Vector(xcas_sel, ycas_sel));
+			seleccion = TRUE;
+			cout << seleccion << endl;
 		}
 	}
 }
