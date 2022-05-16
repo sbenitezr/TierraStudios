@@ -5,6 +5,8 @@
 #include <vector>
 #include "Tablero.h"
 #include "Pieza.h"
+#include "ETSIDI.h"
+using ETSIDI::SpriteSequence;
 
 //Enumeraciones para no escribir sobre comandos de la glut
 enum { MOUSE_LEFT_BUTTON, MOUSE_RIGHT_BUTTON, MOUSE_MIDDLE_BUTTON };
@@ -15,7 +17,7 @@ using namespace std;
 class TableroGL {
 public:
 	TableroGL(Tablero* t) :m_tablero(t) {
-		ancho = 0.15;
+		ancho = 1; //0.15
 		N = t->getTamanio();
 		dist = 2;
 		centro_z = 0;
@@ -27,10 +29,11 @@ public:
 	//Gestor de eventos
 	void draw();
 	void drawMatriz();
-	void drawCasilla(int i, int j);
+	void drawCasillaIni(int i, int j);
+	void drawCasilla(Vector a);
 	//void KeyDown(unsigned char key);
 	void MouseButton(int x, int y, int button, bool down, bool shiftKey, bool ctrlKey);
-	//Info
+	//Info REVISAAAAAAAAAAR*********************************************************************************************
 	void setTamanio(int tam) { N = tam; }
 	int getTamanio() { return N; }
 	//Coordinador
@@ -42,7 +45,7 @@ public:
 	}
 	void casillaMundo(double x, double y, int& cas_x, int& cas_y) {
 		cas_x = (int)(abs(y / ancho));
-		cas_y = (int)(x / ancho);
+		cas_y = (int)(abs(x / ancho));
 	}
 	
 
@@ -63,6 +66,23 @@ protected:
 	bool leftButton;
 	bool rightButton;
 	bool midButton;
+
+	bool seleccion = FALSE;
+	bool inicio = FALSE;
+
+	SpriteSequence spritepeonN{ "imagenes/peon_negro.png", 1 };
+	SpriteSequence spritetorreN{ "imagenes/torre_negro.png", 1 };
+	SpriteSequence spritereinaN{ "imagenes/reina_negro.png", 1 };
+	SpriteSequence spritealfilN{ "imagenes/alfil_negro.png", 1 };
+	SpriteSequence spritereyN{ "imagenes/rey_negro.png", 1 };
+	SpriteSequence spritecaballoN{ "imagenes/caballo_negro.png", 1 };
+
+	SpriteSequence spritepeonB{ "imagenes/peon_blanco.png", 1 };
+	SpriteSequence spritetorreB{ "imagenes/torre_blanco.png", 1 };
+	SpriteSequence spritereinaB{ "imagenes/reina_blanco.png", 1 };
+	SpriteSequence spritealfilB{ "imagenes/alfil_blanco.png", 1 };
+	SpriteSequence spritereyB{ "imagenes/rey_blanco.png", 1 };
+	SpriteSequence spritecaballoB{ "imagenes/caballo_blanco.png", 1 };
 };
 
 #endif
