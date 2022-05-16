@@ -22,7 +22,10 @@ public:
 		dist = 2;
 		centro_z = 0;
 	}
+	enum Modo { INICIO, JUGAR, FINAL };
+	Modo modo;
 	virtual ~TableroGL() {}
+	TableroGL();
 
 	//Inicializacion
 	void init();
@@ -31,6 +34,7 @@ public:
 	void drawMatriz();
 	void drawCasillaIni(int i, int j);
 	void drawCasilla(Vector a);
+	void tecla(unsigned char key);
 	//void KeyDown(unsigned char key);
 	void MouseButton(int x, int y, int button, bool down, bool shiftKey, bool ctrlKey);
 	//Info REVISAAAAAAAAAAR*********************************************************************************************
@@ -69,6 +73,9 @@ protected:
 
 	bool seleccion = FALSE;
 	bool inicio = FALSE;
+
+	SpriteSequence spriteinicio{ "imagenes/inicio.png", 1 };
+	SpriteSequence spritefinal{ "imagenes/final.png", 1 };
 
 	SpriteSequence spritepeonN{ "imagenes/peon_negro.png", 1 };
 	SpriteSequence spritetorreN{ "imagenes/torre_negro.png", 1 };

@@ -48,7 +48,7 @@ void OnDraw(void)
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
 	//Pilla del teclado (ya veremos si lo usamos)
-	//escenario.tecla(key);
+	escenario.tecla(key);
 
 	glutPostRedisplay();
 }

@@ -7,6 +7,11 @@
 #include "ETSIDI.h"
 using namespace std;
 
+TableroGL::TableroGL()
+{
+	modo = INICIO;
+}
+
 void TableroGL::init() {
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
@@ -323,42 +328,87 @@ void TableroGL::drawCasilla(Vector pos) {
 		}
 	}
 }
-void TableroGL::draw() {
-	centro_x = N * ancho / 2;
-	centro_y = -N * ancho / 2;
-	centro_z = 0;
+void TableroGL::tecla(unsigned char key)
+{
+	if (modo == INICIO){
 
-	//Borrado de la pantalla	
-	glClearColor(1, 1, 1, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		if (key == 'j'){
+			modo = JUGAR;
+		}
 
-	//Para definir el punto de vista
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(centro_x, centro_y, -15, centro_x, centro_y, centro_z, 0, 1, 0);
-	glEnable(GL_LIGHTING);
-
-	//Pinta las celdas y el tablero
-	drawMatriz();
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			drawCasillaIni(i, j);
+		if (key == 's'){
+			modo = FINAL;
+			exit(0);
 		}
 	}
 
-	//Dibuja un rectangulo transparente sobre el tablero para capturar el raton
-	//con gluUnProject
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero.png").id);
-	glDisable(GL_LIGHTING);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	GLTools::Color(gltools::WHITE, 1.0f);
-	glTranslatef(centro_x, centro_y, centro_z);
-	glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
-	glTranslatef(-centro_x, -centro_y, -centro_z);
-	glEnable(GL_LIGHTING);
-	glDisable(GL_TEXTURE_2D);
+
+}
+void TableroGL::draw() {
+	
+	// PANTALLA DE INICIO
+
+	if (modo == INICIO) {
+
+		glDisable(GL_LIGHTING);
+		spriteinicio.setCenter(ancho / 2, ancho / 2);
+		spriteinicio.setSize(1, 1);
+		spriteinicio.draw();
+		glEnable(GL_LIGHTING);
+	}
+
+	//PANTALLA DE JUEGO
+
+	else if (modo == JUGAR) {
+
+		centro_x = N * ancho / 2;
+		centro_y = -N * ancho / 2;
+		centro_z = 0;
+
+		//Borrado de la pantalla	
+		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//Para definir el punto de vista
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(centro_x, centro_y, -15, centro_x, centro_y, centro_z, 0, 1, 0);
+		glEnable(GL_LIGHTING);
+
+		//Pinta las celdas y el tablero
+		drawMatriz();
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				drawCasillaIni(i, j);
+			}
+		}
+		//Dibuja un rectangulo transparente sobre el tablero para capturar el raton
+		//con gluUnProject
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero.png").id);
+		glDisable(GL_LIGHTING);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		GLTools::Color(gltools::WHITE, 1.0f);
+		glTranslatef(centro_x, centro_y, centro_z);
+		glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
+		glTranslatef(-centro_x, -centro_y, -centro_z);
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+	}
+
+	//PANTALLA DE SALIDA
+
+	else if (modo == FINAL) {
+
+		glDisable(GL_LIGHTING);
+		spritefinal.setCenter(ancho / 2, ancho / 2);
+		spritefinal.setSize(1, 1);
+		spritefinal.draw();
+		glEnable(GL_LIGHTING);
+
+	}
+	
 }
 void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool ctrlKey) {
 	GLint viewport[4];
