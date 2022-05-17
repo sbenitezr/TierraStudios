@@ -1,1 +1,10 @@
-﻿  Ajedrez_3.vcxproj -> C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\XD\TierraStudios\bin\Ajedrez_3.exe
+﻿  TableroGL.cpp
+C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(434,34): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(435,36): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(435,26): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(435,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(437,38): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(437,27): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(437,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(539,3): warning C4809: la instrucción switch tiene una etiqueta 'default' redundante; se proporcionan todas las etiquetas 'case' posibles
+  Ajedrez_3.vcxproj -> C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\bin\Ajedrez_3.exe

@@ -18,6 +18,8 @@ public:
 		}
 		delete[] tab;
 	}
+	void tableroInicio();
+	void tableroSetPieza(int i, int j, Vector v);
 	int getTamanio() { return N; }
 	Pieza** getTab() { return tab; }
 };

@@ -17,11 +17,10 @@ void TableroGL::init() {
 	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
-
+	m_tablero->tableroInicio();
 	glMatrixMode(GL_PROJECTION);
 	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
 }
-
 void TableroGL::drawMatriz() {
 	GLTools::Color(gltools::BLACK);
 	float dist = N * ancho;
@@ -36,7 +35,6 @@ void TableroGL::drawMatriz() {
 		glEnd();
 	}
 }
-
 void TableroGL::drawCasillaIni(int i, int j) {
 	//Dibuja el contenido de las celdas
 	//Empieza a contar por la esquina superior izquierda del tablero
@@ -182,7 +180,6 @@ void TableroGL::drawCasillaIni(int i, int j) {
 			;
 	}
 }
-
 void TableroGL::drawCasilla(Vector pos) {
 	//Dibuja el contenido de las celdas
 	//Empieza a contar por la esquina superior izquierda del tablero
@@ -331,10 +328,8 @@ void TableroGL::drawCasilla(Vector pos) {
 		}
 	}
 }
-
 void TableroGL::tecla(unsigned char key)
 {
-	//Control del coordinador mediante el teclado
 	if (modo == INICIO){
 
 		if (key == 'j'){
@@ -343,64 +338,48 @@ void TableroGL::tecla(unsigned char key)
 
 		if (key == 's'){
 			modo = FINAL;
-		}
-	}
-	else if (modo == JUGAR) {
-		if (key == 's') {
-			modo = FINAL;
-		}
-	}
-	else if (modo == FINAL) {
-		if (key == 'e') {
-			exit(0);
-		}
-		if (key == 's') {
 			exit(0);
 		}
 	}
 
-
+	if (modo == JUGAR) {
+		if (key == 's') {
+			exit(0);
+		}
+	}
 }
-
 void TableroGL::draw() {
 	
 	// PANTALLA DE INICIO
-	//Fallo a la hora de que salga la imagen 
+
 	if (modo == INICIO) {
+		centro_x = 0;
+		centro_y = 7.5;
+		centro_z = 0;
+		//Para definir el punto de vista
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
+		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/inicioPrueba.png").id);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3f(1, 1, 1);
-		glTexCoord2d(0, 1); glVertex2f(-10, 0);
-		glTexCoord2d(1, 1); glVertex2f(10, 0);
-		glTexCoord2d(1, 0); glVertex2f(10, 15);
-		glTexCoord2d(0, 0); glVertex2f(-10, 15);
+		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+		glTexCoord2d(0, 1); glVertex2f(10, 0);
+		glTexCoord2d(1, 1); glVertex2f(-10, 0);
+		glTexCoord2d(1, 0); glVertex2f(-10, 15);
+		glTexCoord2d(0, 0); glVertex2f(10, 15);
 		glEnd();
 		glEnable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
-	}
-
-	//PANTALLA DE SALIDA
-	//Fallo a la hora de que salga la imagen
-	else if (modo == FINAL) {
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/finalPrueba.png").id);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
-		glColor3f(1, 1, 1);
-		glTexCoord2d(0, 1); glVertex2f(-10, 0);
-		glTexCoord2d(1, 1); glVertex2f(10, 0);
-		glTexCoord2d(1, 0); glVertex2f(10, 15);
-		glTexCoord2d(0, 0); glVertex2f(-10, 15);
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glDisable(GL_TEXTURE_2D);
-
 	}
 
 	//PANTALLA DE JUEGO
-	//Funciona correcto
+
 	else if (modo == JUGAR) {
 
 		centro_x = N * ancho / 2;
@@ -419,15 +398,37 @@ void TableroGL::draw() {
 
 		//Pinta las celdas y el tablero
 		drawMatriz();
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				drawCasillaIni(i, j);
+		if (inicio == TRUE)
+		{
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					drawCasillaIni(i, j);
+				}
 			}
+			//inicio = FALSE;
 		}
-		//Dibuja un rectangulo transparente sobre el tablero para capturar el raton con gluUnProject
+		/*if (inicio == FALSE) {
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					drawCasilla(m_tablero->getTab()[i][j].getNumCas2());
+				}
+			}
+		}*/
+		
+		//Dibuja un rectangulo transparente sobre el tablero para capturar el raton
+		//con gluUnProject
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero.png").id);
 		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+		glTexCoord2d(0, 1); glVertex2f(N * ancho + 1, -N * ancho - 1);
+		glTexCoord2d(1, 1); glVertex2f(N * ancho + 1, 1);
+		glTexCoord2d(1, 0); glVertex2f(-1, 1);
+		glTexCoord2d(0, 0); glVertex2f(-1, -N * ancho - 1);
+		glEnd();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		GLTools::Color(gltools::WHITE, 1.0f);
@@ -437,9 +438,16 @@ void TableroGL::draw() {
 		glEnable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
 	}
+
+	//PANTALLA DE SALIDA
+
+	else if (modo == FINAL) {
+
+		//NO USADO AUN
+
+	}
 	
 }
-
 void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool ctrlKey) {
 	GLint viewport[4];
 	GLdouble modelview[16];
@@ -482,12 +490,9 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 
 		//print cell coordinates after click
 	if (down) {
-		if (seleccion == TRUE) {
-			m_tablero->getTab()[xcas_sel][ycas_sel].setCas(Vector(xcas_sel, ycas_sel));
-			seleccion = FALSE;
-			cout << seleccion << endl;
-		}
-		if (seleccion == FALSE) {
+		switch (seleccion)
+		{
+		case FALSE: {
 			int tipo = m_tablero->getTab()[xcas_sel][ycas_sel].getTipo();
 			int color = m_tablero->getTab()[xcas_sel][ycas_sel].getColor();
 
@@ -519,10 +524,18 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 			if (tipo == Objeto::CASILLA_VACIA) {
 
 			}
-			else {}
 			m_tablero->getTab()[xcas_sel][ycas_sel].setPos2(Vector(xcas_sel, ycas_sel));
 			seleccion = TRUE;
-			cout << seleccion << endl;
+			cout << seleccion << endl; }
+			break;
+		case TRUE: {
+			m_tablero->tableroSetPieza(xcas_sel, ycas_sel, m_tablero->getTab()[xcas_sel][ycas_sel].getNumCas2());
+			//m_tablero->getTab()[xcas_sel][ycas_sel].setCas(Vector(xcas_sel, ycas_sel));
+			seleccion = FALSE;
+			cout << seleccion << endl; }
+			break;
+		default:
+			;
 		}
 	}
 }
