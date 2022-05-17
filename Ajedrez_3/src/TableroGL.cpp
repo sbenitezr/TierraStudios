@@ -7,6 +7,11 @@
 #include "ETSIDI.h"
 using namespace std;
 
+TableroGL::TableroGL()
+{
+	modo = INICIO;
+}
+
 void TableroGL::init() {
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
@@ -16,6 +21,7 @@ void TableroGL::init() {
 	glMatrixMode(GL_PROJECTION);
 	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
 }
+
 void TableroGL::drawMatriz() {
 	GLTools::Color(gltools::BLACK);
 	float dist = N * ancho;
@@ -30,6 +36,7 @@ void TableroGL::drawMatriz() {
 		glEnd();
 	}
 }
+
 void TableroGL::drawCasillaIni(int i, int j) {
 	//Dibuja el contenido de las celdas
 	//Empieza a contar por la esquina superior izquierda del tablero
@@ -175,6 +182,7 @@ void TableroGL::drawCasillaIni(int i, int j) {
 			;
 	}
 }
+
 void TableroGL::drawCasilla(Vector pos) {
 	//Dibuja el contenido de las celdas
 	//Empieza a contar por la esquina superior izquierda del tablero
@@ -323,43 +331,115 @@ void TableroGL::drawCasilla(Vector pos) {
 		}
 	}
 }
-void TableroGL::draw() {
-	centro_x = N * ancho / 2;
-	centro_y = -N * ancho / 2;
-	centro_z = 0;
 
-	//Borrado de la pantalla	
-	glClearColor(1, 1, 1, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void TableroGL::tecla(unsigned char key)
+{
+	//Control del coordinador mediante el teclado
+	if (modo == INICIO){
 
-	//Para definir el punto de vista
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(centro_x, centro_y, -15, centro_x, centro_y, centro_z, 0, 1, 0);
-	glEnable(GL_LIGHTING);
+		if (key == 'j'){
+			modo = JUGAR;
+		}
 
-	//Pinta las celdas y el tablero
-	drawMatriz();
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			drawCasillaIni(i, j);
+		if (key == 's'){
+			modo = FINAL;
+		}
+	}
+	else if (modo == JUGAR) {
+		if (key == 's') {
+			modo = FINAL;
+		}
+	}
+	else if (modo == FINAL) {
+		if (key == 'e') {
+			exit(0);
+		}
+		if (key == 's') {
+			exit(0);
 		}
 	}
 
-	//Dibuja un rectangulo transparente sobre el tablero para capturar el raton
-	//con gluUnProject
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero.png").id);
-	glDisable(GL_LIGHTING);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	GLTools::Color(gltools::WHITE, 1.0f);
-	glTranslatef(centro_x, centro_y, centro_z);
-	glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
-	glTranslatef(-centro_x, -centro_y, -centro_z);
-	glEnable(GL_LIGHTING);
-	glDisable(GL_TEXTURE_2D);
+
 }
+
+void TableroGL::draw() {
+	
+	// PANTALLA DE INICIO
+	//Fallo a la hora de que salga la imagen 
+	if (modo == INICIO) {
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/inicioPrueba.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		glTexCoord2d(0, 1); glVertex2f(-10, 0);
+		glTexCoord2d(1, 1); glVertex2f(10, 0);
+		glTexCoord2d(1, 0); glVertex2f(10, 15);
+		glTexCoord2d(0, 0); glVertex2f(-10, 15);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+	}
+
+	//PANTALLA DE SALIDA
+	//Fallo a la hora de que salga la imagen
+	else if (modo == FINAL) {
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/finalPrueba.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		glTexCoord2d(0, 1); glVertex2f(-10, 0);
+		glTexCoord2d(1, 1); glVertex2f(10, 0);
+		glTexCoord2d(1, 0); glVertex2f(10, 15);
+		glTexCoord2d(0, 0); glVertex2f(-10, 15);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+
+	}
+
+	//PANTALLA DE JUEGO
+	//Funciona correcto
+	else if (modo == JUGAR) {
+
+		centro_x = N * ancho / 2;
+		centro_y = -N * ancho / 2;
+		centro_z = 0;
+
+		//Borrado de la pantalla	
+		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//Para definir el punto de vista
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(centro_x, centro_y, -15, centro_x, centro_y, centro_z, 0, 1, 0);
+		glEnable(GL_LIGHTING);
+
+		//Pinta las celdas y el tablero
+		drawMatriz();
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				drawCasillaIni(i, j);
+			}
+		}
+		//Dibuja un rectangulo transparente sobre el tablero para capturar el raton con gluUnProject
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero.png").id);
+		glDisable(GL_LIGHTING);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		GLTools::Color(gltools::WHITE, 1.0f);
+		glTranslatef(centro_x, centro_y, centro_z);
+		glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
+		glTranslatef(-centro_x, -centro_y, -centro_z);
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+	}
+	
+}
+
 void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool ctrlKey) {
 	GLint viewport[4];
 	GLdouble modelview[16];
