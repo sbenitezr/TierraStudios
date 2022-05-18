@@ -1,10 +1,38 @@
-﻿  TableroGL.cpp
-C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(434,34): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(435,36): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(435,26): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(435,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(437,38): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(437,27): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(437,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\Ajedrez_3\src\TableroGL.cpp(539,3): warning C4809: la instrucción switch tiene una etiqueta 'default' redundante; se proporcionan todas las etiquetas 'case' posibles
-  Ajedrez_3.vcxproj -> C:\Descargas\TierraStudios-ismaelgh5-patch-1\TierraStudios-ismaelgh5-patch-1\bin\Ajedrez_3.exe
+﻿  Ajedrez.cpp
+  Casilla.cpp
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.h(20,10): error C3646: 'casilla': especificador de invalidación desconocido
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.h(20,17): error C2143: error de sintaxis: falta ',' delante de '['
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.h(20,23): error C2238: símbolos (token) inesperados delante de ';'
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\Casilla.cpp(4,20): error C2512: 'Vector': no hay disponible un constructor predeterminado adecuado
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\Vector2D.h(4,7): message : vea la declaración de 'Vector'
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\Casilla.cpp(23,17): error C2039: "getPieza": no es un miembro de "Casilla"
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\Casilla.h(8): message : vea la declaración de 'Casilla'
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\Casilla.cpp(25,9): error C2065: 'pieza': identificador no declarado
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\Casilla.cpp(28,15): error C2039: "setPieza": no es un miembro de "Casilla"
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\Casilla.h(8): message : vea la declaración de 'Casilla'
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\Casilla.cpp(30,2): error C2355: 'this': solo se puede hacer referencia a this en funciones miembro no estáticas o inicializadores de miembro de datos no estáticos
+  herramientasgl.cpp
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(19,38): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(20,51): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(21,44): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(22,45): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(23,44): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(24,50): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(25,50): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(26,50): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(27,53): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(28,53): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(29,51): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(29,63): warning C4305: 'argumento': truncamiento de 'double' a 'GLfloat'
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(30,50): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\herramientasgl.cpp(30,62): warning C4305: 'argumento': truncamiento de 'double' a 'GLfloat'
+  TableroGL.cpp
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(449,34): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(450,36): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(450,26): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(450,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(452,38): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(452,27): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(452,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\Trabajo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(555,3): warning C4809: la instrucción switch tiene una etiqueta 'default' redundante; se proporcionan todas las etiquetas 'case' posibles
+  Generando código...
