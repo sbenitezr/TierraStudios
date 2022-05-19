@@ -1,0 +1,28 @@
+﻿  Ajedrez.cpp
+  Alfil.cpp
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\Alfil.cpp(7,36): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\Alfil.cpp(7,29): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\Alfil.cpp(15,36): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\Alfil.cpp(15,29): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+  Caballo.cpp
+  Casilla.cpp
+  Peon.cpp
+  Reina.cpp
+  Rey.cpp
+  Tablero.cpp
+  TableroGL.cpp
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(60,12): error C2039: "getCas": no es un miembro de "Pieza"
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\Pieza.h(13): message : vea la declaración de 'Pieza'
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(133,22): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(133,19): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(137,23): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(137,19): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(158,34): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(159,36): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(159,26): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(159,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(161,38): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(161,27): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\ismae\Desktop\Universidad 2021-2022\INFORMATICA\NUevo\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(161,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+  Torre.cpp
+  Generando código...
