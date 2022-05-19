@@ -21,6 +21,34 @@ void TableroGL::init() {
 	glMatrixMode(GL_PROJECTION);
 	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
 }
+
+void TableroGL::tecla(unsigned char key)
+{
+	if (modo == INICIO) {
+		if (key == 'j') {
+			modo = JUGAR;
+		}
+		if (key == 's') {
+			modo = FINAL;
+		}
+	}
+
+	if (modo == JUGAR) {
+		if (key == 's') {
+			modo == FINAL;
+		}
+	}
+
+	if (modo == FINAL) {
+		if (key == 'e') {
+			exit(0);
+		}
+		if (key == 's') {
+			exit(0);
+		}
+	}
+}
+
 void TableroGL::drawMatriz() {
 	GLTools::Color(gltools::BLACK);
 	float dist = N * ancho;
@@ -35,12 +63,14 @@ void TableroGL::drawMatriz() {
 		glEnd();
 	}
 }
+
 void TableroGL::drawCasillaIni(int i, int j) {
 	//Dibuja el contenido de las celdas
 	//Empieza a contar por la esquina superior izquierda del tablero
 	//(i, j) son coordenadas, (0, 0) es la esquina superior izquierda
 	float glx, gly;
 
+	//LO DE SIEMPRE
 	switch (m_tablero->getTab()[i][j].getColor()) {
 		case Objeto::NEGRO:
 			switch (m_tablero->getTab()[i][j].getTipo())
@@ -179,7 +209,85 @@ void TableroGL::drawCasillaIni(int i, int j) {
 		default:
 			;
 	}
+
+	//CODIGO NUEVO CON LA CLASE CASILLA Y CON EL VECTOR CASILLA DE 8X8
+
+	//COLOR NEGRO
+
+	//HAY QUE MIRAR SI SE PUEDE HACER CON UN FOR, CREO QUE NO, EN VEZ DE HACER UNA INSTRUCCION PARA CADA PIEZA
+	/*for (i = 0, j = 0; i < 8; i++) {
+		casilla[i]
+	}*/
+
+	casilla[0][0].setPieza()
+	case Objeto::NEGRO:
+		switch (m_tablero->getTab()[i][j].getTipo())
+		{
+		case Objeto::PEON:
+			casillaCentral(i, j, glx, gly);
+			glDisable(GL_LIGHTING);
+			glTranslatef(glx, -gly - ancho, 0);
+			spritepeonN.setCenter(ancho / 2, ancho / 2);
+			spritepeonN.setSize(1, 1);
+			spritepeonN.draw();
+			glTranslatef(-glx, gly + ancho, 0);
+			glEnable(GL_LIGHTING);
+			break;
+		case Objeto::REINA:
+			casillaCentral(i, j, glx, gly);
+			glDisable(GL_LIGHTING);
+			glTranslatef(glx, -gly - ancho, 0);
+			spritereinaN.setCenter(ancho / 2, ancho / 2);
+			spritereinaN.setSize(1, 1);
+			spritereinaN.draw();
+			glTranslatef(-glx, gly + ancho, 0);
+			glEnable(GL_LIGHTING);
+			break;
+		case Objeto::TORRE:
+			casillaCentral(i, j, glx, gly);
+			glDisable(GL_LIGHTING);
+			glTranslatef(glx, -gly - ancho, 0);
+			spritetorreN.setCenter(ancho / 2, ancho / 2);
+			spritetorreN.setSize(1, 1);
+			spritetorreN.draw();
+			glTranslatef(-glx, gly + ancho, 0);
+			glEnable(GL_LIGHTING);
+			break;
+		case Objeto::ALFIL:
+			casillaCentral(i, j, glx, gly);
+			glDisable(GL_LIGHTING);
+			glTranslatef(glx, -gly - ancho, 0);
+			spritealfilN.setCenter(ancho / 2, ancho / 2);
+			spritealfilN.setSize(1, 1);
+			spritealfilN.draw();
+			glTranslatef(-glx, gly + ancho, 0);
+			glEnable(GL_LIGHTING);
+			break;
+		case Objeto::REY:
+			casillaCentral(i, j, glx, gly);
+			glDisable(GL_LIGHTING);
+			glTranslatef(glx, -gly - ancho, 0);
+			spritereyN.setCenter(ancho / 2, ancho / 2);
+			spritereyN.setSize(1, 1);
+			spritereyN.draw();
+			glTranslatef(-glx, gly + ancho, 0);
+			glEnable(GL_LIGHTING);
+			break;
+		case Objeto::CABALLO:
+			casillaCentral(i, j, glx, gly);
+			glDisable(GL_LIGHTING);
+			glTranslatef(glx, -gly - ancho, 0);
+			spritecaballoN.setCenter(ancho / 2, ancho / 2);
+			spritecaballoN.setSize(1, 1);
+			spritecaballoN.draw();
+			glTranslatef(-glx, gly + ancho, 0);
+			glEnable(GL_LIGHTING);
+			break;
+		default:
+			;
+		}
 }
+
 void TableroGL::drawCasilla(Vector pos) {
 	//Dibuja el contenido de las celdas
 	//Empieza a contar por la esquina superior izquierda del tablero
@@ -327,27 +435,18 @@ void TableroGL::drawCasilla(Vector pos) {
 			;
 		}
 	}
-}
-void TableroGL::tecla(unsigned char key)
-{
-	if (modo == INICIO){
 
-		if (key == 'j'){
-			modo = JUGAR;
-		}
+	//LO NUEVO A PARTIR DE AQUI
 
-		if (key == 's'){
-			modo = FINAL;
-			exit(0);
-		}
-	}
+	//Pintado de las Casillas
 
-	if (modo == JUGAR) {
-		if (key == 's') {
-			exit(0);
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			casilla[i][j].dibuja();
 		}
 	}
 }
+
 void TableroGL::draw() {
 	
 	// PANTALLA DE INICIO
@@ -448,6 +547,7 @@ void TableroGL::draw() {
 	}
 	
 }
+
 void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool ctrlKey) {
 	GLint viewport[4];
 	GLdouble modelview[16];
