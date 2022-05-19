@@ -61,10 +61,6 @@ void OnMouseClick(int b, int state, int x, int y)
 	if (b == GLUT_LEFT_BUTTON) {
 		button = MOUSE_LEFT_BUTTON;
 	}
-	if (b == GLUT_RIGHT_BUTTON) {
-		button = MOUSE_RIGHT_BUTTON;
-		cout << "MOUSE_RIGHT_BUTTON" << endl;
-	}
 
 	int specialKey = glutGetModifiers();
 	bool ctrlKey = (specialKey & GLUT_ACTIVE_CTRL) ? true : false;

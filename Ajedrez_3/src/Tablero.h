@@ -1,26 +1,36 @@
 #ifndef __TABLERO_H__
 #define __TABLERO_H__
 #include <iostream>
-#include "Pieza.h"
+#include "Peon.h"
+#include "Alfil.h"
+#include "Caballo.h"
+#include "Rey.h"
+#include "Reina.h"
+#include "Torre.h"
+#include "NoPieza.h"
+#include "Casilla.h"
 
 using namespace std;
 
 class Tablero {
+private:
+	friend class Casilla;
 protected:
 	const int N;
-	Pieza ** tab;
+	Casilla** cas;
+	Pieza* pieza;
 public:
 	Tablero(int n);
 	~Tablero() {
-		for (int i = 0; i < N; i++)
+		/*for (int i = 0; i < N; i++)
 		{
-			delete[] tab[i];
+			delete[] cas[i];
 		}
-		delete[] tab;
+		delete[] cas;*/
 	}
 	void tableroInicio();
-	void tableroSetPieza(int i, int j, Vector v);
 	int getTamanio() { return N; }
-	Pieza** getTab() { return tab; }
+	Pieza* getPieza(){return pieza;}
+	Casilla** getCas() { return cas; }
 };
 #endif

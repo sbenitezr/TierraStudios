@@ -4,28 +4,31 @@
 #include <iostream>
 #include "herramientasgl.h"
 #include "freeglut.h"
-#include "Objeto.h"
 #include "Vector2D.h"
+#include "ETSIDI.h"
 
 using namespace std;
+using ETSIDI::SpriteSequence;
 
-class Pieza : public Objeto{
+class Pieza {
+public:
+	enum tipo_t { CASILLA_VACIA = -1, PEON, CABALLO, TORRE, ALFIL, REINA, REY };
+	enum color_p { NO_COLOR = -1, BLANCO, NEGRO };
 protected:
 	Vector pos;
-	Vector pos2;
 	tipo_t tipo;
 	color_p color;
 public:
-	Pieza() :pos(-1, -1), pos2(pos), tipo(CASILLA_VACIA), color(NO_COLOR) {}
+
+	Pieza() :pos(-1, -1), tipo(CASILLA_VACIA), color(NO_COLOR) {}
+	~Pieza(){}
 
 	void setCas(Vector p) { this->pos = p; }
-	void setPos2(Vector p) { this->pos2 = p; cout << pos2.x << "," << pos2.y << endl; }
-	void setCas(Vector p, tipo_t t, color_p c) { this->pos = p; this->tipo = t; this->color = c; }
+	void setCas(Vector p, color_p c) { this->pos = p; this->color = c; }
 
 	void getNumCas(Vector& p) { p = this->pos; }
-	Vector getNumCas2() { return pos2; }
 
-	virtual tipo_t getTipo() { return tipo; }
-	virtual color_p getColor() { return color; }
+	tipo_t getTipo() { if (nullptr) return CASILLA_VACIA; else { return tipo; } }
+	color_p getColor() { if (nullptr) return NO_COLOR; else { return color; } }
 };
 #endif

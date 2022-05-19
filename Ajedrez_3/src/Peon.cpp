@@ -1,31 +1,20 @@
 #include "Peon.h"
 
-void Peon::Dibuja()
+void Peon::draw()
 {
-	if (colorPieza == color_p::BLANCO) {
+	if (color == BLANCO) {
 		glDisable(GL_LIGHTING);
-		glTranslatef(glx, -gly - ancho, 0);
-		spritepeonB.setCenter(ancho / 2, ancho / 2);
-		spritepeonB.setSize(1, 1);
-		spritepeonB.draw();
-		glTranslatef(-glx, gly + ancho, 0);
+		//spritepeonB.setCenter(pos.x, pos.y);
+		//spritepeonB.setSize(1, 1);
+		//spritepeonB.draw();
 		glEnable(GL_LIGHTING);
 	}
 
-	if (colorPieza == color_p::NEGRO) {
+	if (color == NEGRO) {
 		glDisable(GL_LIGHTING);
-		glTranslatef(glx, -gly - ancho, 0);
-		spritepeonN.setCenter(ancho / 2, ancho / 2);
-		spritepeonN.setSize(1, 1);
-		spritepeonN.draw();
-		glTranslatef(-glx, gly + ancho, 0);
+		//spritepeonN.setCenter(pos.x, pos.y);
+		//spritepeonN.setSize(1, 1);
+		//spritepeonN.draw();
 		glEnable(GL_LIGHTING);
 	}
-
-}
-
-
-//Queda definir como obtener el color
-void Peon::Color()
-{
 }
