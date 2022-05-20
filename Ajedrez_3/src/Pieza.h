@@ -33,5 +33,13 @@ public:
 	tipo_t getTipo() { if (nullptr) return CASILLA_VACIA; else { return tipo; } }
 	color_p getColor() { if (nullptr) return NO_COLOR; else { return color; } }
 	Vector getPosicion() { return pos; }
+	
+
+	//NO SE SI ESTA SOBRECARGA HARA FALTA EN TABLERO.CPP PARA ASIGNAR LA DIRECCION AL PUNTERO DE LA PIEZA. 
+	// 
+	//Pieza* operator=(Casilla** cas){		
+	//	Pieza* aux;
+	//	return aux;
+	//}
 };
 #endif

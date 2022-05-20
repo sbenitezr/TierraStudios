@@ -4,16 +4,12 @@
 #include "Pieza.h"
 
 class Caballo :public Pieza {
-private:
-	tipo_t tipo;
-	color_p color;
-	Vector pos;
 protected:
 	//Definicion de Sprite
 	SpriteSequence spritecaballoB{ "imagenes/caballo_blanco.png", 1 };
 	SpriteSequence spritecaballoN{ "imagenes/caballo_negro.png", 1 };
 public:
-	Caballo(Vector p, color_p c) :pos(p), tipo(CABALLO), color(c) {}
+	Caballo(Vector p, color_p c) { pos = p; tipo = CABALLO; color = c; }
 
 	void draw();
 };

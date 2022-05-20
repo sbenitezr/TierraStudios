@@ -25,6 +25,7 @@ protected:
 
 	//Seleccion de casilla con el raton
 	int xcas_sel, ycas_sel;
+	int xorig, yorig;		//para guardar la casilla del primer click 
 
 	//int tipo;
 	bool controlKey;

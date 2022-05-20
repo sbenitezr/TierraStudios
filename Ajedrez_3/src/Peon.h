@@ -4,16 +4,12 @@
 #include "Pieza.h"
 
 class Peon :public Pieza {
-private:
-	tipo_t tipo;
-	color_p color;
-	Vector pos;
 protected:
 	//Definicion de Sprite para mostrar la imagen de peon
 	SpriteSequence spritepeonN{ "imagenes/peon_negro.png", 1 };
 	SpriteSequence spritepeonB{ "imagenes/peon_blanco.png", 1 };
 public:
-	Peon(Vector p, color_p c) :pos(p), tipo(PEON), color(c) {}
+	Peon(Vector p, color_p c) { pos = p; tipo = PEON; color = c; }
 
 	void draw();
 };

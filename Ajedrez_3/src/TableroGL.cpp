@@ -41,12 +41,18 @@ void TableroGL::tecla(unsigned char key)
 	}
 
 	if (modo == JUGAR) {
+		ETSIDI::stopMusica();
+		
 		if (key == 's') {
 			modo = FINAL;
 		}
+		//ETSIDI::stopMusica();
+		ETSIDI::play("sonidos/mola mucho este modo de juego.wav");
+		ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
 	}
 
 	if (modo == FINAL) {
+		ETSIDI::stopMusica();
 		if (key == 'e') {
 			exit(0);
 		}
@@ -99,6 +105,8 @@ void TableroGL::draw() {
 		glEnd();
 		glEnable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
+		ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
+
 	}
 
 	//PANTALLA DE JUEGO
@@ -130,6 +138,7 @@ void TableroGL::draw() {
 		drawMatriz();
 		if (inicio == TRUE)
 		{
+			
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
 					glTranslatef(i, -j, 0);
@@ -158,6 +167,8 @@ void TableroGL::draw() {
 		glBegin(GL_POLYGON);
 		glColor3f(1, 1, 1);
 		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+		
+	
 		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
 		glTexCoord2d(0, 1); glVertex2f(N * ancho + 4, -N * ancho - 4);
 		glTexCoord2d(1, 1); glVertex2f(N * ancho + 4, 4);
@@ -226,22 +237,27 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 		//print cell coordinates after click
 	if (down) 
 	{
+		ETSIDI::play("sonidos/click.wav");
 		switch (seleccion)
 		{
 			case FALSE: 
-			{
-				selCasilla(Vector(xcas_sel,ycas_sel));
-				cout << xcas_sel << ", " << ycas_sel << endl;
+			{	
+				seleccion = TRUE;	//para la alternancia de clicks
+				cout << "Primer Click" << endl;
 
-				cout << m_tablero->getCas()[xcas_sel][ycas_sel].getPos().x << ", " <<
-					m_tablero->getCas()[xcas_sel][ycas_sel].getPos().y << endl;
+				selCasilla(Vector(xcas_sel,ycas_sel));
+					//	cout << xcas_sel << ", " << ycas_sel << endl;
+
+			/*	cout << m_tablero->getCas()[xcas_sel][ycas_sel].getPos().x << ", " <<
+					m_tablero->getCas()[xcas_sel][ycas_sel].getPos().y << endl;*/
 
 				int tipo = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo();
 				int color = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
-				cout << tipo << ", " << color << endl;
+					//	cout << tipo << ", " << color << endl;
 
 				if (tipo == Pieza::REINA)
 				{
+					ETSIDI::play("sonidos/la reina.wav");
 					if (color == Pieza::BLANCO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RB" << endl;
 					if (color == Pieza::NEGRO) cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RN" << endl;
 
@@ -273,6 +289,66 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 				}
 				if (tipo == Pieza::CASILLA_VACIA)
 				{
+					cout << "vacio" << endl;
+				}
+				break;
+			}
+
+			case TRUE:
+			{
+				seleccion = FALSE;	//para la alternancia de clicks
+				cout << "segundo click:" << endl;
+
+				selCasilla(Vector(xcas_sel, ycas_sel));		//esta es la seleccion de la casilla actual?
+
+				//	cout << xcas_sel << ", " << ycas_sel << endl;
+
+		/*	cout << m_tablero->getCas()[xcas_sel][ycas_sel].getPos().x << ", " <<
+				m_tablero->getCas()[xcas_sel][ycas_sel].getPos().y << endl;*/
+
+				int tipo = m_tablero->getCas()[xorig][yorig].getPieza()->getTipo();
+				int color = m_tablero->getCas()[xorig][yorig].getPieza()->getColor();
+				//	cout << tipo << ", " << color << endl;
+
+				if (tipo == Pieza::REINA)	
+				{
+						//No quito los couts porque son utiles para ver en que if se mete el bucle cuando haces click
+						
+					//la siguiente linea no funciona pero es un poco la idea
+					m_tablero->getCas()[xorig][yorig].setPos(Vector(xcas_sel, ycas_sel));		//la idea es coger la pieza seleccionada y asignarle la posicion del segundo click. No funciona porque el método setPos es de Casilla y no de Pieza. 
+					
+					if (color == Pieza::BLANCO);
+					if (color == Pieza::NEGRO);  //			RN.setCas(Vector(xcas_sel,ycas_sel))   __  RN es el puntero que contiene la direccion de la reina negra cuando la hemos creado en tablero.cpp en la casilla [0][4] pero la casilla realmente nos da igual, se necesita un puntero al objeto de Reina para poder trabajar con ello. Me parece que da igual que el puntero sea de Pieza porque al apuntar a una direccion de Reina va a llamar a los metodos de Reina. 
+
+				}
+				if (tipo == Pieza::PEON)
+				{
+					if (color == Pieza::BLANCO);//cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PB" << endl;
+					if (color == Pieza::NEGRO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PN" << endl;
+				}
+				if (tipo == Pieza::REY)
+				{
+					if (color == Pieza::BLANCO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KB" << endl;
+					if (color == Pieza::NEGRO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KN" << endl;
+				}
+				if (tipo == Pieza::CABALLO)
+				{
+					if (color == Pieza::BLANCO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CB" << endl;
+					if (color == Pieza::NEGRO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CN" << endl;
+				}
+				if (tipo == Pieza::ALFIL)
+				{
+					if (color == Pieza::BLANCO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AB" << endl;
+					if (color == Pieza::NEGRO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AN" << endl;
+				}
+				if (tipo == Pieza::TORRE)
+				{
+					if (color == Pieza::BLANCO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TB" << endl;
+					if (color == Pieza::NEGRO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TN" << endl;
+				}
+				if (tipo == Pieza::CASILLA_VACIA)
+				{
+					cout << "vacio" << endl;
 				}
 				break;
 			}

@@ -4,16 +4,13 @@
 #include "Pieza.h"
 
 class Reina :public Pieza {
-private:
-	tipo_t tipo;
-	color_p color;
-	Vector pos;
+
 protected:
 	//Definicion de Sprite
 	SpriteSequence spritereinaN{ "imagenes/reina_negro.png", 1 };
 	SpriteSequence spritereinaB{ "imagenes/reina_blanco.png", 1 };
 public:
-	Reina(Vector p, color_p c) :pos(p), tipo(REINA), color(c) {}
+	Reina(Vector p, color_p c) { pos = p; tipo = REINA; color = c; }
 
 	void draw();
 };
