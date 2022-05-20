@@ -245,15 +245,14 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 				seleccion = TRUE;	//para la alternancia de clicks
 				cout << "Primer Click" << endl;
 
-				selCasilla(Vector(xcas_sel,ycas_sel));
-					//	cout << xcas_sel << ", " << ycas_sel << endl;
-
-			/*	cout << m_tablero->getCas()[xcas_sel][ycas_sel].getPos().x << ", " <<
-					m_tablero->getCas()[xcas_sel][ycas_sel].getPos().y << endl;*/
+				//selCasilla(Vector(xcas_sel,ycas_sel));
 
 				int tipo = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo();
 				int color = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
-					//	cout << tipo << ", " << color << endl;
+
+				//QUEDA MUY FEO PERO ES POR POBAR
+				xorig = xcas_sel;
+				yorig = ycas_sel;
 
 				if (tipo == Pieza::REINA)
 				{
@@ -298,58 +297,49 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 			{
 				seleccion = FALSE;	//para la alternancia de clicks
 				cout << "segundo click:" << endl;
-
-				selCasilla(Vector(xcas_sel, ycas_sel));		//esta es la seleccion de la casilla actual?
-
-				//	cout << xcas_sel << ", " << ycas_sel << endl;
-
-		/*	cout << m_tablero->getCas()[xcas_sel][ycas_sel].getPos().x << ", " <<
-				m_tablero->getCas()[xcas_sel][ycas_sel].getPos().y << endl;*/
-
 				int tipo = m_tablero->getCas()[xorig][yorig].getPieza()->getTipo();
 				int color = m_tablero->getCas()[xorig][yorig].getPieza()->getColor();
-				//	cout << tipo << ", " << color << endl;
 
-				if (tipo == Pieza::REINA)	
+				//Pieza anterior a NoPieza
+				m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
+
+				if (tipo == Pieza::REINA)
 				{
-						//No quito los couts porque son utiles para ver en que if se mete el bucle cuando haces click
-						
-					//la siguiente linea no funciona pero es un poco la idea
-					m_tablero->getCas()[xorig][yorig].setPos(Vector(xcas_sel, ycas_sel));		//la idea es coger la pieza seleccionada y asignarle la posicion del segundo click. No funciona porque el método setPos es de Casilla y no de Pieza. 
-					
-					if (color == Pieza::BLANCO);
-					if (color == Pieza::NEGRO);  //			RN.setCas(Vector(xcas_sel,ycas_sel))   __  RN es el puntero que contiene la direccion de la reina negra cuando la hemos creado en tablero.cpp en la casilla [0][4] pero la casilla realmente nos da igual, se necesita un puntero al objeto de Reina para poder trabajar con ello. Me parece que da igual que el puntero sea de Pieza porque al apuntar a una direccion de Reina va a llamar a los metodos de Reina. 
+					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
 
 				}
 				if (tipo == Pieza::PEON)
 				{
-					if (color == Pieza::BLANCO);//cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PB" << endl;
-					if (color == Pieza::NEGRO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PN" << endl;
+					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
 				}
 				if (tipo == Pieza::REY)
 				{
-					if (color == Pieza::BLANCO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KB" << endl;
-					if (color == Pieza::NEGRO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KN" << endl;
+					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
 				}
 				if (tipo == Pieza::CABALLO)
 				{
-					if (color == Pieza::BLANCO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CB" << endl;
-					if (color == Pieza::NEGRO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CN" << endl;
+					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
 				}
 				if (tipo == Pieza::ALFIL)
 				{
-					if (color == Pieza::BLANCO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AB" << endl;
-					if (color == Pieza::NEGRO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AN" << endl;
+					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
 				}
 				if (tipo == Pieza::TORRE)
 				{
-					if (color == Pieza::BLANCO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TB" << endl;
-					if (color == Pieza::NEGRO);// cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TN" << endl;
+					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
 				}
 				if (tipo == Pieza::CASILLA_VACIA)
 				{
 					cout << "vacio" << endl;
 				}
+				xorig = 0;
+				yorig = 0;
 				break;
 			}
 			default:

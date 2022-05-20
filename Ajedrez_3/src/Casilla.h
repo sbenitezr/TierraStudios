@@ -19,6 +19,7 @@ public:
 	void setPos(Vector pos){ this->posicion = pos; }
 	Vector getPos() { return posicion; }
 	Pieza* getPieza() { return pieza; }
+	//Pieza* setPieza() {}
 
 	void setColor(int c) {
 		if (c == 0)color.setColor(1, 1, 1);

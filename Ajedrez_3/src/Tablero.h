@@ -32,5 +32,6 @@ public:
 	int getTamanio() { return N; }
 	Pieza* getPieza(){return pieza;}
 	Casilla** getCas() { return cas; }
+	friend class TableroGL;
 };
 #endif
