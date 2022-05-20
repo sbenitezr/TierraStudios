@@ -54,6 +54,7 @@ public:
 
 	//void KeyDown(unsigned char key);
 	void MouseButton(int x, int y, int button, bool down, bool shiftKey, bool ctrlKey);
+	void selCasilla(Vector p);
 
 	void setTamanio(int tam) { N = tam; }
 	int getTamanio() { return N; }

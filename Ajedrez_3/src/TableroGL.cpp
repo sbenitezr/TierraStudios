@@ -15,6 +15,10 @@ TableroGL::TableroGL(Tablero* t) :m_tablero(t) {
 	modo = INICIO;
 }
 
+void TableroGL::selCasilla(Vector p) {
+	m_tablero->getCas()[p.x][p.y].selCas();
+}
+
 void TableroGL::init() {
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
@@ -115,35 +119,53 @@ void TableroGL::draw() {
 		gluLookAt(centro_x, centro_y, -15, centro_x, centro_y, centro_z, 0, 1, 0);
 		glEnable(GL_LIGHTING);
 
-		//Pinta las celdas y el tablero
+		//PINTADO DE PIEZAS
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				m_tablero->getCas()[i][j].getPieza()->draw();
+			}
+		}
+
+		//Pinta el tablero (casillas)
 		drawMatriz();
 		if (inicio == TRUE)
 		{
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
 					glTranslatef(i, -j, 0);
-					if (i % 2 == 0 && j % 2 == 0) m_tablero->getCas()[i][j].drawN();
-					if (i % 2 != 0 && j % 2 != 0) m_tablero->getCas()[i][j].drawN();
-					else{ m_tablero->getCas()[i][j].drawB(); }
+					if (i % 2 == 0 && j % 2 == 0)
+					{
+						m_tablero->getCas()[i][j].setColor(1);
+						m_tablero->getCas()[i][j].draw();
+					}
+					if (i % 2 != 0 && j % 2 != 0)
+					{
+						m_tablero->getCas()[i][j].setColor(1);
+						m_tablero->getCas()[i][j].draw();
+					}
+					else{ 
+						m_tablero->getCas()[i][j].setColor(0);
+						m_tablero->getCas()[i][j].draw(); }
 					glTranslatef(-i, j, 0);
 				}
 			}
 		}
 		
-		//Dibuja un rectangulo transparente sobre el tablero para capturar el raton
-		//con gluUnProject
-		/*glEnable(GL_TEXTURE_2D);
+		
+		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3f(1, 1, 1);
 		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
 		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
-		glTexCoord2d(0, 1); glVertex2f(N * ancho + 1, -N * ancho - 1);
-		glTexCoord2d(1, 1); glVertex2f(N * ancho + 1, 1);
-		glTexCoord2d(1, 0); glVertex2f(-1, 1);
-		glTexCoord2d(0, 0); glVertex2f(-1, -N * ancho - 1);
-		glEnd();*/
+		glTexCoord2d(0, 1); glVertex2f(N * ancho + 4, -N * ancho - 4);
+		glTexCoord2d(1, 1); glVertex2f(N * ancho + 4, 4);
+		glTexCoord2d(1, 0); glVertex2f(-4, 4);
+		glTexCoord2d(0, 0); glVertex2f(-4, -N * ancho - 4);
+		glEnd();
+		//Dibuja un rectangulo transparente sobre el tablero para capturar el raton
+		//con gluUnProject
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		GLTools::Color(gltools::WHITE, 1.0f);
@@ -151,6 +173,7 @@ void TableroGL::draw() {
 		glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
 		glTranslatef(-centro_x, -centro_y, -centro_z);
 		glEnable(GL_LIGHTING);
+
 		glDisable(GL_TEXTURE_2D);
 	}
 
@@ -207,8 +230,15 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 		{
 			case FALSE: 
 			{
+				selCasilla(Vector(xcas_sel,ycas_sel));
+				cout << xcas_sel << ", " << ycas_sel << endl;
+
+				cout << m_tablero->getCas()[xcas_sel][ycas_sel].getPos().x << ", " <<
+					m_tablero->getCas()[xcas_sel][ycas_sel].getPos().y << endl;
+
 				int tipo = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo();
 				int color = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
+				cout << tipo << ", " << color << endl;
 
 				if (tipo == Pieza::REINA)
 				{

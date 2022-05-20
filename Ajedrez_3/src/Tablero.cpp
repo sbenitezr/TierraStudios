@@ -12,7 +12,7 @@ void Tablero::tableroInicio() {
 	//INICIALIZAMOS TODAS LAS CASILLAS CON PIEZAS VACIAS
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-			cas[i][j].setPieza(new Pieza());
+			cas[i][j].setPieza(new NoPieza(Vector(i, j)));
 		}
 	}
 
@@ -33,7 +33,7 @@ void Tablero::tableroInicio() {
 	//Inicializacion Piezas Blancas
 	for (int j = 0; j < N; j++)
 	{
-		cas[N - 1][j].setPieza(new Peon(Vector(1, j), Pieza::BLANCO));
+		cas[N - 2][j].setPieza(new Peon(Vector(1, j), Pieza::BLANCO));
 	}
 	cas[N - 1][4].setPieza(new Reina(Vector(0, 4), Pieza::BLANCO));
 	cas[N - 1][3].setPieza(new  Rey(Vector(0, 3), Pieza::BLANCO));

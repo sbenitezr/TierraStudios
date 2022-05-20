@@ -1,13 +1,13 @@
 ﻿  TableroGL.cpp
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(124,22): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(124,19): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(128,23): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(128,19): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(149,34): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(150,36): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(150,26): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(150,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(152,38): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(152,27): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(152,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(135,22): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(135,19): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(149,23): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(149,19): warning C4244: 'argumento': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(171,34): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(172,36): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(172,26): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(172,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(174,38): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(174,27): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Descargas\TierraStudios-main\TierraStudios-main\Ajedrez_3\src\TableroGL.cpp(174,16): warning C4244: 'argumento': conversión de 'double' a 'GLfloat'; posible pérdida de datos
   Ajedrez_3.vcxproj -> C:\Descargas\TierraStudios-main\TierraStudios-main\bin\Ajedrez_3.exe
