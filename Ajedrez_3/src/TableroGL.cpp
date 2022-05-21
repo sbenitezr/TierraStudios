@@ -19,6 +19,71 @@ void TableroGL::selCasilla(Vector p) {
 	m_tablero->getCas()[p.x][p.y].selCas();
 }
 
+bool TableroGL::enable(int x1, int x2, int y1, int y2) {
+	if (((x2 || y2) < 0) || ((x2 || y2) > 7) || (x2 == x1) && (y2 == y1))
+		return FALSE;
+	else { return TRUE; }
+}
+
+bool TableroGL::movalfil(int x1, int x2, int y1, int y2) {
+	int dif = abs(x2 - x1);
+	if (abs(y2 - y1) != dif) return FALSE;
+	else { return TRUE; }
+}
+bool TableroGL::movtorre(int x1, int x2, int y1, int y2) {
+	if ((abs(x2 - x1) != 0) && abs(y2 - y1) != 0)
+		return FALSE;
+	else { return TRUE; }
+}
+bool TableroGL::movcaballo(int x1, int x2, int y1, int y2) {
+	int dif = abs(x2 - x1);
+	if ((dif > 3) || (dif < 1))
+		return FALSE;
+	else if ((dif == 1) && (abs(y2 - y1) != 2) || (dif == 2) && (abs(y2 - y1) != 1))
+		return FALSE;
+	else { return TRUE; }
+}
+bool TableroGL::movrey(int x1, int x2, int y1, int y2) {
+	if (abs(x2 - x1) > 1 || abs(y2 - y1) > 1)
+		return FALSE;
+	else { return TRUE; }
+}
+bool TableroGL::movpeon(int x1, int x2, int y1, int y2, int color,int color2) {
+	if ((x1 == 1) || (x1 == 6)) {
+		if (color == Pieza::BLANCO) {
+			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && (((x2 - x1) == -2) || (x2 - x1) == -1))
+				return TRUE;
+			else if ((color2 == 1) && ((x2 - x1) == -1) && abs(y2 - y1) == 1)
+				return TRUE;
+			else
+				return FALSE;
+		}
+		else if (color == Pieza::NEGRO) {
+			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && (((x2 - x1) == 2) || (x2 - x1) == 1))
+				return TRUE;
+			else if ((color2 == Pieza::BLANCO) && ((x2 - x1) == 1) && abs(y2 - y1) == 1)
+				return TRUE;
+			else
+				return FALSE;
+		}
+		else
+			return FALSE;
+	}
+	else {
+		if (color == 0) {
+			if ((color2 == -1) && ((y2 - y1) == 0) && ((x2 - x1) == -1))
+				return TRUE;
+			else
+				return FALSE;
+		}
+		else if (color == 1) {
+			if ((color2 == -1) && ((y2 - y1) == 0) && ((x2 - x1) == 1))
+				return TRUE;
+			else
+				return FALSE;
+		}
+	}
+}
 void TableroGL::init() {
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
@@ -299,45 +364,66 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 				cout << "segundo click:" << endl;
 				int tipo = m_tablero->getCas()[xorig][yorig].getPieza()->getTipo();
 				int color = m_tablero->getCas()[xorig][yorig].getPieza()->getColor();
-
-				//Pieza anterior a NoPieza
-				m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
+				int color2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
 
 				if (tipo == Pieza::REINA)
 				{
-					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
-					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
-
+					if (((movalfil(xorig, xcas_sel, yorig, ycas_sel) == TRUE) || (movtorre(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
+						if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+						if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					}
+					else { break; }
 				}
 				if (tipo == Pieza::PEON)
 				{
-					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
-					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					if ((movpeon(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
+						if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+						if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					}
+					else
+						break;
 				}
 				if (tipo == Pieza::REY)
 				{
-					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
-					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					if ((movrey(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
+						if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+						if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					}
+					else { break; }
 				}
 				if (tipo == Pieza::CABALLO)
 				{
-					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
-					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					
+					if ((movcaballo(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
+						if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+						if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					}
+					else
+						break;
 				}
 				if (tipo == Pieza::ALFIL)
 				{
-					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
-					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					if ((movalfil(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
+						if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+						if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					}
+					else { break; }
 				}
 				if (tipo == Pieza::TORRE)
-				{
-					if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
-					if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+				{	
+					if ((movtorre(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
+						if (color == Pieza::BLANCO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel, ycas_sel), Pieza::BLANCO));
+						if (color == Pieza::NEGRO) m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					}
+					else { break; }
 				}
 				if (tipo == Pieza::CASILLA_VACIA)
 				{
 					cout << "vacio" << endl;
 				}
+
+				//Pieza anterior a NoPieza
+				m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
 				xorig = 0;
 				yorig = 0;
 				break;
