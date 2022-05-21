@@ -28,11 +28,60 @@ bool TableroGL::movalfil(int x1, int x2, int y1, int y2, int color, int color2) 
 	int dif = abs(x2 - x1);
 	if (abs(y2 - y1) != dif) return FALSE;
 	else { return TRUE; }
+
 }
 bool TableroGL::movtorre(int x1, int x2, int y1, int y2, int color, int color2) {
 	if ((abs(x2 - x1) != 0) && abs(y2 - y1) != 0)
 		return FALSE;
-	else { return TRUE; }
+	else {
+		cout << "Primer else" << endl;
+		if (y1 == y2) {
+			cout << "Primer if" << endl;
+			if (x2 > x1) {
+				cout << "Segundo if" << endl;
+				for (int i = (x1+1); i < x2; i++) {
+					int col = m_tablero->getCas()[i][y1].getPieza()->getTipo();
+					cout << "posintcall:" <<col<< endl;
+					if (col != -1)
+						return FALSE;
+					else { return TRUE; }
+				}
+			}
+			else if (x2 < x1) {
+				cout << "Segundo else if" << endl;
+				for (int i = (x1-1); i > x2; i--) {
+					int col = m_tablero->getCas()[i][y1].getPieza()->getTipo();
+					cout << "posincall:" << col << endl;
+					if (col != -1)
+						return FALSE;
+					else { return TRUE; }
+				}
+			}
+		}
+		else if (x1 == x2) {
+			cout << "Primer else if:" << endl;
+			if (y2 > y1) {
+				cout << "Segundo if" << endl;
+				for (int i = (y1+1); i < y2; i++) {
+					int col = m_tablero->getCas()[x1][i].getPieza()->getTipo();
+					cout << "pisincall:" << col << endl;
+					if (col != -1)
+						return FALSE;
+					else { return TRUE; }
+				}
+			}
+			else if (y2 < y1) {
+				for (int i = (y1-1); i > y2; i--) {
+					int col = m_tablero->getCas()[x1][i].getPieza()->getTipo();
+					cout << col << endl;
+					if (col != -1)
+						return FALSE;
+					else { return TRUE; }
+				}
+			}
+		}
+		else { return TRUE; }
+	}
 }
 bool TableroGL::movcaballo(int x1, int x2, int y1, int y2, int color, int color2) {
 	int dif = abs(x2 - x1);
