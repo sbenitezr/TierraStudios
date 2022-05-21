@@ -14,25 +14,27 @@ TableroGL::TableroGL(Tablero* t) :m_tablero(t) {
 	centro_z = 0;
 	modo = INICIO;
 }
+
 void TableroGL::selCasilla(Vector p) {
 	m_tablero->getCas()[p.x][p.y].selCas();
 }
-bool TableroGL::enable(int x1, int x2, int y1, int y2) {
-	if (((x2 || y2) < 0) || ((x2 || y2) > 7) || (x2 == x1) && (y2 == y1))
-		return FALSE;
+
+bool TableroGL::enable(int x1, int x2, int y1, int y2, int color, int color2) {
+	if (((x2 || y2) < 0) || ((x2 || y2) > 7) || (x2 == x1) && (y2 == y1)) { return FALSE; }
+	else if (color == color2) { return FALSE; }
 	else { return TRUE; }
 }
-bool TableroGL::movalfil(int x1, int x2, int y1, int y2) {
+bool TableroGL::movalfil(int x1, int x2, int y1, int y2, int color, int color2) {
 	int dif = abs(x2 - x1);
 	if (abs(y2 - y1) != dif) return FALSE;
 	else { return TRUE; }
 }
-bool TableroGL::movtorre(int x1, int x2, int y1, int y2) {
+bool TableroGL::movtorre(int x1, int x2, int y1, int y2, int color, int color2) {
 	if ((abs(x2 - x1) != 0) && abs(y2 - y1) != 0)
 		return FALSE;
 	else { return TRUE; }
 }
-bool TableroGL::movcaballo(int x1, int x2, int y1, int y2) {
+bool TableroGL::movcaballo(int x1, int x2, int y1, int y2, int color, int color2) {
 	int dif = abs(x2 - x1);
 	if ((dif > 3) || (dif < 1))
 		return FALSE;
@@ -40,7 +42,7 @@ bool TableroGL::movcaballo(int x1, int x2, int y1, int y2) {
 		return FALSE;
 	else { return TRUE; }
 }
-bool TableroGL::movrey(int x1, int x2, int y1, int y2) {
+bool TableroGL::movrey(int x1, int x2, int y1, int y2, int color, int color2) {
 	if (abs(x2 - x1) > 1 || abs(y2 - y1) > 1)
 		return FALSE;
 	else { return TRUE; }
@@ -50,34 +52,28 @@ bool TableroGL::movpeon(int x1, int x2, int y1, int y2, int color,int color2) {
 		if (color == Pieza::BLANCO) {
 			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && (((x2 - x1) == -2) || (x2 - x1) == -1))
 				return TRUE;
-			else if ((color2 == 1) && ((x2 - x1) == -1) && abs(y2 - y1) == 1)
+			else if ((color2 == Pieza::NEGRO) && ((x2 - x1) == -1) && (abs(y2 - y1) == 1))
 				return TRUE;
 			else
 				return FALSE;
 		}
 		else if (color == Pieza::NEGRO) {
-			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && (((x2 - x1) == 2) || (x2 - x1) == 1))
-				return TRUE;
-			else if ((color2 == Pieza::BLANCO) && ((x2 - x1) == 1) && abs(y2 - y1) == 1)
-				return TRUE;
-			else
-				return FALSE;
+			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && (((x2 - x1) == 2) || (x2 - x1) == 1)) { return TRUE; }
+			else if ((color2 == Pieza::BLANCO) && ((x2 - x1) == 1) && (abs(y2 - y1) == 1)) { return TRUE; }
+			else { return FALSE; }
 		}
-		else
-			return FALSE;
+		else { return FALSE; }
 	}
 	else {
-		if (color == 0) {
-			if ((color2 == -1) && ((y2 - y1) == 0) && ((x2 - x1) == -1))
-				return TRUE;
-			else
-				return FALSE;
+		if (color == Pieza::BLANCO) {
+			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && ((x2 - x1) == -1)) { return TRUE; }
+			else if ((color2 == Pieza::NEGRO) && ((x2 - x1) == -1) && (abs(y2 - y1) == 1)) { return TRUE; }
+			else { return FALSE; }
 		}
-		else if (color == 1) {
-			if ((color2 == -1) && ((y2 - y1) == 0) && ((x2 - x1) == 1))
-				return TRUE;
-			else
-				return FALSE;
+		else if (color == Pieza::NEGRO) {
+			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && ((x2 - x1) == 1)) { return TRUE; }
+			else if ((color2 == Pieza::BLANCO) && ((x2 - x1) == 1) && (abs(y2 - y1) == 1)) { return TRUE; }
+			else { return FALSE; }
 		}
 	}
 }
@@ -186,7 +182,7 @@ void TableroGL::draw() {
 		//Para definir el punto de vista
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(centro_x, centro_y, -35, centro_x, centro_y, centro_z, 0, 1, 0);
+		gluLookAt(centro_x, centro_y, -15, centro_x, centro_y, centro_z, 0, 1, 0);
 		glEnable(GL_LIGHTING);
 
 		//PINTADO DE PIEZAS
@@ -289,441 +285,376 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 	else {
 		controlKey = shiftKey = false;
 	}
+if (button == MOUSE_LEFT_BUTTON)
+leftButton = down;
+///////////////////////////
 
-	if (button == MOUSE_LEFT_BUTTON)
-		leftButton = down;
-	///////////////////////////
+	//***WRITE ACTIONS CONNECTED TO MOUSE STATE HERE
 
-		//***WRITE ACTIONS CONNECTED TO MOUSE STATE HERE
+	//print cell coordinates after click
+bool paridad = FALSE;
+if (m_tablero->turnos % 2 == 0) { paridad = TRUE; }
+else { paridad = FALSE; }
 
-		//print cell coordinates after click
-	bool paridad = FALSE;
-	if (m_tablero->turnos % 2 == 0) paridad = TRUE;
-	else { paridad = FALSE; }
-
-	if (down && (paridad == FALSE))
+if (down && (paridad == FALSE))
+{
+	ETSIDI::play("sonidos/click.wav");
+	cout << m_tablero->turnos << endl;
+	switch (seleccion)
 	{
-		ETSIDI::play("sonidos/click.wav");
-		cout << m_tablero->turnos << endl;
-		switch (seleccion)
-			{
-			case FALSE:
-			{
-				seleccion = TRUE;	//para la alternancia de clicks
-				cout << "Primer Click" << endl;
+	case FALSE:
+	{
+		cout << "Primer Click" << endl;
 
-				//selCasilla(Vector(xcas_sel,ycas_sel));
+		//selCasilla(Vector(xcas_sel,ycas_sel));
 
-				int tipo = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo();
-				int color = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
+		int tipo = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo();
+		int color = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
 
-				//QUEDA MUY FEO PERO ES POR POBAR
-				xorig = xcas_sel;
-				yorig = ycas_sel;
+		//QUEDA MUY FEO PERO ES POR POBAR
+		xorig = xcas_sel;
+		yorig = ycas_sel;
 
-				if (tipo == Pieza::REINA && color == Pieza::BLANCO)
-				{
-					ETSIDI::play("sonidos/la reina.wav");
-					cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RB" << endl;
-
-				}
-				if (tipo == Pieza::PEON && color == Pieza::BLANCO)
-				{
-					cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PB" << endl;
-				}
-				if (tipo == Pieza::REY && color == Pieza::BLANCO)
-				{
-					cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KB" << endl;
-				}
-				if (tipo == Pieza::CABALLO && color == Pieza::BLANCO)
-				{
-					cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CB" << endl;
-				}
-				if (tipo == Pieza::ALFIL && color == Pieza::BLANCO)
-				{
-					cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AB" << endl;
-				}
-				if (tipo == Pieza::TORRE && color == Pieza::BLANCO)
-				{
-					cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TB" << endl;
-				}
-				if (tipo == Pieza::CASILLA_VACIA)
-				{
-					cout << "vacio" << endl;
-				}
-				break;
-			}
-
-			case TRUE:
-			{
-				seleccion = FALSE;	//para la alternancia de clicks
-				cout << "segundo click:" << endl;
-				int tipo = m_tablero->getCas()[xorig][yorig].getPieza()->getTipo();
-				int color = m_tablero->getCas()[xorig][yorig].getPieza()->getColor();
-				int color2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
-
-				if (tipo == Pieza::REINA)
-				{
-					if (((movalfil(xorig, xcas_sel, yorig, ycas_sel) == TRUE) || (movtorre(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-						if (color == Pieza::BLANCO) 
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
-							m_tablero->turnos++;
-						}
-						if (color == Pieza::NEGRO)
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xorig, yorig), Pieza::NEGRO));
-							cout << "Le toca mover al rival" << endl;
-						}
-					}
-					else { break; }
-				}
-				if (tipo == Pieza::PEON)
-				{
-					if ((movpeon(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-						if (color == Pieza::BLANCO)
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel - 5, ycas_sel), Pieza::BLANCO));
-							m_tablero->turnos++;
-						}
-						if (color == Pieza::NEGRO)
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xorig, yorig), Pieza::NEGRO));
-							cout << "Le toca mover al rival" << endl;
-						}
-					}
-					else
-						break;
-				}
-				if (tipo == Pieza::REY)
-				{
-					if ((movrey(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-						if (color == Pieza::BLANCO)
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
-							m_tablero->turnos++;
-						}
-						if (color == Pieza::NEGRO)
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xorig, yorig), Pieza::NEGRO));
-							cout << "Le toca mover al rival" << endl;
-						}
-					}
-					else { break; }
-				}
-				if (tipo == Pieza::CABALLO)
-				{
-
-					if ((movcaballo(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-						if (color == Pieza::BLANCO) 
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
-							m_tablero->turnos++;
-						}
-						if (color == Pieza::NEGRO)
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xorig, yorig), Pieza::NEGRO));
-							cout << "Le toca mover al rival" << endl;
-						}
-					}
-					else
-						break;
-				}
-				if (tipo == Pieza::ALFIL)
-				{
-					if ((movalfil(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-						if (color == Pieza::BLANCO)
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
-							m_tablero->turnos++;
-						}
-						if (color == Pieza::NEGRO)
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xorig, yorig), Pieza::NEGRO));
-							cout << "Le toca mover al rival" << endl;
-						}
-					}
-					else { break; }
-				}
-				if (tipo == Pieza::TORRE)
-				{
-					if ((movtorre(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-						if (color == Pieza::BLANCO)
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
-							m_tablero->turnos++;
-						}
-						if (color == Pieza::NEGRO)
-						{
-							m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xorig, yorig), Pieza::NEGRO));
-							cout << "Le toca mover al rival" << endl;
-						}
-					}
-					else { break; }
-				}
-				if (tipo == Pieza::CASILLA_VACIA)
-				{
-					cout << "vacio" << endl;
-				}
-
-				//Pieza anterior a NoPieza
-				m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
-				xorig = 0;
-				yorig = 0;
-				break;
-			}
-			default:
-				xcas_sel = xorig;
-				ycas_sel = yorig;
-				cout << "mueve el rival" << endl;
-			}
+		if (tipo == Pieza::REINA && color == Pieza::BLANCO)
+		{
+			ETSIDI::play("sonidos/la reina.wav");
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RB" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::PEON && color == Pieza::BLANCO)
+		{
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PB" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::REY && color == Pieza::BLANCO)
+		{
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KB" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::CABALLO && color == Pieza::BLANCO)
+		{
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CB" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::ALFIL && color == Pieza::BLANCO)
+		{
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AB" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::TORRE && color == Pieza::BLANCO)
+		{
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TB" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::CASILLA_VACIA)
+		{
+			cout << "vacio" << endl;
+			seleccion = TRUE;
+		}
+		break;
 	}
-	if (down && (paridad == TRUE)) {
-		ETSIDI::play("sonidos/click.wav");
-		cout << m_tablero->turnos << endl;
-		switch (seleccion)
+
+	case TRUE:
+	{
+		seleccion = FALSE;	//para la alternancia de clicks
+		cout << "segundo click:" << endl;
+		int tipo = m_tablero->getCas()[xorig][yorig].getPieza()->getTipo();
+		int color = m_tablero->getCas()[xorig][yorig].getPieza()->getColor();
+		int color2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
+
+		if (tipo == Pieza::REINA)
 		{
-		case FALSE:
+			if (((movalfil(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) || (movtorre(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
+					m_tablero->turnos++;
+				}
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xorig, yorig), Pieza::NEGRO));
+					cout << "Le toca mover al rival" << endl;
+				}
+			}
+			else { break; }
+		}
+		if (tipo == Pieza::PEON)
 		{
-			seleccion = TRUE;	//para la alternancia de clicks
-			cout << "Primer Click" << endl;
+			if ((movpeon(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel - 5, ycas_sel), Pieza::BLANCO));
+					m_tablero->turnos++;
+				}
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xorig, yorig), Pieza::NEGRO));
+					cout << "Le toca mover al rival" << endl;
+				}
+			}
+			else
+				break;
+		}
+		if (tipo == Pieza::REY)
+		{
+			if ((movrey(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
+					m_tablero->turnos++;
+				}
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xorig, yorig), Pieza::NEGRO));
+					cout << "Le toca mover al rival" << endl;
+				}
+			}
+			else { break; }
+		}
+		if (tipo == Pieza::CABALLO)
+		{
 
-			//selCasilla(Vector(xcas_sel,ycas_sel));
-
-			int tipo = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo();
-			int color = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
-			int color2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
-
-			//QUEDA MUY FEO PERO ES POR POBAR
-			xorig = xcas_sel;
-			yorig = ycas_sel;
-
-			if (tipo == Pieza::REINA)
-			{
-				if (((movalfil(xorig, xcas_sel, yorig, ycas_sel) == TRUE) || (movtorre(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel-7, ycas_sel), Pieza::BLANCO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xorig, yorig), Pieza::NEGRO));
-						cout << "Le toca mover al rival" << endl;
-					}
+			if ((movcaballo(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
+					m_tablero->turnos++;
 				}
-				else { break; }
-			}
-			if (tipo == Pieza::PEON)
-			{
-				if ((movpeon(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel-5, ycas_sel), Pieza::BLANCO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xorig , yorig), Pieza::NEGRO));
-						cout << "Le toca mover al rival" << endl;
-					}
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xorig, yorig), Pieza::NEGRO));
+					cout << "Le toca mover al rival" << endl;
 				}
-				else
-					break;
 			}
-			if (tipo == Pieza::REY)
-			{
-				if ((movrey(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel-7, ycas_sel), Pieza::BLANCO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xorig, yorig), Pieza::NEGRO));
-						cout << "Le toca mover al rival" << endl;
-					}
+			else
+				break;
+		}
+		if (tipo == Pieza::ALFIL)
+		{
+			if ((movalfil(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
+					m_tablero->turnos++;
 				}
-				else { break; }
-			}
-			if (tipo == Pieza::CABALLO)
-			{
-
-				if ((movcaballo(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel-7, ycas_sel), Pieza::BLANCO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xorig, yorig), Pieza::NEGRO));
-						cout << "Le toca mover al rival" << endl;
-					}
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xorig, yorig), Pieza::NEGRO));
+					cout << "Le toca mover al rival" << endl;
 				}
-				else
-					break;
 			}
-			if (tipo == Pieza::ALFIL)
-			{
-				if ((movalfil(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel-7, ycas_sel), Pieza::BLANCO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xorig, yorig), Pieza::NEGRO));
-						cout << "Le toca mover al rival" << endl;
-					}
+			else { break; }
+		}
+		if (tipo == Pieza::TORRE)
+		{
+			if ((movtorre(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
+					m_tablero->turnos++;
 				}
-				else { break; }
-			}
-			if (tipo == Pieza::TORRE)
-			{
-				if ((movtorre(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel-7, ycas_sel), Pieza::BLANCO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xorig, yorig), Pieza::NEGRO));
-						cout << "Le toca mover al rival" << endl;
-					}
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xorig, yorig), Pieza::NEGRO));
+					cout << "Le toca mover al rival" << endl;
 				}
-				else { break; }
 			}
-			if (tipo == Pieza::CASILLA_VACIA)
-			{
-				cout << "vacio" << endl;
-			}
-			break;
+			else { break; }
+		}
+		if (tipo == Pieza::CASILLA_VACIA)
+		{
+			cout << "vacio" << endl;
 		}
 
-		case TRUE:
-		{
-			seleccion = FALSE;	//para la alternancia de clicks
-			cout << "segundo click:" << endl;
-			int tipo = m_tablero->getCas()[xorig][yorig].getPieza()->getTipo();
-			int color = m_tablero->getCas()[xorig][yorig].getPieza()->getColor();
-			int color2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
-
-			if (tipo == Pieza::REINA)
-			{
-				if (((movalfil(xorig, xcas_sel, yorig, ycas_sel) == TRUE) || (movtorre(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xorig-7, yorig), Pieza::BLANCO));
-						cout << "Le toca mover al rival" << endl;
-					}
-				}
-				else { break; }
-			}
-			if (tipo == Pieza::PEON)
-			{
-				if ((movpeon(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xorig-5, yorig), Pieza::BLANCO));
-						cout << "Le toca mover al rival" << endl;
-					}
-				}
-				else
-					break;
-			}
-			if (tipo == Pieza::REY)
-			{
-				if ((movrey(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xorig-7, yorig), Pieza::BLANCO));
-						cout << "Le toca mover al rival" << endl;
-					}
-				}
-				else { break; }
-			}
-			if (tipo == Pieza::CABALLO)
-			{
-
-				if ((movcaballo(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xorig-7, yorig), Pieza::BLANCO));
-						cout << "Le toca mover al rival" << endl;
-					}
-				}
-				else
-					break;
-			}
-			if (tipo == Pieza::ALFIL)
-			{
-				if ((movalfil(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xorig-7, yorig), Pieza::BLANCO));
-						cout << "Le toca mover al rival" << endl;
-					}
-				}
-				else { break; }
-			}
-			if (tipo == Pieza::TORRE)
-			{
-				if ((movtorre(xorig, xcas_sel, yorig, ycas_sel) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel) == TRUE)) {
-					if (color == Pieza::NEGRO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
-						m_tablero->turnos++;
-					}
-					if (color == Pieza::BLANCO)
-					{
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xorig-7, yorig), Pieza::BLANCO));
-						cout << "Le toca mover al rival" << endl;
-					}
-				}
-				else { break; }
-			}
-			if (tipo == Pieza::CASILLA_VACIA)
-			{
-				cout << "vacio" << endl;
-			}
-
-			//Pieza anterior a NoPieza
-			m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
-			xorig = 0;
-			yorig = 0;
-			break;
-		}
-		default:
-			;
-		}
+		//Pieza anterior a NoPieza
+		m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
+		xorig = 0;
+		yorig = 0;
+		break;
 	}
+	default:
+		xcas_sel = xorig;
+		ycas_sel = yorig;
+		cout << "mueve el rival" << endl;
+	}
+}
+if (down && (paridad == TRUE)) {
+	ETSIDI::play("sonidos/click.wav");
+	cout << m_tablero->turnos << endl;
+	switch (seleccion)
+	{
+	case FALSE:
+	{
+		cout << "Primer Click" << endl;
+
+		//selCasilla(Vector(xcas_sel,ycas_sel));
+
+		int tipo = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo();
+		int color = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
+		int color2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
+
+		//QUEDA MUY FEO PERO ES POR POBAR
+		xorig = xcas_sel;
+		yorig = ycas_sel;
+
+		if (tipo == Pieza::REINA && color == Pieza::NEGRO)
+		{
+			ETSIDI::play("sonidos/la reina.wav");
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "RN" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::PEON && color == Pieza::NEGRO)
+		{
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "PN" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::REY && color == Pieza::NEGRO)
+		{
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "KN" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::CABALLO && color == Pieza::NEGRO)
+		{
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "CN" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::ALFIL && color == Pieza::NEGRO)
+		{
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "AN" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::TORRE && color == Pieza::NEGRO)
+		{
+			cout << "(" << xcas_sel << "," << ycas_sel << ")" << "TN" << endl;
+			seleccion = TRUE;
+		}
+		if (tipo == Pieza::CASILLA_VACIA)
+		{
+			cout << "vacio" << endl;
+		}
+		break;
+	}
+
+	case TRUE:
+	{
+		seleccion = FALSE;	//para la alternancia de clicks
+		cout << "segundo click:" << endl;
+		int tipo = m_tablero->getCas()[xorig][yorig].getPieza()->getTipo();
+		int color = m_tablero->getCas()[xorig][yorig].getPieza()->getColor();
+		int color2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
+
+		if (tipo == Pieza::REINA)
+		{
+			if (((movalfil(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) || (movtorre(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					m_tablero->turnos++;
+				}
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xorig - 7, yorig), Pieza::BLANCO));
+					cout << "Le toca mover al rival" << endl;
+				}
+			}
+			else { break; }
+		}
+		if (tipo == Pieza::PEON)
+		{
+			if ((movpeon(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					m_tablero->turnos++;
+				}
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xorig - 5, yorig), Pieza::BLANCO));
+					cout << "Le toca mover al rival" << endl;
+				}
+			}
+			else
+				break;
+		}
+		if (tipo == Pieza::REY)
+		{
+			if ((movrey(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					m_tablero->turnos++;
+				}
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xorig - 7, yorig), Pieza::BLANCO));
+					cout << "Le toca mover al rival" << endl;
+				}
+			}
+			else { break; }
+		}
+		if (tipo == Pieza::CABALLO)
+		{
+
+			if ((movcaballo(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					m_tablero->turnos++;
+				}
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xorig - 7, yorig), Pieza::BLANCO));
+					cout << "Le toca mover al rival" << endl;
+				}
+			}
+			else
+				break;
+		}
+		if (tipo == Pieza::ALFIL)
+		{
+			if ((movalfil(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					m_tablero->turnos++;
+				}
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xorig - 7, yorig), Pieza::BLANCO));
+					cout << "Le toca mover al rival" << endl;
+				}
+			}
+			else { break; }
+		}
+		if (tipo == Pieza::TORRE)
+		{
+			if ((movtorre(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
+				if (color == Pieza::NEGRO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel, ycas_sel), Pieza::NEGRO));
+					m_tablero->turnos++;
+				}
+				if (color == Pieza::BLANCO)
+				{
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xorig - 7, yorig), Pieza::BLANCO));
+					cout << "Le toca mover al rival" << endl;
+				}
+			}
+			else { break; }
+		}
+		if (tipo == Pieza::CASILLA_VACIA)
+		{
+			cout << "vacio" << endl;
+		}
+
+		//Pieza anterior a NoPieza
+		m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
+		xorig = 0;
+		yorig = 0;
+		break;
+	}
+	default:
+		;
+	}
+}
 }
