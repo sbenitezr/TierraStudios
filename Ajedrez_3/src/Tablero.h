@@ -16,6 +16,7 @@ class Tablero {
 private:
 	friend class Casilla;
 protected:
+	int turnos;
 	const int N;
 	Casilla** cas;
 	Pieza* pieza;

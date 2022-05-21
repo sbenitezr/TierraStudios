@@ -6,6 +6,7 @@ Tablero::Tablero(int n) :N(n){
 	{
 		cas[i] = new Casilla[N];
 	}
+	turnos = 1;
 }
 void Tablero::tableroInicio() {
 
@@ -21,8 +22,8 @@ void Tablero::tableroInicio() {
 	{
 		cas[1][j].setPieza(new Peon(Vector(1, j), Pieza::NEGRO));
 	}
-	Pieza* RN = cas[0][4].setPieza(new Reina(Vector(0, 4), Pieza::NEGRO));		//necesitamos que esta variable no sea local para usarla en TableroGl y poder asignarle la nueva posicion del click 
-	//cas[0][4].setPieza(new Reina(Vector(0, 4), Pieza::NEGRO));
+	//Pieza* RN = cas[0][4].setPieza(new Reina(Vector(0, 4), Pieza::NEGRO));		//necesitamos que esta variable no sea local para usarla en TableroGl y poder asignarle la nueva posicion del click 
+	cas[0][4].setPieza(new Reina(Vector(0, 4), Pieza::NEGRO));
 	cas[0][3].setPieza(new  Rey(Vector(0, 3), Pieza::NEGRO));
 	cas[0][0].setPieza(new Torre(Vector(0, 0), Pieza::NEGRO));
 	cas[0][N - 1].setPieza(new Torre(Vector(0, N - 1), Pieza::NEGRO));
