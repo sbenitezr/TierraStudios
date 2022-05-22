@@ -48,6 +48,80 @@ void Tablero::tableroInicio() {
 	cas[N - 1][N - 3].setPieza(new Alfil(Vector(0, N - 3), Pieza::BLANCO));
 }
 
+bool Tablero::jaqueB() {
+	int x2 = -2, y2 = -2, x = -2, y = -2, tipo2 = -2, tipo = -2, color = -2, color2 = -2, count = 0;
+	for (int i2 = 0; i2 < 8; i2++) {
+		for (int j2 = 0; j2 < 8; j2++) {
+			color2 = getCas()[i2][j2].getPieza()->getColor();
+			tipo2 = getCas()[i2][j2].getPieza()->getTipo();
+			if (color2 == Pieza::BLANCO && tipo2 == Pieza::REY) {
+				x2 = i2;
+				y2 = j2;
+				cout << "El rey blanco esta en(" << x2 << "," << y2 << ")" << endl;
+			}
+		}
+	}
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			color = getCas()[i][j].getPieza()->getColor();
+			tipo = getCas()[i][j].getPieza()->getTipo();
+			if (color == Pieza::NEGRO) {
+				x = i;
+				y = j;
+				bool jaque, jaque1;
+				if (tipo == Pieza::PEON)
+				{if (movpeon(x, x2, y, y2, color, color2) == TRUE) { count++; }}
+				if (tipo == Pieza::CABALLO) { if (movcaballo(x, x2, y, y2, color, color2) == TRUE) { count++; } }
+				if (tipo == Pieza::TORRE) { if (movtorre(x, x2, y, y2, color, color2) == TRUE) { count++; } }
+				if (tipo == Pieza::ALFIL) { if (movalfil(x, x2, y, y2, color, color2) == TRUE) { count++; } }
+				if (tipo == Pieza::REINA) { if ((movalfil(x, x2, y, y2, color, color2) == TRUE)|| (movtorre(x, x2, y, y2, color, color2) == TRUE)) { count++;} }
+			}
+		}
+	}
+	if (count > 0) {return TRUE;}
+	else {return FALSE;}
+}
+
+bool Tablero::jaqueN() {
+	int x2 = -2, y2 = -2, x = -2, y = -2, tipo2 = -2, tipo = -2, color = -2, color2 = -2, count = 0;
+	for (int i2 = 0; i2 < 8; i2++) {
+		for (int j2 = 0; j2 < 8; j2++) {
+			color2 = getCas()[i2][j2].getPieza()->getColor();
+			tipo2 = getCas()[i2][j2].getPieza()->getTipo();
+			if (color2 == Pieza::NEGRO && tipo2 == Pieza::REY) {
+				x2 = i2;
+				y2 = j2;
+				cout << "El rey negro esta en(" << x2 << "," << y2 << ")" << endl;
+			}
+		}
+	}
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			color = getCas()[i][j].getPieza()->getColor();
+			tipo = getCas()[i][j].getPieza()->getTipo();
+			if (color == Pieza::BLANCO) {
+				x = i;
+				y = j;
+				bool jaque, jaque1;
+				if (tipo == Pieza::PEON)
+				{if (movpeon(x, x2, y, y2, color, color2) == TRUE) { count++; }}
+				if (tipo == Pieza::CABALLO) { if (movcaballo(x, x2, y, y2, color, color2) == TRUE) { count++; } }
+				if (tipo == Pieza::TORRE) { if (movtorre(x, x2, y, y2, color, color2) == TRUE) { count++; } }
+				if (tipo == Pieza::ALFIL) { if (movalfil(x, x2, y, y2, color, color2) == TRUE) { count++; } }
+				if (tipo == Pieza::REINA) { if ((movalfil(x, x2, y, y2, color, color2) == TRUE) || (movtorre(x, x2, y, y2, color, color2) == TRUE)) { count++; } }
+			}
+		}
+	}
+	if (count > 0) {
+		//cout << "No estoy en jaque:" << count << endl;
+		return TRUE;
+	}
+	else {
+		//cout << "Estoy en jaque:" << count << endl;
+		return FALSE;
+	}
+}
+
 bool Tablero::enable(int x1, int x2, int y1, int y2, int color, int color2) {
 	if (((x2 || y2) < 0) || ((x2 || y2) > 7) || (x2 == x1) && (y2 == y1)) { return FALSE; }
 	else if (color == color2) { return FALSE; }
@@ -141,7 +215,6 @@ bool Tablero::movalfil(int x1, int x2, int y1, int y2, int color, int color2) {
 			else { return FALSE; }
 		}
 	}
-
 }
 
 bool Tablero::movtorre(int x1, int x2, int y1, int y2, int color, int color2) {
