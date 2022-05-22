@@ -21,7 +21,7 @@ protected:
 public:
 
 	Pieza() :pos(-1, -1), tipo(CASILLA_VACIA), color(NO_COLOR) {}
-	//~Pieza() { delete  }
+	//~Pieza() {}
 
 	void setCas(Vector p) { this->pos = p; }
 	//void setCas(Vector p, color_p c) { this->pos = p; this->color = c; }
