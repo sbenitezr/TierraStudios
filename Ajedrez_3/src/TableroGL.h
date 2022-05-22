@@ -5,6 +5,7 @@
 #include "Pieza.h"
 #include "ETSIDI.h"
 #include "Casilla.h"
+
 using namespace std;
 
 //Enumeraciones para no escribir sobre comandos de la glut
@@ -36,7 +37,7 @@ protected:
 	bool seleccion = FALSE;
 	bool inicio = TRUE;
 
-	enum Modo { INICIO, JUGAR, FINAL };
+	enum Modo { INICIO, JUGAR, FINAL,PAUSA };
 
 public:
 
