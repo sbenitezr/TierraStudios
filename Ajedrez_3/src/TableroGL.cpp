@@ -38,27 +38,33 @@ bool TableroGL::movtorre(int x1, int x2, int y1, int y2, int color, int color2) 
 		if (y1 == y2) {
 			cout << "Primer if" << endl;
 			if (x2 > x1) {
-				cout << "Segundo if" << endl;
+				//cout << "Segundo if" << endl;
+				int acum = 0;
 				for (int i = (x1+1); i < x2; i++) {
 					int col = m_tablero->getCas()[i][y1].getPieza()->getTipo();
-					cout << "posintcall:" <<col<< endl;
+					//cout << "posintcall:" <<col<< endl;
 					if (col != -1)
-						return FALSE;
-					else { return TRUE; }
+						acum++;
+					//cout << acum << endl;
 				}
+				if (acum != 0) { return FALSE; }
+				else { return TRUE; }
 			}
 			else if (x2 < x1) {
-				cout << "Segundo else if" << endl;
+				int acum = 0;
+				//cout << "Segundo else if" << endl;
 				for (int i = (x1-1); i > x2; i--) {
 					int col = m_tablero->getCas()[i][y1].getPieza()->getTipo();
 					cout << "posincall:" << col << endl;
 					if (col != -1)
-						return FALSE;
-					else { return TRUE; }
+						acum++;
 				}
+				if (acum != 0) { return FALSE; }
+				else { return TRUE; }
 			}
 		}
 		else if (x1 == x2) {
+			int acum = 0;
 			cout << "Primer else if:" << endl;
 			if (y2 > y1) {
 				cout << "Segundo if" << endl;
@@ -66,21 +72,24 @@ bool TableroGL::movtorre(int x1, int x2, int y1, int y2, int color, int color2) 
 					int col = m_tablero->getCas()[x1][i].getPieza()->getTipo();
 					cout << "pisincall:" << col << endl;
 					if (col != -1)
-						return FALSE;
-					else { return TRUE; }
+						acum++;
 				}
+				if (acum != 0) { return FALSE; }
+				else { return TRUE; }
 			}
 			else if (y2 < y1) {
 				for (int i = (y1-1); i > y2; i--) {
 					int col = m_tablero->getCas()[x1][i].getPieza()->getTipo();
 					cout << col << endl;
 					if (col != -1)
-						return FALSE;
-					else { return TRUE; }
+						acum++;
 				}
+				if (acum != 0) { return FALSE; }
+				else { return TRUE; }
 			}
+			else { return FALSE; }
 		}
-		else { return TRUE; }
+		else { return FALSE; }
 	}
 }
 bool TableroGL::movcaballo(int x1, int x2, int y1, int y2, int color, int color2) {
