@@ -34,5 +34,13 @@ public:
 	Pieza* getPieza(){return pieza;}
 	Casilla** getCas() { return cas; }
 	friend class TableroGL;
+
+	bool movtorre(int x1, int x2, int y1, int y2, int color, int color2);
+	bool movalfil(int x1, int x2, int y1, int y2, int color, int color2);
+	bool movcaballo(int x1, int x2, int y1, int y2, int color, int color2);
+	bool movpeon(int x1, int x2, int y1, int y2, int color, int color2);
+	bool movrey(int x1, int x2, int y1, int y2, int color, int color2);
+	bool enable(int x1, int x2, int y1, int y2, int color, int color2);
+
 };
 #endif

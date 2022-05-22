@@ -14,7 +14,7 @@ private:
 	ColorCas color;
 public:
 	Casilla() : posicion(Vector(-1, -1)), ancho(1.0f) {}
-
+	~Casilla() { delete[] pieza; }
 	void draw();
 	void setPos(Vector pos){ this->posicion = pos; }
 	Vector getPos() { return posicion; }
