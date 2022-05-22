@@ -43,7 +43,7 @@ public:
 	TableroGL(Tablero* t);
 
 	Modo modo;
-	virtual ~TableroGL() {}
+	//virtual ~TableroGL() {}
 
 	//Inicializacion
 	void init();

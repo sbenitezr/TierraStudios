@@ -19,7 +19,6 @@ void TableroGL::selCasilla(Vector p) {
 	m_tablero->getCas()[p.x][p.y].selCas();
 }
 
-
 void TableroGL::init() {
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
@@ -331,9 +330,9 @@ if (down && (paridad == FALSE))
 			if ((m_tablero->movpeon(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (m_tablero->enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
 				if (color == Pieza::BLANCO)
 				{
-					m_tablero->getCas()[xorig][yorig].~Casilla();
-					m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
-					m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
+					//m_tablero->getCas()[xorig][yorig].~Casilla();
+					//m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
+					//m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
 					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel - 5, ycas_sel), Pieza::BLANCO));
 					m_tablero->turnos++;
 				}

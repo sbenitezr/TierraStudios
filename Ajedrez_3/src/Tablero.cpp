@@ -8,6 +8,7 @@ Tablero::Tablero(int n) :N(n){
 	}
 	turnos = 1;
 }
+
 void Tablero::tableroInicio() {
 
 	//INICIALIZAMOS TODAS LAS CASILLAS CON PIEZAS VACIAS
@@ -52,12 +53,97 @@ bool Tablero::enable(int x1, int x2, int y1, int y2, int color, int color2) {
 	else if (color == color2) { return FALSE; }
 	else { return TRUE; }
 }
+
 bool Tablero::movalfil(int x1, int x2, int y1, int y2, int color, int color2) {
 	int dif = abs(x2 - x1);
-	if (abs(y2 - y1) != dif) return FALSE;
-	else { return TRUE; }
+	if (abs(y2 - y1) != dif) { return FALSE; }
+	else {
+		if (y2 > y1) {
+			if (x2 > x1) {
+				int acum = 0;
+				int counter = 0;
+				int i = (x1 + 1);
+				int j = (y1 + 1);
+				if (dif > 1) {
+					do {
+						int col = getCas()[i][j].getPieza()->getTipo();
+						i++;
+						j++;
+						counter++;
+						if (col != -1)
+							acum++;
+					} while (counter != (dif - 1));
+					if (acum != 0) { return FALSE; }
+					else { return TRUE; }
+				}
+				else { return TRUE; }
+			}
+			else if (x2 < x1) {
+				int acum = 0;
+				int counter = 0;
+				int i = (x1 - 1);
+				int j = (y1 + 1);
+				if (dif > 1) {
+					do {
+						int col =getCas()[i][j].getPieza()->getTipo();
+						i--;
+						j++;
+						counter++;
+						if (col != -1)
+							acum++;
+					} while (counter != (dif - 1));
+					if (acum != 0) { return FALSE; }
+					else { return TRUE; }
+				}
+				else { return TRUE; }
+			}
+		}
+		else if (y2 < y1) {
+
+			if (x2 > x1) {
+				int acum = 0;
+				int counter = 0;
+				int i = (x1 + 1);
+				int j = (y1 - 1);
+				if (dif > 1) {
+					do {
+						int col = getCas()[i][j].getPieza()->getTipo();
+						i++;
+						j--;
+						counter++;
+						if (col != -1)
+							acum++;
+					} while (counter != (dif - 1));
+					if (acum != 0) { return FALSE; }
+					else { return TRUE; }
+				}
+				else { return TRUE; }
+			}
+			else if (x2 < x1) {
+				int acum = 0;
+				int counter = 0;
+				int i = (x1 - 1);
+				int j = (y1 - 1);
+				if (dif > 1) {
+					do {
+						int col = getCas()[i][j].getPieza()->getTipo();
+						i--;
+						j--;
+						counter++;
+						if (col != -1)
+							acum++;
+					} while (counter != (dif - 1));
+					if (acum != 0) { return FALSE; }
+					else { return TRUE; }
+				}
+				else { return TRUE; }
+			}
+			else { return FALSE; }
+		}
+	}
 
 }
+
 bool Tablero::movtorre(int x1, int x2, int y1, int y2, int color, int color2) {
 	if ((abs(x2 - x1) != 0) && abs(y2 - y1) != 0)
 		return FALSE;
@@ -120,6 +206,7 @@ bool Tablero::movtorre(int x1, int x2, int y1, int y2, int color, int color2) {
 		else { return FALSE; }
 	}
 }
+
 bool Tablero::movcaballo(int x1, int x2, int y1, int y2, int color, int color2) {
 	int dif = abs(x2 - x1);
 	if ((dif > 3) || (dif < 1))
@@ -128,11 +215,13 @@ bool Tablero::movcaballo(int x1, int x2, int y1, int y2, int color, int color2) 
 		return FALSE;
 	else { return TRUE; }
 }
+
 bool Tablero::movrey(int x1, int x2, int y1, int y2, int color, int color2) {
 	if (abs(x2 - x1) > 1 || abs(y2 - y1) > 1)
 		return FALSE;
 	else { return TRUE; }
 }
+
 bool Tablero::movpeon(int x1, int x2, int y1, int y2, int color, int color2) {
 	if ((x1 == 1) || (x1 == 6)) {
 		if (color == Pieza::BLANCO) {
