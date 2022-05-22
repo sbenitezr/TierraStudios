@@ -57,7 +57,6 @@ bool Tablero::jaqueB() {
 			if (color2 == Pieza::BLANCO && tipo2 == Pieza::REY) {
 				x2 = i2;
 				y2 = j2;
-				cout << "El rey blanco esta en(" << x2 << "," << y2 << ")" << endl;
 			}
 		}
 	}
@@ -91,7 +90,6 @@ bool Tablero::jaqueN() {
 			if (color2 == Pieza::NEGRO && tipo2 == Pieza::REY) {
 				x2 = i2;
 				y2 = j2;
-				cout << "El rey negro esta en(" << x2 << "," << y2 << ")" << endl;
 			}
 		}
 	}

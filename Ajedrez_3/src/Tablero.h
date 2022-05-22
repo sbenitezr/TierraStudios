@@ -43,5 +43,6 @@ public:
 	bool enable(int x1, int x2, int y1, int y2, int color, int color2);
 	bool jaqueB();
 	bool jaqueN();
+	bool finalizar();
 };
 #endif

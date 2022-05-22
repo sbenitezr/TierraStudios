@@ -7,6 +7,7 @@
 #include "freeglut.h"
 #include "ETSIDI.h"
 using namespace std;
+int fin = 0;
 
 TableroGL::TableroGL(Tablero* t) :m_tablero(t) {
 	ancho = 1;
@@ -434,11 +435,22 @@ if (down && (paridad == FALSE))
 			if ((m_tablero->movpeon(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (m_tablero->enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
 				if (color == Pieza::BLANCO)
 				{
+					if (m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo() == Pieza::REY) {
+						fin = 1;
+						cout << "El estado fin es:" << fin << endl;
+					}
 					m_tablero->getCas()[xorig][yorig].~Casilla();
 					m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
 					m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
 					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel - 5, ycas_sel), Pieza::BLANCO));
 					cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Peon Blanco" << endl;
+
+					if (m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo() == Pieza::REY) {
+						fin = 1;
+						cout << "El estado fin es:" << fin << endl;
+					}
+						
+
 					if (m_tablero->jaqueB() == TRUE) {
 						cout << "Estoy en jaque" << endl;
 					}
