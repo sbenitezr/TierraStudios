@@ -10,7 +10,8 @@ protected:
 	SpriteSequence spritealfilN{ "imagenes/alfil_negro.png", 1 };
 public:
 	Alfil(Vector p, color_p c) { pos = p; tipo = ALFIL; color = c; }
-
+	friend class Tablero;
 	void draw();
+	bool mover(Vector pos1, Vector pos2, int color, int color2);
 };
-#endif 
+#endif

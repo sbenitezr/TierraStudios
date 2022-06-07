@@ -23,26 +23,23 @@ protected:
 public:
 	Tablero(int n);
 	~Tablero() {
-		/*for (int i = 0; i < N; i++)
+		for (int i = 0; i < N; i++)
 		{
 			delete[] cas[i];
 		}
-		delete[] cas;*/
+		delete[] cas;
 	}
 	void tableroInicio();
 	int getTamanio() { return N; }
 	Pieza* getPieza(){return pieza;}
 	Casilla** getCas() { return cas; }
 	friend class TableroGL;
-
-	bool movtorre(int x1, int x2, int y1, int y2, int color, int color2);
-	bool movalfil(int x1, int x2, int y1, int y2, int color, int color2);
-	bool movcaballo(int x1, int x2, int y1, int y2, int color, int color2);
-	bool movpeon(int x1, int x2, int y1, int y2, int color, int color2);
-	bool movrey(int x1, int x2, int y1, int y2, int color, int color2);
+	friend class Alfil;
+	friend class Torre;
+	friend class NoPieza;
+	bool mover(Vector pos1, Vector pos2, int color, int color2);
 	bool enable(int x1, int x2, int y1, int y2, int color, int color2);
 	bool jaqueB();
 	bool jaqueN();
-	bool finalizar();
 };
 #endif

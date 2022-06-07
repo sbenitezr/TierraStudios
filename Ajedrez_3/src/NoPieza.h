@@ -6,6 +6,8 @@
 class NoPieza :public Pieza {
 public:
 	NoPieza(Vector p) { pos = p; tipo = CASILLA_VACIA; color = NO_COLOR; }
+	friend class Tablero;
 	void draw() { return; }
+	bool mover(Vector pos1, Vector pos2, int color, int color2) { return 0; }
 };
 #endif

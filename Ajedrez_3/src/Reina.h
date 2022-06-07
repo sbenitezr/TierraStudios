@@ -13,6 +13,7 @@ public:
 	Reina(Vector p, color_p c) { pos = p; tipo = REINA; color = c; }
 
 	void draw();
+	bool mover(Vector pos1, Vector pos2, int color, int color2);
 };
 
 #endif 

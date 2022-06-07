@@ -21,7 +21,6 @@ protected:
 public:
 
 	Pieza() :pos(-1, -1), tipo(CASILLA_VACIA), color(NO_COLOR) {}
-	//~Pieza() {}
 
 	void setCas(Vector p) { this->pos = p; }
 	//void setCas(Vector p, color_p c) { this->pos = p; this->color = c; }
@@ -33,13 +32,7 @@ public:
 	tipo_t getTipo() { if (nullptr) return CASILLA_VACIA; else { return tipo; } }
 	color_p getColor() { if (nullptr) return NO_COLOR; else { return color; } }
 	Vector getPosicion() { return pos; }
-	
 
-	//NO SE SI ESTA SOBRECARGA HARA FALTA EN TABLERO.CPP PARA ASIGNAR LA DIRECCION AL PUNTERO DE LA PIEZA. 
-	// 
-	//Pieza* operator=(Casilla** cas){		
-	//	Pieza* aux;
-	//	return aux;
-	//}
+	virtual bool mover(Vector pos1, Vector pos2, int color, int color2) = 0;
 };
 #endif

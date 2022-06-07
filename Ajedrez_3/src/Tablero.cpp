@@ -69,7 +69,7 @@ bool Tablero::jaqueB() {
 				y = j;
 				bool jaque, jaque1;
 				if (tipo == Pieza::PEON)
-				{if (movpeon(x, x2, y, y2, color, color2) == TRUE) { count++; }}
+				{if (mover(Vector(x, y), Vector(x2, y2), color, color2) == TRUE) { count++; }}
 				if (tipo == Pieza::CABALLO) { if (movcaballo(x, x2, y, y2, color, color2) == TRUE) { count++; } }
 				if (tipo == Pieza::TORRE) { if (movtorre(x, x2, y, y2, color, color2) == TRUE) { count++; } }
 				if (tipo == Pieza::ALFIL) { if (movalfil(x, x2, y, y2, color, color2) == TRUE) { count++; } }
@@ -102,7 +102,7 @@ bool Tablero::jaqueN() {
 				y = j;
 				bool jaque, jaque1;
 				if (tipo == Pieza::PEON)
-				{if (movpeon(x, x2, y, y2, color, color2) == TRUE) { count++; }}
+				{if (mover(Vector(x, y), Vector(x2, y2), color, color2) == TRUE) { count++; }}
 				if (tipo == Pieza::CABALLO) { if (movcaballo(x, x2, y, y2, color, color2) == TRUE) { count++; } }
 				if (tipo == Pieza::TORRE) { if (movtorre(x, x2, y, y2, color, color2) == TRUE) { count++; } }
 				if (tipo == Pieza::ALFIL) { if (movalfil(x, x2, y, y2, color, color2) == TRUE) { count++; } }
@@ -126,189 +126,4 @@ bool Tablero::enable(int x1, int x2, int y1, int y2, int color, int color2) {
 	else { return TRUE; }
 }
 
-bool Tablero::movalfil(int x1, int x2, int y1, int y2, int color, int color2) {
-	int dif = abs(x2 - x1);
-	if (abs(y2 - y1) != dif) { return FALSE; }
-	else {
-		if (y2 > y1) {
-			if (x2 > x1) {
-				int acum = 0;
-				int counter = 0;
-				int i = (x1 + 1);
-				int j = (y1 + 1);
-				if (dif > 1) {
-					do {
-						int col = getCas()[i][j].getPieza()->getTipo();
-						i++;
-						j++;
-						counter++;
-						if (col != -1)
-							acum++;
-					} while (counter != (dif - 1));
-					if (acum != 0) { return FALSE; }
-					else { return TRUE; }
-				}
-				else { return TRUE; }
-			}
-			else if (x2 < x1) {
-				int acum = 0;
-				int counter = 0;
-				int i = (x1 - 1);
-				int j = (y1 + 1);
-				if (dif > 1) {
-					do {
-						int col =getCas()[i][j].getPieza()->getTipo();
-						i--;
-						j++;
-						counter++;
-						if (col != -1)
-							acum++;
-					} while (counter != (dif - 1));
-					if (acum != 0) { return FALSE; }
-					else { return TRUE; }
-				}
-				else { return TRUE; }
-			}
-		}
-		else if (y2 < y1) {
-
-			if (x2 > x1) {
-				int acum = 0;
-				int counter = 0;
-				int i = (x1 + 1);
-				int j = (y1 - 1);
-				if (dif > 1) {
-					do {
-						int col = getCas()[i][j].getPieza()->getTipo();
-						i++;
-						j--;
-						counter++;
-						if (col != -1)
-							acum++;
-					} while (counter != (dif - 1));
-					if (acum != 0) { return FALSE; }
-					else { return TRUE; }
-				}
-				else { return TRUE; }
-			}
-			else if (x2 < x1) {
-				int acum = 0;
-				int counter = 0;
-				int i = (x1 - 1);
-				int j = (y1 - 1);
-				if (dif > 1) {
-					do {
-						int col = getCas()[i][j].getPieza()->getTipo();
-						i--;
-						j--;
-						counter++;
-						if (col != -1)
-							acum++;
-					} while (counter != (dif - 1));
-					if (acum != 0) { return FALSE; }
-					else { return TRUE; }
-				}
-				else { return TRUE; }
-			}
-			else { return FALSE; }
-		}
-	}
-}
-
-bool Tablero::movtorre(int x1, int x2, int y1, int y2, int color, int color2) {
-	if ((abs(x2 - x1) != 0) && abs(y2 - y1) != 0)
-		return FALSE;
-	else {
-		if (y1 == y2) {
-			if (x2 > x1) {
-				int acum = 0;
-				for (int i = (x1 + 1); i < x2; i++) {
-					int col = getCas()[i][y1].getPieza()->getTipo();
-					if (col != -1)
-						acum++;
-				}
-				if (acum != 0) { return FALSE; }
-				else { return TRUE; }
-			}
-			else if (x2 < x1) {
-				int acum = 0;
-				for (int i = (x1 - 1); i > x2; i--) {
-					int col = getCas()[i][y1].getPieza()->getTipo();
-					if (col != -1)
-						acum++;
-				}
-				if (acum != 0) { return FALSE; }
-				else { return TRUE; }
-			}
-		}
-		else if (x1 == x2) {
-			int acum = 0;
-			if (y2 > y1) {
-				for (int i = (y1 + 1); i < y2; i++) {
-					int col = getCas()[x1][i].getPieza()->getTipo();
-					if (col != -1)
-						acum++;
-				}
-				if (acum != 0) { return FALSE; }
-				else { return TRUE; }
-			}
-			else if (y2 < y1) {
-				for (int i = (y1 - 1); i > y2; i--) {
-					int col = getCas()[x1][i].getPieza()->getTipo();
-					if (col != -1)
-						acum++;
-				}
-				if (acum != 0) { return FALSE; }
-				else { return TRUE; }
-			}
-			else { return FALSE; }
-		}
-		else { return FALSE; }
-	}
-}
-
-bool Tablero::movcaballo(int x1, int x2, int y1, int y2, int color, int color2) {
-	int dif = abs(x2 - x1);
-	if ((dif > 3) || (dif < 1))
-		return FALSE;
-	else if ((dif == 1) && (abs(y2 - y1) != 2) || (dif == 2) && (abs(y2 - y1) != 1))
-		return FALSE;
-	else { return TRUE; }
-}
-
-bool Tablero::movrey(int x1, int x2, int y1, int y2, int color, int color2) {
-	if (abs(x2 - x1) > 1 || abs(y2 - y1) > 1)
-		return FALSE;
-	else { return TRUE; }
-}
-
-bool Tablero::movpeon(int x1, int x2, int y1, int y2, int color, int color2) {
-	if ((x1 == 1) || (x1 == 6)) {
-		if (color == Pieza::BLANCO) {
-			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && (((x2 - x1) == -2) || (x2 - x1) == -1))
-				return TRUE;
-			else if ((color2 == Pieza::NEGRO) && ((x2 - x1) == -1) && (abs(y2 - y1) == 1))
-				return TRUE;
-			else
-				return FALSE;
-		}
-		else if (color == Pieza::NEGRO) {
-			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && (((x2 - x1) == 2) || (x2 - x1) == 1)) { return TRUE; }
-			else if ((color2 == Pieza::BLANCO) && ((x2 - x1) == 1) && (abs(y2 - y1) == 1)) { return TRUE; }
-			else { return FALSE; }
-		}
-		else { return FALSE; }
-	}
-	else {
-		if (color == Pieza::BLANCO) {
-			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && ((x2 - x1) == -1)) { return TRUE; }
-			else if ((color2 == Pieza::NEGRO) && ((x2 - x1) == -1) && (abs(y2 - y1) == 1)) { return TRUE; }
-			else { return FALSE; }
-		}
-		else if (color == Pieza::NEGRO) {
-			if ((color2 == Pieza::NO_COLOR) && ((y2 - y1) == 0) && ((x2 - x1) == 1)) { return TRUE; }
-			else if ((color2 == Pieza::BLANCO) && ((x2 - x1) == 1) && (abs(y2 - y1) == 1)) { return TRUE; }
-			else { return FALSE; }
-		}
-	}
-}
+bool Tablero::mover(Vector pos1, Vector pos2, int color, int color2) { return pieza->mover(pos1, pos2, color, color2); }
