@@ -12,5 +12,6 @@ public:
 	Peon(Vector p, color_p c) { pos = p; tipo = PEON; color = c; }
 	Peon(Vector p) { pos = p; }
 	void draw();
+	virtual bool mover(Vector pos1, Vector pos2, int color, int color2);
 };
 #endif

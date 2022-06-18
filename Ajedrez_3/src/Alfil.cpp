@@ -24,3 +24,92 @@ void Alfil::draw()
 	}
 
 }
+
+bool Alfil::mover(Vector pos1, Vector pos2, int color, int color2) {
+	int dif = abs(pos2.x - pos1.x);
+	if (abs(pos2.y - pos1.y) != dif) { return FALSE; }
+	else {
+		if (pos2.y > pos1.y) {
+			if (pos2.x > pos1.x) {
+				int acum = 0;
+				int counter = 0;
+				int i = (pos1.x + 1);
+				int j = (pos1.y + 1);
+				if (dif > 1) {
+					do {
+						int col = TableroGL::m_tablero->getCas()[i][j].getPieza()->getTipo();
+						i++;
+						j++;
+						counter++;
+						if (col != -1)
+							acum++;
+					} while (counter != (dif - 1));
+					if (acum != 0) { return FALSE; }
+					else { return TRUE; }
+				}
+				else { return TRUE; }
+			}
+			else if (pos2.x < pos1.x) {
+				int acum = 0;
+				int counter = 0;
+				int i = (pos1.x - 1);
+				int j = (pos1.y + 1);
+				if (dif > 1) {
+					do {
+						int col = TableroGL::m_tablero->getCas()[i][j].getPieza()->getTipo();
+						i--;
+						j++;
+						counter++;
+						if (col != -1)
+							acum++;
+					} while (counter != (dif - 1));
+					if (acum != 0) { return FALSE; }
+					else { return TRUE; }
+				}
+				else { return TRUE; }
+			}
+		}
+		else if (pos2.y < pos1.y) {
+
+			if (pos2.x > pos1.x) {
+				int acum = 0;
+				int counter = 0;
+				int i = (pos1.x + 1);
+				int j = (pos1.y - 1);
+				if (dif > 1) {
+					do {
+						int col = TableroGL::m_tablero->getCas()[i][j].getPieza()->getTipo();
+						i++;
+						j--;
+						counter++;
+						if (col != -1)
+							acum++;
+					} while (counter != (dif - 1));
+					if (acum != 0) { return FALSE; }
+					else { return TRUE; }
+				}
+				else { return TRUE; }
+			}
+			else if (pos2.x < pos1.x) {
+				int acum = 0;
+				int counter = 0;
+				int i = (pos1.x - 1);
+				int j = (pos1.y - 1);
+				if (dif > 1) {
+					do {
+						int col = TableroGL::m_tablero->getCas()[i][j].getPieza()->getTipo();
+						i--;
+						j--;
+						counter++;
+						if (col != -1)
+							acum++;
+					} while (counter != (dif - 1));
+					if (acum != 0) { return FALSE; }
+					else { return TRUE; }
+				}
+				else { return TRUE; }
+			}
+			else { return FALSE; }
+		}
+	}
+}

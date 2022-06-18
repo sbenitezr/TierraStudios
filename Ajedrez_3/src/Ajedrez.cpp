@@ -7,7 +7,8 @@ using namespace std;
 #define GRID_SIZE	8
 
 Tablero tab(GRID_SIZE);
-TableroGL escenario(&tab);
+static TableroGL escenario = &tab;
+Tablero* TableroGL::m_tablero = &tab;
 
 //los callback necesarios
 void OnDraw(void);

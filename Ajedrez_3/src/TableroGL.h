@@ -19,7 +19,7 @@ private:
 protected:
 	float ancho;
 	int N; //Tamanio
-	Tablero* m_tablero;
+	static Tablero* m_tablero;
 
 	double centro_x, centro_y, centro_z;
 	double dist;
@@ -41,7 +41,8 @@ protected:
 	enum Modo { INICIO, JUGAR, FINAL,PAUSA };
 
 public:
-
+	friend class Alfil;
+	friend class Torre;
 	TableroGL(Tablero* t);
 
 	Modo modo;
@@ -74,7 +75,6 @@ public:
 		cas_x = (int)(abs(y / ancho));
 		cas_y = (int)(abs(x / ancho));
 	}
-	
 };
 
 #endif

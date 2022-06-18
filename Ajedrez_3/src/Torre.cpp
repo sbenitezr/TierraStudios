@@ -24,3 +24,55 @@ void Torre::draw()
 	}
 
 }
+
+bool Torre::mover(Vector pos1, Vector pos2, int color, int color2) {
+	if ((abs(pos2.x - pos1.x) != 0) && abs(pos2.y - pos1.y) != 0)
+		return FALSE;
+	else {
+		if (pos1.y == pos2.y) {
+			if (pos2.x > pos1.x) {
+				int acum = 0;
+				for (int i = (pos1.x + 1); i < pos2.x; i++) {
+					int col = TableroGL::m_tablero->getCas()[i][pos1.y].getPieza()->getTipo();
+					if (col != -1)
+						acum++;
+				}
+				if (acum != 0) { return FALSE; }
+				else { return TRUE; }
+			}
+			else if (pos2.x < pos1.x) {
+				int acum = 0;
+				for (int i = (pos1.x - 1); i > pos2.x; i--) {
+					int col = TableroGL::m_tablero->getCas()[i][pos1.y].getPieza()->getTipo();
+					if (col != -1)
+						acum++;
+				}
+				if (acum != 0) { return FALSE; }
+				else { return TRUE; }
+			}
+		}
+		else if (pos1.x == pos2.x) {
+			int acum = 0;
+			if (pos2.y > pos1.y) {
+				for (int i = (pos1.y + 1); i < pos2.y; i++) {
+					int col = TableroGL::m_tablero->getCas()[pos1.x][i].getPieza()->getTipo();
+					if (col != -1)
+						acum++;
+				}
+				if (acum != 0) { return FALSE; }
+				else { return TRUE; }
+			}
+			else if (pos2.y < pos1.y) {
+				for (int i = (pos1.y - 1); i > pos2.y; i--) {
+					int col = TableroGL::m_tablero->getCas()[pos1.x][i].getPieza()->getTipo();
+					if (col != -1)
+						acum++;
+				}
+				if (acum != 0) { return FALSE; }
+				else { return TRUE; }
+			}
+			else { return FALSE; }
+		}
+		else { return FALSE; }
+	}
+}

@@ -23,3 +23,9 @@ void Rey::draw()
 		glEnable(GL_LIGHTING);
 	}
 }
+
+bool Rey::mover(Vector pos1, Vector pos2, int color, int color2) {
+	if (abs(pos2.x - pos1.x) > 1 || abs(pos2.y - pos1.y) > 1)
+		return FALSE;
+	else { return TRUE; }
+}

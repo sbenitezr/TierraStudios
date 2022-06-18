@@ -34,12 +34,7 @@ public:
 	color_p getColor() { if (nullptr) return NO_COLOR; else { return color; } }
 	Vector getPosicion() { return pos; }
 	
+	bool mover(Vector pos1, Vector pos2, int color, int color2);
 
-	//NO SE SI ESTA SOBRECARGA HARA FALTA EN TABLERO.CPP PARA ASIGNAR LA DIRECCION AL PUNTERO DE LA PIEZA. 
-	// 
-	//Pieza* operator=(Casilla** cas){		
-	//	Pieza* aux;
-	//	return aux;
-	//}
 };
 #endif

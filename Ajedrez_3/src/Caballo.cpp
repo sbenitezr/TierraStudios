@@ -23,3 +23,12 @@ void Caballo::draw()
 		glEnable(GL_LIGHTING);
 	}
 }
+
+bool Caballo::mover(Vector pos1, Vector pos2, int color, int color2) {
+	int dif = abs(pos2.x - pos1.x);
+	if ((dif > 2) || (dif < 1))
+		return FALSE;
+	else if ((dif == 1) && (abs(pos2.y - pos1.y) != 2) || (dif == 2) && (abs(pos2.y - pos1.y) != 1))
+		return FALSE;
+	else { return TRUE; }
+}

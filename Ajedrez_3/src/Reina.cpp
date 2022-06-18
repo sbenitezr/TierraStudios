@@ -23,3 +23,12 @@ void Reina::draw()
 		glEnable(GL_LIGHTING);
 	}
 }
+bool Reina::mover(Vector pos1, Vector pos2, int color, int color2) 
+{
+	if (Torre::mover(pos1,pos2,color,color2) == TRUE || Alfil::mover(pos1,pos2, color,color2) == TRUE)
+	{
+		return TRUE;
+	}
+	else
+		return FALSE;
+}
