@@ -12,6 +12,7 @@ public:
 	Rey(Vector p, color_p c) { pos = p; tipo = REY; color = c; }
 
 	void draw();
+    virtual bool mover(Vector pos1, Vector pos2, int color, int color2);
 };
 
 #endif 
