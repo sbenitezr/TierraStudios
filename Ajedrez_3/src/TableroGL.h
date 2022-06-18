@@ -36,6 +36,7 @@ protected:
 
 	bool seleccion = FALSE;
 	bool inicio = TRUE;
+	bool fin = FALSE;
 
 	enum Modo { INICIO, JUGAR, FINAL,PAUSA };
 
