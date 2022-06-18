@@ -14,11 +14,12 @@ void Alfil::draw()
 
 	if (color == color_p::NEGRO) {
 		glDisable(GL_LIGHTING);
-		glTranslatef(pos.y, -pos.x - 1, 0);
+		glTranslatef(pos.y+1, -pos.x, 0);
 		spritealfilN.setCenter(0, 0);
 		spritealfilN.setSize(1, 1);
+		spritealfilN.flip(true, true);
 		spritealfilN.draw();
-		glTranslatef(-pos.y, pos.x + 1, 0);
+		glTranslatef(-pos.y-1, pos.x, 0);
 		glEnable(GL_LIGHTING);
 	}
 

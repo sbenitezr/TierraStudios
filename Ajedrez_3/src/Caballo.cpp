@@ -14,11 +14,12 @@ void Caballo::draw()
 
 	if (color == color_p::NEGRO) {
 		glDisable(GL_LIGHTING);
-		glTranslatef(pos.y, -pos.x - 1, 0);
+		glTranslatef(pos.y+1, -pos.x, 0);
 		spritecaballoN.setCenter(0, 0);
 		spritecaballoN.setSize(1, 1);
+		spritecaballoN.flip(true, true);
 		spritecaballoN.draw();
-		glTranslatef(-pos.y, pos.x + 1, 0);
+		glTranslatef(-pos.y-1, pos.x, 0);
 		glEnable(GL_LIGHTING);
 	}
 }

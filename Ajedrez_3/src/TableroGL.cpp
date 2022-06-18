@@ -217,7 +217,8 @@ void TableroGL::draw() {
 			//Para definir el punto de vista
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-			gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, 1, 0);
+			if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, 1, 0); 
+			if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, -1, 0);
 			glEnable(GL_LIGHTING);
 
 			//PINTADO DE PIEZAS
@@ -280,13 +281,13 @@ void TableroGL::draw() {
 			//Pintado de Turnos
 			ETSIDI::setTextColor(255, 255, 255);
 			ETSIDI::setFont("fuentes/1up.ttf", 18);
-			if (m_tablero->turnos % 2 == 0) ETSIDI::printxy("TURNO NEGRAS ", 8, 0);
+			if (m_tablero->turnos % 2 == 0) ETSIDI::printxy("TURNO NEGRAS ", 0, -8);
 			if (m_tablero->turnos % 2 != 0) ETSIDI::printxy("TURNO BLANCAS ", 8, 0);
 
 			//Pintado de Jaque
 			ETSIDI::setTextColor(255, 255, 255);
 			ETSIDI::setFont("fuentes/1up.ttf", 10);
-			if (m_tablero->jaqueN() == 1) ETSIDI::printxy("JAQUE NEGRAS ", 3, 0);
+			if (m_tablero->jaqueN() == 1) ETSIDI::printxy("JAQUE NEGRAS ", 5, -8);
 			if (m_tablero->jaqueB() == 1) ETSIDI::printxy("JAQUE BLANCAS ", 3, 0);
 
 			glDisable(GL_TEXTURE_2D);
@@ -296,32 +297,63 @@ void TableroGL::draw() {
 
 	//PANTALLA DE SALIDA
 
-	else if (modo == FINAL) {
+	else if (modo == FINAL) 
+	{
 
-	centro_x = 0;
-	centro_y = 7.5;
-	centro_z = 0;
-	//Para definir el punto de vista
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
-	glClearColor(1, 1, 1, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo.png").id);
-	glDisable(GL_LIGHTING);
-	glBegin(GL_POLYGON);
-	glColor3f(1, 1, 1);
-	//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
-	//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
-	glTexCoord2d(0, 1); glVertex2f(10, 0);
-	glTexCoord2d(1, 1); glVertex2f(-10, 0);
-	glTexCoord2d(1, 0); glVertex2f(-10, 15);
-	glTexCoord2d(0, 0); glVertex2f(10, 15);
-	glEnd();
-	glEnable(GL_LIGHTING);
-	glDisable(GL_TEXTURE_2D);
-	ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
+	if (m_tablero->turnos % 2 == 0)  //GANAN NEGRAS
+	{
+		centro_x = 0;
+		centro_y = 7.5;
+		centro_z = 0;
+		//Para definir el punto de vista
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
+		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+		glTexCoord2d(0, 1); glVertex2f(10, 0);
+		glTexCoord2d(1, 1); glVertex2f(-10, 0);
+		glTexCoord2d(1, 0); glVertex2f(-10, 15);
+		glTexCoord2d(0, 0); glVertex2f(10, 15);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+		ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
+	}
+	else //GANAN BLANCAS
+	{
+		centro_x = 0;
+		centro_y = 7.5;
+		centro_z = 0;
+		//Para definir el punto de vista
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
+		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/gameover.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+		glTexCoord2d(0, 1); glVertex2f(10, 0);
+		glTexCoord2d(1, 1); glVertex2f(-10, 0);
+		glTexCoord2d(1, 0); glVertex2f(-10, 15);
+		glTexCoord2d(0, 0); glVertex2f(10, 15);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D);
+		ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
+	}
 
 	}
 	

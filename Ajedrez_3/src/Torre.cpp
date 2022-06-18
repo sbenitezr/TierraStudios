@@ -14,11 +14,12 @@ void Torre::draw()
 
 	if (color == color_p::NEGRO) {
 		glDisable(GL_LIGHTING);
-		glTranslatef(pos.y, -pos.x - 1, 0);
+		glTranslatef(pos.y+1, -pos.x, 0);
 		spritetorreN.setCenter(0, 0);
 		spritetorreN.setSize(1, 1);
+		spritetorreN.flip(true, true);
 		spritetorreN.draw();
-		glTranslatef(-pos.y, pos.x + 1, 0);
+		glTranslatef(-pos.y-1, pos.x, 0);
 		glEnable(GL_LIGHTING);
 	}
 
