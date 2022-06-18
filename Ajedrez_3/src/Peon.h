@@ -8,6 +8,17 @@ protected:
 	//Definicion de Sprite para mostrar la imagen de peon
 	SpriteSequence spritepeonN{ "imagenes/peon_negro.png", 1 };
 	SpriteSequence spritepeonB{ "imagenes/peon_blanco.png", 1 };
+
+	/*
+	//MODELO NUEVO
+	SpriteSequence spritepeonN{ "imagenes/peonNegro.png", 1 };
+	SpriteSequence spritepeonB{ "imagenes/peonBlanco.png", 1 };
+
+	//MODELO ETSIDI
+	SpriteSequence spritepeonN{ "imagenes/peonNegroETSIDI.png", 1 };
+	SpriteSequence spritepeonB{ "imagenes/peonBlancoETSIDI.png", 1 };
+	*/
+
 public:
 	Peon(Vector p, color_p c) { pos = p; tipo = PEON; color = c; }
 	Peon(Vector p) { pos = p; }

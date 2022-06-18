@@ -25,7 +25,6 @@ void Peon::draw()
 }
 
 bool Peon::mover(Vector pos1, Vector pos2, int color, int color2) {
-	cout << "mover peon" << endl;
 	if ((pos1.x == 1) || (pos1.x == 6)) {
 		if (color == Pieza::BLANCO) {
 			if ((color2 == Pieza::NO_COLOR) && ((pos2.y - pos1.y) == 0) && (((pos2.x - pos1.x) == -2) || (pos2.x - pos1.x) == -1))
