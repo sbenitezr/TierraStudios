@@ -472,40 +472,29 @@ if (down && (paridad == FALSE))
 			if ((m_tablero->movpeon(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) && (m_tablero->enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE)) {
 				if (color == Pieza::BLANCO)
 				{
-					if (m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo() == Pieza::REY) {
-						fin = 1;
-						cout << "El estado fin es:" << fin << endl;
-					}
 					m_tablero->getCas()[xorig][yorig].~Casilla();
 					m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
 					m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
-					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel - 5, ycas_sel), Pieza::BLANCO));
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel-5, ycas_sel), Pieza::BLANCO));
 					cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Peon Blanco" << endl;
-
-					if (m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo() == Pieza::REY) {
-						fin = 1;
-						cout << "El estado fin es:" << fin << endl;
-					}
-						
-
 					if (m_tablero->jaqueB() == TRUE) {
-						cout << "Estoy en jaque" << endl;
+						cout << "Blancas en jaque" << endl;
 					}
 					if (m_tablero->jaqueB() == FALSE) {
-						cout << "No estoy en jaque" << endl;
+						cout << "Blancas NO en jaque" << endl;
 					}
 					if (m_tablero->jaqueN() == TRUE) {
-						cout << "Estoy en jaque" << endl;
+						cout << "Negras en jaque" << endl;
 					}
 					if (m_tablero->jaqueN() == FALSE) {
-						cout << "No estoy en jaque" << endl;
+						cout << "Negras NO en jaque" << endl;
 					}
 					m_tablero->turnos++;
 				}
 				if (color == Pieza::NEGRO)
 				{
 					m_tablero->getCas()[xorig][yorig].~Casilla();
-					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xorig, yorig), Pieza::NEGRO));
+					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xorig - 5, yorig), Pieza::NEGRO));
 					cout << "Le toca mover al rival" << endl;
 				}
 			}
