@@ -10,9 +10,11 @@ Tablero tab(GRID_SIZE);
 static TableroGL escenario = &tab;
 Tablero* TableroGL::m_tablero = &tab;
 
+//los callback necesarios
 void OnDraw(void);
 void OnKeyboardDown(unsigned char key, int x, int y);
 void OnMouseClick(int button, int state, int x, int y);
+//void OnTimer(int value);
 
 int main(int argc, char* argv[])
 {
@@ -27,6 +29,7 @@ int main(int argc, char* argv[])
 	glutDisplayFunc(OnDraw);
 	glutKeyboardFunc(OnKeyboardDown);
 	glutMouseFunc(OnMouseClick);
+	//glutTimerFunc(25, OnTimer, 0);
 
 	//Inicializamos luz y perspectiva
 	escenario.init();
@@ -40,27 +43,38 @@ int main(int argc, char* argv[])
 void OnDraw(void)
 {
 	escenario.draw();
+	//no borrar esta linea ni poner nada despues
 	glutSwapBuffers();
 }
-
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
+	//Pilla del teclado (ya veremos si lo usamos)
 	escenario.tecla(key);
 
 	glutPostRedisplay();
 }
-
 void OnMouseClick(int b, int state, int x, int y)
 {
-	//Captura los clicks del raton le da el control a la escena del tablero
+	//Captura los clicks del raton
+	//le da el controla la escena del tablero
 	bool down = (state == GLUT_DOWN);
 	int button;
 	if (b == GLUT_LEFT_BUTTON) {
 		button = MOUSE_LEFT_BUTTON;
 	}
+
 	int specialKey = glutGetModifiers();
 	bool ctrlKey = (specialKey & GLUT_ACTIVE_CTRL) ? true : false;
 	bool sKey = specialKey & GLUT_ACTIVE_SHIFT;
+
+
 	escenario.MouseButton(x, y, b, down, sKey, ctrlKey);
 	glutPostRedisplay();
 }
+
+/*void OnTimer(int value)
+{
+	escenario.draw();
+	glutTimerFunc(25, OnTimer, 0);
+	glutPostRedisplay();
+}*/

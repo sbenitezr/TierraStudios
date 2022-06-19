@@ -8,6 +8,7 @@
 
 using namespace std;
 
+//Enumeraciones para no escribir sobre comandos de la glut
 enum { MOUSE_LEFT_BUTTON, MOUSE_RIGHT_BUTTON, MOUSE_MIDDLE_BUTTON };
 enum { KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT };
 
@@ -15,7 +16,6 @@ class TableroGL {
 private:
 	friend class Tablero;
 	friend class Casilla;
-
 protected:
 	float ancho;
 	int N; //Tamanio
@@ -26,11 +26,14 @@ protected:
 
 	//Seleccion de casilla con el raton
 	int xcas_sel, ycas_sel;
-	int xorig, yorig;		
+	int xorig, yorig;		//para guardar la casilla del primer click 
 
+	//int tipo;
 	bool controlKey;
 	bool shiftKey;
 	bool leftButton;
+
+
 	bool seleccion = FALSE;
 	bool inicio = TRUE;
 	bool fin = FALSE;
@@ -40,9 +43,11 @@ protected:
 public:
 	friend class Alfil;
 	friend class Torre;
+	friend class Reina;
 	TableroGL(Tablero* t);
 
 	Modo modo;
+	//virtual ~TableroGL() {}
 
 	//Inicializacion
 	void init();

@@ -10,7 +10,7 @@ class Casilla {
 private:
 	float ancho;
 	Vector posicion;
-	Pieza* pieza;
+	Pieza* pieza;				//nose si haria falta este atributo 
 	ColorCas color;
 public:
 	Casilla() : posicion(Vector(-1, -1)), ancho(1.0f) {}
@@ -19,6 +19,8 @@ public:
 	void setPos(Vector pos){ this->posicion = pos; }
 	Vector getPos() { return posicion; }
 	Pieza* getPieza() { return pieza; }
+	//Pieza* setPieza() {}
+
 	void setColor(int c) {
 		if (c == 0)color.setColor(1, 1, 1);
 		if (c == 1)color.setColor(222, 184, 135);
