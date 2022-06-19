@@ -200,7 +200,8 @@ void TableroGL::draw() {
 
 	else if (modo == JUGAR) 
 	{
-		if ((m_tablero->jaqueN() && m_tablero->turnos % 2 != 0) || (m_tablero->jaqueB() && m_tablero->turnos % 2 == 0))
+		//if ((m_tablero->jaqueN() && m_tablero->turnos % 2 != 0) || (m_tablero->jaqueB() && m_tablero->turnos % 2 == 0))
+		if((m_tablero->mateN()==TRUE)|| (m_tablero->mateB() == TRUE))
 		{
 			modo = FINAL;
 		}
@@ -300,59 +301,59 @@ void TableroGL::draw() {
 	else if (modo == FINAL) 
 	{
 
-	if (m_tablero->turnos % 2 == 0)  //GANAN NEGRAS
-	{
-		centro_x = 0;
-		centro_y = 7.5;
-		centro_z = 0;
-		//Para definir el punto de vista
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
-		glClearColor(1, 1, 1, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo.png").id);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
-		glColor3f(1, 1, 1);
-		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
-		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
-		glTexCoord2d(0, 1); glVertex2f(10, 0);
-		glTexCoord2d(1, 1); glVertex2f(-10, 0);
-		glTexCoord2d(1, 0); glVertex2f(-10, 15);
-		glTexCoord2d(0, 0); glVertex2f(10, 15);
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glDisable(GL_TEXTURE_2D);
-		ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
-	}
-	else //GANAN BLANCAS
-	{
-		centro_x = 0;
-		centro_y = 7.5;
-		centro_z = 0;
-		//Para definir el punto de vista
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
-		glClearColor(1, 1, 1, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/gameover.png").id);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
-		glColor3f(1, 1, 1);
-		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
-		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
-		glTexCoord2d(0, 1); glVertex2f(10, 0);
-		glTexCoord2d(1, 1); glVertex2f(-10, 0);
-		glTexCoord2d(1, 0); glVertex2f(-10, 15);
-		glTexCoord2d(0, 0); glVertex2f(10, 15);
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glDisable(GL_TEXTURE_2D);
-		ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
+		if ((m_tablero->mateB()==TRUE))  //GANAN NEGRAS
+		{
+			centro_x = 0;
+			centro_y = 7.5;
+			centro_z = 0;
+			//Para definir el punto de vista
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
+			glClearColor(1, 1, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/gameover.png").id);
+			glDisable(GL_LIGHTING);
+			glBegin(GL_POLYGON);
+			glColor3f(1, 1, 1);
+			//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+			//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+			glTexCoord2d(0, 1); glVertex2f(10, 0);
+			glTexCoord2d(1, 1); glVertex2f(-10, 0);
+			glTexCoord2d(1, 0); glVertex2f(-10, 15);
+			glTexCoord2d(0, 0); glVertex2f(10, 15);
+			glEnd();
+			glEnable(GL_LIGHTING);
+			glDisable(GL_TEXTURE_2D);
+			ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
+		}
+		else if((m_tablero->mateN() == TRUE))//GANAN BLANCAS
+		{
+			centro_x = 0;
+			centro_y = 7.5;
+			centro_z = 0;
+			//Para definir el punto de vista
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
+			glClearColor(1, 1, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/gameover.png").id);
+			glDisable(GL_LIGHTING);
+			glBegin(GL_POLYGON);
+			glColor3f(1, 1, 1);
+			//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+			//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+			glTexCoord2d(0, 1); glVertex2f(10, 0);
+			glTexCoord2d(1, 1); glVertex2f(-10, 0);
+			glTexCoord2d(1, 0); glVertex2f(-10, 15);
+			glTexCoord2d(0, 0); glVertex2f(10, 15);
+			glEnd();
+			glEnable(GL_LIGHTING);
+			glDisable(GL_TEXTURE_2D);
+			ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
 	}
 
 	}
