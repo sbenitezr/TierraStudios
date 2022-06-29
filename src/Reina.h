@@ -18,6 +18,11 @@ public:
 	bool mova(Vector pos1, Vector pos2, int color, int color2);
 	friend class Torre;
 	friend class Alfil;
+	virtual void coutPieza(int x, int y, color_p color, tipo_t tipo = REINA) {
+		//INCLUIR SONIDO DE REINA: ETSIDI::play("sonidos/la reina.wav");
+		if (color == 0) cout << "(" << x << "," << y << ")" << "Reina Blanca" << endl;
+		if (color == 1) cout << "(" << x << "," << y << ")" << "Reina Negra" << endl;
+	}
 };
 
 #endif 

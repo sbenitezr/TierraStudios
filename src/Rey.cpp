@@ -14,12 +14,12 @@ void Rey::draw()
 
 	if (color == color_p::NEGRO) {
 		glDisable(GL_LIGHTING);
-		glTranslatef(pos.y+1, -pos.x, 0);
+		glTranslatef(pos.y+1, pos.x, 0);
 		spritereyN.setCenter(0, 0);
 		spritereyN.setSize(1, 1);
 		spritereyN.flip(true, true);
 		spritereyN.draw();
-		glTranslatef(-pos.y-1, pos.x, 0);
+		glTranslatef(-pos.y-1, -pos.x, 0);
 		glEnable(GL_LIGHTING);
 	}
 }

@@ -24,16 +24,16 @@ protected:
 	double centro_x, centro_y, centro_z;
 	double dist;
 
-	//Seleccion de casilla con el raton
-	int xcas_sel, ycas_sel;
+	/*COORDENADAS*/
+	int xcas_sel, ycas_sel;		//Seleccion de casilla con el raton
 	int xorig, yorig;		//para guardar la casilla del primer click 
 
-	//int tipo;
+	/*BOTONES DEL TECLADO Y RATON*/
 	bool controlKey;
 	bool shiftKey;
 	bool leftButton;
 
-
+	/*VARIABLES NECESARIAS*/
 	bool seleccion = FALSE;
 	bool inicio = TRUE;
 	bool fin = FALSE;
@@ -41,30 +41,31 @@ protected:
 	enum Modo { INICIO, JUGAR, FINAL,PAUSA };
 
 public:
+	/*POR COMO FUNCIONAN LAS FUNCIONES DE MOVIMIENTO*/
 	friend class Alfil;
 	friend class Torre;
 	friend class Reina;
+
 	TableroGL(Tablero* t);
 
 	Modo modo;
-	//virtual ~TableroGL() {}
 
-	//Inicializacion
+	/*INICIALIZACION*/
 	void init();
 
-	//Gestor de eventos
+	/*GESTOR DE EBENTOS*/
 	void draw();
 	void drawMatriz();
 	void tecla(unsigned char key);
 
-	//void KeyDown(unsigned char key);
+
 	void MouseButton(int x, int y, int button, bool down, bool shiftKey, bool ctrlKey);
 	void selCasilla(Vector p);
 
 	void setTamanio(int tam) { N = tam; }
 	int getTamanio() { return N; }
 
-	//Coordinador
+	/*COORDINADOR*/
 	void casillaCentral(int cas_x, int cas_y, float& glx, float& gly) {
 		//¡OJO! cas_x, cas_y son las coordenadas de las casillas en el tablero, se pondra la superior izq como 0,0
 		//glx, gly son el centro de cada casilla respecto a las coordenadas del mundo
@@ -76,6 +77,7 @@ public:
 		cas_x = (int)(abs(y / ancho));
 		cas_y = (int)(abs(x / ancho));
 	}
+
 };
 
 #endif

@@ -21,10 +21,8 @@ protected:
 public:
 
 	Pieza() :pos(-1, -1), tipo(CASILLA_VACIA), color(NO_COLOR) {}
-	//~Pieza() {}
 
 	void setCas(Vector p) { this->pos = p; }
-	//void setCas(Vector p, color_p c) { this->pos = p; this->color = c; }
 
 	void getNumCas(Vector& p) { p = this->pos; }
 
@@ -36,5 +34,6 @@ public:
 	
 	virtual bool mover(Vector pos1, Vector pos2, int color, int color2) = 0;
 
+	virtual void coutPieza(int x, int y, color_p color, tipo_t tipo) = 0;
 };
 #endif

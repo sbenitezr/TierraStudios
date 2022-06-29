@@ -14,12 +14,12 @@ void Reina::draw()
 
 	if (color == color_p::NEGRO) {
 		glDisable(GL_LIGHTING);
-		glTranslatef(pos.y+1, -pos.x, 0);
+		glTranslatef(pos.y+1, pos.x, 0);
 		spritereinaN.setCenter(0, 0);
 		spritereinaN.setSize(1, 1);
 		spritereinaN.flip(true, true);
 		spritereinaN.draw();
-		glTranslatef(-pos.y-1, pos.x, 0);
+		glTranslatef(-pos.y-1, -pos.x, 0);
 		glEnable(GL_LIGHTING);
 	}
 }

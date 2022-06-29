@@ -23,13 +23,7 @@ protected:
 public:
 	friend class Alfil;
 	Tablero(int n);
-	~Tablero() {
-		/*for (int i = 0; i < N; i++)
-		{
-			delete[] cas[i];
-		}
-		delete[] cas;*/
-	}
+	~Tablero() {}
 	void tableroInicio();
 	int getTamanio() { return N; }
 	Pieza* getPieza(){return pieza;}
