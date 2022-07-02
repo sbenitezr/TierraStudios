@@ -196,6 +196,11 @@ void TableroGL::draw() {
 
 	else if (modo == JUGAR) 
 	{
+		if ((m_tablero->mate(paridad) == TRUE))
+		{
+			modo = FINAL;
+		}
+		else{
 			centro_x = N * ancho / 2;
 			centro_y = -N * ancho / 2;
 			centro_z = 0;
@@ -207,8 +212,8 @@ void TableroGL::draw() {
 			//Para definir el punto de vista
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-			if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, 1, 0); 
-			if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, -1, 0);
+			if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0); 
+			if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, -1, 0);
 			glEnable(GL_LIGHTING);
 
 			//PINTADO DE PIEZAS
@@ -281,7 +286,7 @@ void TableroGL::draw() {
 			if (m_tablero->jaque(paridad) == 1 && paridad == 0) ETSIDI::printxy("JAQUE BLANCAS ", 3, 0);
 
 			glDisable(GL_TEXTURE_2D);
-		//}
+		}
 		
 	}
 

@@ -15,7 +15,7 @@ void Casilla::draw() {
 }
 void Casilla::creaPieza(int x, int y, int type, Pieza::color_p color) {
 	if (type == -1) { setPieza(new NoPieza(Vector(x, y))); }
-	if (type == 0) { setPieza(new Peon(Vector(x + 2, y), color)); }
+	if (type == 0) { setPieza(new Peon(Vector(x, y), color)); }
 	if (type == 1) { setPieza(new Caballo(Vector(x, y), color)); }
 	if (type == 2) { setPieza(new Torre(Vector(x, y), color)); }
 	if (type == 3) { setPieza(new Alfil(Vector(x, y), color)); }

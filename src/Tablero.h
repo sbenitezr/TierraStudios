@@ -31,5 +31,6 @@ public:
 	friend class TableroGL;
 	bool enable(int x1, int x2, int y1, int y2, int color, int color2);
 	bool jaque(int col);
+	bool mate(int col);
 };
 #endif

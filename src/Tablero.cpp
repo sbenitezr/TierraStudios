@@ -80,3 +80,57 @@ bool Tablero::enable(int x1, int x2, int y1, int y2, int color, int color2) {
 	else if (color == color2) { return FALSE; }
 	else { return TRUE; }
 }
+
+bool Tablero::mate(int col) {
+	
+	if (jaque(col) == TRUE) {
+		int valido = 0;
+		int x2 = -2, y2 = -2, x = -2, y = -2, tipo2 = -2, tipo = -2, color = -2, color2 = -2;
+		for (int i1 = 0; i1 < 8; i1++) {
+			for (int j1 = 0; j1 < 8; j1++) {
+				color = getCas()[i1][j1].getPieza()->getColor();
+				tipo = getCas()[i1][j1].getPieza()->getTipo();
+
+				if (color == col) {
+					x = i1;
+					y = j1;
+
+					for (int i2 = 0; i2 < 8; i2++) {
+						for (int j2 = 0; j2 < 8; j2++) {
+							color2 = getCas()[i2][j2].getPieza()->getColor();
+							if (color2 == Pieza::NO_COLOR || color2 != col) {
+
+								if ((getCas()[x][y].getPieza()->mover(Vector(x, y), Vector(i2, j2), color, color2) == TRUE)) {
+									int tipoPieza = getCas()[i2][j2].getPieza()->getTipo();
+									Pieza::color_p color = getCas()[x][y].getPieza()->getColor();
+									Pieza::color_p color2 = getCas()[i2][j2].getPieza()->getColor();
+
+
+									getCas()[x][y].~Casilla();
+									getCas()[x][y].creaPieza(x, y, -1, Pieza::NO_COLOR);
+									getCas()[i2][j2].~Casilla();
+									getCas()[i2][j2].creaPieza(i2, j2, tipo, color);
+
+									if (jaque(col) == FALSE) {
+										cout << "Puedes mover el rey" << endl;
+										valido++;
+									}
+									getCas()[i2][j2].~Casilla();
+									if (col == 0) { getCas()[i2][j2].creaPieza(i2, j2, tipoPieza, color2); }
+									if (col == 1) { getCas()[i2][j2].creaPieza(-i2 - 3, j2, tipoPieza, color2); }
+									getCas()[x][y].~Casilla();
+									if (col == 0) { getCas()[x][y].creaPieza(x, y, tipo, color); }
+									if (col == 1) { getCas()[x][y].creaPieza(-x, y, tipo, color); }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		cout << "El numero de movimientos posile es:" << valido << endl;
+		if (valido <= 0) { return TRUE; }
+		else { return FALSE; }
+	}
+	else { return FALSE; }
+}
