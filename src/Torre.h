@@ -9,10 +9,14 @@ protected:
 	//Definicion de Sprite
 	SpriteSequence spritetorreB{ "imagenes/torre_blanco.png", 1 };
 	SpriteSequence spritetorreN{ "imagenes/torre_negro.png", 1 };
+
+	//Definicion de Sprite Torre Universidad
+	SpriteSequence spritetorreBU{ "imagenes/torreBlanco.png", 1 };
+	SpriteSequence spritetorreNU{ "imagenes/torreNegro.png", 1 };
 public:
 	Torre(Vector p, color_p c) { pos = p; tipo = TORRE; color = c; }
 
-	void draw();
+	void draw(int x);
 	virtual bool mover(Vector pos1, Vector pos2, int color, int color2);
 	friend class Tablero;
 	virtual void coutPieza(int x, int y, color_p color, tipo_t tipo = TORRE) {

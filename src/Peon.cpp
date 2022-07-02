@@ -1,26 +1,53 @@
 #include "Peon.h"
 
-void Peon::draw()
+void Peon::draw(int x)
 {
-	if (color == color_p::BLANCO) {
-		glDisable(GL_LIGHTING);
-		glTranslatef(pos.y, -pos.x - 6, 0);
-		spritepeonB.setCenter(0, 0);
-		spritepeonB.setSize(1, 1);
-		spritepeonB.draw();
-		glTranslatef(-pos.y, pos.x + 6, 0);
-		glEnable(GL_LIGHTING);
+	//PINTADO DE PEON CLASICO
+	if (x == 1) {
+		if (color == color_p::BLANCO) {
+			glDisable(GL_LIGHTING);
+			glTranslatef(pos.y, -pos.x - 6, 0);
+			spritepeonB.setCenter(0, 0);
+			spritepeonB.setSize(1, 1);
+			spritepeonB.draw();
+			glTranslatef(-pos.y, pos.x + 6, 0);
+			glEnable(GL_LIGHTING);
+		}
+
+		if (color == color_p::NEGRO) {
+			glDisable(GL_LIGHTING);
+			glTranslatef(pos.y + 1, pos.x - 2, 0);
+			spritepeonN.setCenter(0, 0);
+			spritepeonN.setSize(1, 1);
+			spritepeonN.flip(true, true);
+			spritepeonN.draw();
+			glTranslatef(-pos.y - 1, -pos.x + 2, 0);
+			glEnable(GL_LIGHTING);
+		}
 	}
 
-	if (color == color_p::NEGRO) {
-		glDisable(GL_LIGHTING);
-		glTranslatef(pos.y + 1, pos.x - 2, 0);
-		spritepeonN.setCenter(0, 0);
-		spritepeonN.setSize(1, 1);
-		spritepeonN.flip(true, true);
-		spritepeonN.draw();
-		glTranslatef(-pos.y - 1, -pos.x + 2, 0);
-		glEnable(GL_LIGHTING);
+	//PINTADO DE PEON TEMATICO
+	if (x == 2) {
+		if (color == color_p::BLANCO) {
+			glDisable(GL_LIGHTING);
+			glTranslatef(pos.y, -pos.x - 6, 0);
+			spritepeonBU.setCenter(0, 0);
+			spritepeonBU.setSize(1, 1);
+			spritepeonBU.draw();
+			glTranslatef(-pos.y, pos.x + 6, 0);
+			glEnable(GL_LIGHTING);
+		}
+
+		if (color == color_p::NEGRO) {
+			glDisable(GL_LIGHTING);
+			glTranslatef(pos.y + 1, pos.x - 2, 0);
+			spritepeonNU.setCenter(0, 0);
+			spritepeonNU.setSize(1, 1);
+			spritepeonNU.flip(true, true);
+			spritepeonNU.draw();
+			glTranslatef(-pos.y - 1, -pos.x + 2, 0);
+			glEnable(GL_LIGHTING);
+		}
 	}
 }
 

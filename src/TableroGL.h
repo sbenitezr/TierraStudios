@@ -39,7 +39,7 @@ protected:
 	bool fin = FALSE;
 	bool paridad = FALSE;
 
-	enum Modo { INICIO, JUGAR, FINAL,PAUSA };
+	enum Modo { INICIO, JUGAR1, JUGAR2, PAUSA, JAQUE };
 
 public:
 	/*POR COMO FUNCIONAN LAS FUNCIONES DE MOVIMIENTO*/

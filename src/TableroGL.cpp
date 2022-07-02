@@ -30,119 +30,154 @@ void TableroGL::init() {
 void TableroGL::tecla(unsigned char key)
 {
 	//PANTALLA DE INICIO
-	if (modo == INICIO) 
+	if (modo == INICIO)
 	{
-		if (key == 'j' || key == 'J')
+		if (key == '1')
 		{
-			modo = JUGAR;
+			modo = JUGAR1;
 			ETSIDI::play("sonidos/mola mucho este modo de juego.wav");
 		}
-		if (key == 's' || key == 'S') 
+
+		if (key == '2')
 		{
-			modo = FINAL;
+			modo = JUGAR2;
+			ETSIDI::play("sonidos/mola mucho este modo de juego.wav");
+		}
+
+		if (key == 's' || key == 'S')
+		{
+			exit(0);
 		}
 	}
 
-	//PANTALLA DE JUGAR
-	if (modo == JUGAR) 
+	//PANTALLA DE JUGAR1
+	if (modo == JUGAR1)
 	{
 		ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
-		if (key == 'p' || key == 'P') 
+		if (key == 'p' || key == 'P')
 		{
 			modo = PAUSA;
 			ETSIDI::stopMusica();
 		}
+		if (modo == PAUSA)
+		{
+			ETSIDI::stopMusica();
+
+			centro_x = 0;
+			centro_y = 7.5;
+			centro_z = 0;
+
+			//Para definir el punto de vista
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
+			glClearColor(1, 1, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/pausa.png").id);
+			glDisable(GL_LIGHTING);
+			glBegin(GL_POLYGON);
+			glColor3f(1, 1, 1);
+
+			//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+			//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+			glTexCoord2d(0, 1); glVertex2f(10, 0);
+			glTexCoord2d(1, 1); glVertex2f(-10, 0);
+			glTexCoord2d(1, 0); glVertex2f(-10, 15);
+			glTexCoord2d(0, 0); glVertex2f(10, 15);
+			glEnd();
+			glEnable(GL_LIGHTING);
+			glDisable(GL_TEXTURE_2D);
+
+			//Coordinador de las ventanas
+			if (key == 'j' || key == 'J') {
+				modo = JUGAR1;
+				ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
+			}
+			if (key == 'r' || key == 'R') {
+				m_tablero->tableroInicio();
+				m_tablero->turnos = 1;
+				modo = INICIO;
+				ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
+			}
+			if (key == 'S' || key == 's')
+				exit(0);
+		}
 	}
 
-	//PANTALLA DE PAUSA
-	if (modo == PAUSA) 
+	//PANTALLA DE JUGAR2
+	if (modo == JUGAR2)
+	{
+		ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
+		if (key == 'p' || key == 'P')
+		{
+			modo = PAUSA;
+			ETSIDI::stopMusica();
+		}
+		if (modo == PAUSA)
+		{
+			ETSIDI::stopMusica();
+
+			centro_x = 0;
+			centro_y = 7.5;
+			centro_z = 0;
+
+			//Para definir el punto de vista
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
+			glClearColor(1, 1, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/pausa.png").id);
+			glDisable(GL_LIGHTING);
+			glBegin(GL_POLYGON);
+			glColor3f(1, 1, 1);
+
+			//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+			//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+			glTexCoord2d(0, 1); glVertex2f(10, 0);
+			glTexCoord2d(1, 1); glVertex2f(-10, 0);
+			glTexCoord2d(1, 0); glVertex2f(-10, 15);
+			glTexCoord2d(0, 0); glVertex2f(10, 15);
+			glEnd();
+			glEnable(GL_LIGHTING);
+			glDisable(GL_TEXTURE_2D);
+
+			//Coordinador de las ventanas
+			if (key == 'j' || key == 'J') {
+				modo = JUGAR2;
+				ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
+			}
+			if (key == 'r' || key == 'R') {
+				m_tablero->tableroInicio();
+				m_tablero->turnos = 1;
+				modo = INICIO;
+				ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
+			}
+			if (key == 's' || key == 'S')
+				exit(0);
+		}
+	}
+
+	//PANTALLA JAQUE MATE
+	if (modo == JAQUE)
 	{
 		ETSIDI::stopMusica();
 
-		centro_x = 0;
-		centro_y = 7.5;
-		centro_z = 0;
-
-		//Para definir el punto de vista
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
-		glClearColor(1, 1, 1, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/pausa.png").id);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
-		glColor3f(1, 1, 1);
-
-		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
-		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
-		glTexCoord2d(0, 1); glVertex2f(10, 0);
-		glTexCoord2d(1, 1); glVertex2f(-10, 0);
-		glTexCoord2d(1, 0); glVertex2f(-10, 15);
-		glTexCoord2d(0, 0); glVertex2f(10, 15);
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glDisable(GL_TEXTURE_2D);
-
-		//Coordinador de las ventanas
-		if (key == 'j' || key == 'J') {
-			modo = JUGAR;
-			ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
-		}
-		if (key == 'r' || key == 'R') {
+		if (key == 'r' || key == 'R')
+		{
 			m_tablero->tableroInicio();
 			m_tablero->turnos = 1;
-			modo = JUGAR;
-			ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
-		}
-		if (key == 'e' || key == 'E')
-			exit(0);
-	}
-
-	//PANTALLA FINAL
-	if (modo == FINAL) 
-	{
-		centro_x = 0;
-		centro_y = 7.5;
-		centro_z = 0;
-
-		//Para definir el punto de vista
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
-		glClearColor(1, 1, 1, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/finalP.png").id);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
-		glColor3f(1, 1, 1);
-
-		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
-		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
-		glTexCoord2d(0, 1); glVertex2f(10, 0);
-		glTexCoord2d(1, 1); glVertex2f(-10, 0);
-		glTexCoord2d(1, 0); glVertex2f(-10, 15);
-		glTexCoord2d(0, 0); glVertex2f(10, 15);
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glDisable(GL_TEXTURE_2D);
-
-		ETSIDI::stopMusica();
-
-
-		if (key == 'j' || key == 'J') {
-			m_tablero->tableroInicio();
-			m_tablero->turnos = 1;
-			modo = JUGAR;
+			modo = INICIO;
 			ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
 		}
 
-		if (key == 'e' || key == 'E') {
+		if (key == 's' || key == 'S') {
 			exit(0);
 		}
 	}
+
 }
 
 void TableroGL::drawMatriz() {
@@ -161,10 +196,9 @@ void TableroGL::drawMatriz() {
 }
 
 void TableroGL::draw() {
-	
-	// PANTALLA DE INICIO
 
-	if (modo == INICIO) 
+	// PANTALLA DE INICIO
+	if (modo == INICIO)
 	{
 		centro_x = 0;
 		centro_y = 7.5;
@@ -176,7 +210,7 @@ void TableroGL::draw() {
 		glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo.png").id);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/Principal.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3f(1, 1, 1);
@@ -192,166 +226,249 @@ void TableroGL::draw() {
 		ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
 	}
 
-	//PANTALLA DE JUEGO
-
-	else if (modo == JUGAR) 
+	//PANTALLA DE JUEGO1
+	else if (modo == JUGAR1)
 	{
-		if ((m_tablero->mate(paridad) == TRUE))
-		{
-			modo = FINAL;
-		}
-		else{
-			centro_x = N * ancho / 2;
-			centro_y = -N * ancho / 2;
-			centro_z = 0;
+		centro_x = N * ancho / 2;
+		centro_y = -N * ancho / 2;
+		centro_z = 0;
 
-			//Borrado de la pantalla	
-			glClearColor(1, 1, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//Borrado de la pantalla	
+		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//Para definir el punto de vista
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, 1, 0);
+		if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, -1, 0);
+		glEnable(GL_LIGHTING);
+
+		//PINTADO DE PIEZAS
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				m_tablero->getCas()[i][j].getPieza()->draw(1);
+			}
+		}
+
+		//Pinta el tablero (casillas)
+		drawMatriz();
+		if (inicio == TRUE)
+		{
+
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					glTranslatef(i, -j, 0);
+					if (i % 2 == 0 && j % 2 == 0)
+					{
+						m_tablero->getCas()[i][j].setColor(0);
+						m_tablero->getCas()[i][j].draw();
+					}
+					if (i % 2 != 0 && j % 2 != 0)
+					{
+						m_tablero->getCas()[i][j].setColor(0);
+						m_tablero->getCas()[i][j].draw();
+					}
+					else {
+						m_tablero->getCas()[i][j].setColor(1);
+						m_tablero->getCas()[i][j].draw();
+					}
+					glTranslatef(-i, j, 0);
+				}
+			}
+		}
+
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero1.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+			//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+		glTexCoord2d(0, 1); glVertex2f(N * ancho + 4, -N * ancho - 4);
+		glTexCoord2d(1, 1); glVertex2f(N * ancho + 4, 4);
+		glTexCoord2d(1, 0); glVertex2f(-4, 4);
+		glTexCoord2d(0, 0); glVertex2f(-4, -N * ancho - 4);
+		glEnd();
+
+		//Dibuja un rectangulo transparente sobre el tablero para capturar el raton con gluUnProject
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		GLTools::Color(gltools::WHITE, 1.0f);
+		glTranslatef(centro_x, centro_y, centro_z);
+		glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
+		glTranslatef(-centro_x, -centro_y, -centro_z);
+		glEnable(GL_LIGHTING);
+
+		//Pintado de Turnos
+		ETSIDI::setTextColor(255, 255, 255);
+		ETSIDI::setFont("fuentes/1up.ttf", 18);
+		if (m_tablero->turnos % 2 == 0) ETSIDI::printxy("TURNO NEGRAS ", 0, -8);
+		if (m_tablero->turnos % 2 != 0) ETSIDI::printxy("TURNO BLANCAS ", 8, 0);
+
+		//Pintado de Jaque
+		ETSIDI::setTextColor(255, 255, 255);
+		ETSIDI::setFont("fuentes/1up.ttf", 10);
+		if (m_tablero->jaque(paridad) == 1 && paridad == 1) ETSIDI::printxy("JAQUE NEGRAS ", 5, -8);
+		if (m_tablero->jaque(paridad) == 1 && paridad == 0) ETSIDI::printxy("JAQUE BLANCAS ", 3, 0);
+
+		glDisable(GL_TEXTURE_2D);
+	}
+
+	//PANTALLA DE JUEGO2
+	else if (modo == JUGAR2)
+	{
+		centro_x = N * ancho / 2;
+		centro_y = -N * ancho / 2;
+		centro_z = 0;
+
+		//Borrado de la pantalla	
+		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//Para definir el punto de vista
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, 1, 0);
+		if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, -1, 0);
+		glEnable(GL_LIGHTING);
+
+		//PINTADO DE PIEZAS
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				m_tablero->getCas()[i][j].getPieza()->draw(2);
+			}
+		}
+
+		//Pinta el tablero (casillas)
+		drawMatriz();
+		if (inicio == TRUE)
+		{
+
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					glTranslatef(i, -j, 0);
+					if (i % 2 == 0 && j % 2 == 0)
+					{
+						m_tablero->getCas()[i][j].setColor(0);
+						m_tablero->getCas()[i][j].draw();
+					}
+					if (i % 2 != 0 && j % 2 != 0)
+					{
+						m_tablero->getCas()[i][j].setColor(0);
+						m_tablero->getCas()[i][j].draw();
+					}
+					else {
+						m_tablero->getCas()[i][j].setColor(1);
+						m_tablero->getCas()[i][j].draw();
+					}
+					glTranslatef(-i, j, 0);
+				}
+			}
+		}
+
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero2.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+
+		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+			//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+		glTexCoord2d(0, 1); glVertex2f(N * ancho + 4, -N * ancho - 4);
+		glTexCoord2d(1, 1); glVertex2f(N * ancho + 4, 4);
+		glTexCoord2d(1, 0); glVertex2f(-4, 4);
+		glTexCoord2d(0, 0); glVertex2f(-4, -N * ancho - 4);
+		glEnd();
+
+		//Dibuja un rectangulo transparente sobre el tablero para capturar el raton con gluUnProject
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		GLTools::Color(gltools::WHITE, 1.0f);
+		glTranslatef(centro_x, centro_y, centro_z);
+		glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
+		glTranslatef(-centro_x, -centro_y, -centro_z);
+		glEnable(GL_LIGHTING);
+
+		//Pintado de Turnos
+		ETSIDI::setTextColor(255, 255, 255);
+		ETSIDI::setFont("fuentes/1up.ttf", 18);
+		if (m_tablero->turnos % 2 == 0) ETSIDI::printxy("TURNO NEGRAS ", 0, -8);
+		if (m_tablero->turnos % 2 != 0) ETSIDI::printxy("TURNO BLANCAS ", 8, 0);
+
+		//Pintado de Jaque
+		ETSIDI::setTextColor(255, 255, 255);
+		ETSIDI::setFont("fuentes/1up.ttf", 10);
+		if (m_tablero->jaque(paridad) == 1 && paridad == 1) ETSIDI::printxy("JAQUE NEGRAS ", 5, -8);
+		if (m_tablero->jaque(paridad) == 1 && paridad == 0) ETSIDI::printxy("JAQUE BLANCAS ", 3, 0);
+
+		glDisable(GL_TEXTURE_2D);
+	}
+
+	//PANTALLA DE FINAL DE PARTIDA
+	else if (modo == JAQUE)
+	{
+		if (m_tablero->turnos % 2 == 0)  //GANAN NEGRAS
+		{
+			centro_x = 0;
+			centro_y = 7.5;
+			centro_z = 0;
 
 			//Para definir el punto de vista
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-			if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0); 
-			if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, -1, 0);
-			glEnable(GL_LIGHTING);
-
-			//PINTADO DE PIEZAS
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					m_tablero->getCas()[i][j].getPieza()->draw();
-				}
-			}
-
-			//Pinta el tablero (casillas)
-			drawMatriz();
-			if (inicio == TRUE)
-			{
-
-				for (int i = 0; i < N; i++) {
-					for (int j = 0; j < N; j++) {
-						glTranslatef(i, -j, 0);
-						if (i % 2 == 0 && j % 2 == 0)
-						{
-							m_tablero->getCas()[i][j].setColor(0);
-							m_tablero->getCas()[i][j].draw();
-						}
-						if (i % 2 != 0 && j % 2 != 0)
-						{
-							m_tablero->getCas()[i][j].setColor(0);
-							m_tablero->getCas()[i][j].draw();
-						}
-						else {
-							m_tablero->getCas()[i][j].setColor(1);
-							m_tablero->getCas()[i][j].draw();
-						}
-						glTranslatef(-i, j, 0);
-					}
-				}
-			}
-
-
+			gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
+			glClearColor(1, 1, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glEnable(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero.png").id);
+			glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/jaqueNegras.png").id);
 			glDisable(GL_LIGHTING);
 			glBegin(GL_POLYGON);
 			glColor3f(1, 1, 1);
+
 			//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
-				//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
-			glTexCoord2d(0, 1); glVertex2f(N * ancho + 4, -N * ancho - 4);
-			glTexCoord2d(1, 1); glVertex2f(N * ancho + 4, 4);
-			glTexCoord2d(1, 0); glVertex2f(-4, 4);
-			glTexCoord2d(0, 0); glVertex2f(-4, -N * ancho - 4);
+			//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+			glTexCoord2d(0, 1); glVertex2f(10, 0);
+			glTexCoord2d(1, 1); glVertex2f(-10, 0);
+			glTexCoord2d(1, 0); glVertex2f(-10, 15);
+			glTexCoord2d(0, 0); glVertex2f(10, 15);
 			glEnd();
-			//Dibuja un rectangulo transparente sobre el tablero para capturar el raton
-			//con gluUnProject
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			GLTools::Color(gltools::WHITE, 1.0f);
-			glTranslatef(centro_x, centro_y, centro_z);
-			glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
-			glTranslatef(-centro_x, -centro_y, -centro_z);
 			glEnable(GL_LIGHTING);
-
-			//Pintado de Turnos
-			ETSIDI::setTextColor(255, 255, 255);
-			ETSIDI::setFont("fuentes/1up.ttf", 18);
-			if (m_tablero->turnos % 2 == 0) ETSIDI::printxy("TURNO NEGRAS ", 0, -8);
-			if (m_tablero->turnos % 2 != 0) ETSIDI::printxy("TURNO BLANCAS ", 8, 0);
-
-			//Pintado de Jaque
-			ETSIDI::setTextColor(255, 255, 255);
-			ETSIDI::setFont("fuentes/1up.ttf", 10);
-			if (m_tablero->jaque(paridad) == 1 && paridad == 1) ETSIDI::printxy("JAQUE NEGRAS ", 5, -8);
-			if (m_tablero->jaque(paridad) == 1 && paridad == 0) ETSIDI::printxy("JAQUE BLANCAS ", 3, 0);
-
 			glDisable(GL_TEXTURE_2D);
+			ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
 		}
-		
-	}
+		else //GANAN BLANCAS
+		{
+			centro_x = 0;
+			centro_y = 7.5;
+			centro_z = 0;
 
-	//PANTALLA DE SALIDA
+			//Para definir el punto de vista
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
+			glClearColor(1, 1, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/jaqueBlancas.png").id);
+			glDisable(GL_LIGHTING);
+			glBegin(GL_POLYGON);
+			glColor3f(1, 1, 1);
 
-	else if (modo == FINAL) 
-	{
-
-	if (m_tablero->turnos % 2 == 0)  //GANAN NEGRAS
-	{
-		centro_x = 0;
-		centro_y = 7.5;
-		centro_z = 0;
-		//Para definir el punto de vista
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
-		glClearColor(1, 1, 1, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/fondo.png").id);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
-		glColor3f(1, 1, 1);
-		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
-		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
-		glTexCoord2d(0, 1); glVertex2f(10, 0);
-		glTexCoord2d(1, 1); glVertex2f(-10, 0);
-		glTexCoord2d(1, 0); glVertex2f(-10, 15);
-		glTexCoord2d(0, 0); glVertex2f(10, 15);
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glDisable(GL_TEXTURE_2D);
-		ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
-	}
-	else //GANAN BLANCAS
-	{
-		centro_x = 0;
-		centro_y = 7.5;
-		centro_z = 0;
-		//Para definir el punto de vista
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0);
-		glClearColor(1, 1, 1, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/gameover.png").id);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
-		glColor3f(1, 1, 1);
-		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
-		//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
-		glTexCoord2d(0, 1); glVertex2f(10, 0);
-		glTexCoord2d(1, 1); glVertex2f(-10, 0);
-		glTexCoord2d(1, 0); glVertex2f(-10, 15);
-		glTexCoord2d(0, 0); glVertex2f(10, 15);
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glDisable(GL_TEXTURE_2D);
-		ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
-	}
+			//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+			//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
+			glTexCoord2d(0, 1); glVertex2f(10, 0);
+			glTexCoord2d(1, 1); glVertex2f(-10, 0);
+			glTexCoord2d(1, 0); glVertex2f(-10, 15);
+			glTexCoord2d(0, 0); glVertex2f(10, 15);
+			glEnd();
+			glEnable(GL_LIGHTING);
+			glDisable(GL_TEXTURE_2D);
+			ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
+		}
 
 	}
-	
+
 }
 
 void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool ctrlKey) {
