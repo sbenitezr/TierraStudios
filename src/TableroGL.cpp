@@ -196,12 +196,6 @@ void TableroGL::draw() {
 
 	else if (modo == JUGAR) 
 	{
-		//if (m_tablero->jaque(paridad))
-		/* {
-			modo = FINAL;
-		}*/
-		//else
-		//{
 			centro_x = N * ancho / 2;
 			centro_y = -N * ancho / 2;
 			centro_z = 0;
@@ -213,8 +207,8 @@ void TableroGL::draw() {
 			//Para definir el punto de vista
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-			if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, 1, 0); 
-			if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -20, centro_x, centro_y, centro_z, 0, -1, 0);
+			if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, 1, 0); 
+			if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, -1, 0);
 			glEnable(GL_LIGHTING);
 
 			//PINTADO DE PIEZAS
@@ -404,15 +398,19 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 		{
 		case FALSE:
 		{
-			cout << "Posicion Inicial" << endl;
+			if (m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor() == Pieza::BLANCO) {
+				cout << "Posicion Inicial" << endl;
 
-			xorig = xcas_sel;
-			yorig = ycas_sel;
+				xorig = xcas_sel;
+				yorig = ycas_sel;
 
-			m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->coutPieza(xcas_sel, ycas_sel,
-				m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor(), m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo());
-
-			seleccion = TRUE;
+				m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->coutPieza(xcas_sel, ycas_sel,
+					m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor(), m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo());
+				seleccion = TRUE;
+			}
+			if (m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor() == Pieza::NEGRO) {
+				cout << "NO ES TU TURNO, MONGOLO" << endl;
+			}
 			break;
 		}
 
@@ -433,33 +431,8 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 					m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
 					m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
 
-					m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(xcas_sel - 5, ycas_sel, 0,
-						m_tablero->getCas()[xorig][yorig].getPieza()->getColor());
-					/*
-					if (tipo == Pieza::PEON) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(xcas_sel - 5, ycas_sel), Pieza::BLANCO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Peon Blanco" << endl;
-					}
-					if (tipo == Pieza::REY) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Rey Blanco" << endl;
-					}
-					if (tipo == Pieza::ALFIL) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Alfil Blanco" << endl;
-					}
-					if (tipo == Pieza::CABALLO) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Caballo Blanco" << endl;
-					}
-					if (tipo == Pieza::TORRE) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Torre Blanca" << endl;
-					}
-					if (tipo == Pieza::REINA) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xcas_sel - 7, ycas_sel), Pieza::BLANCO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Reina Blanca" << endl;
-					}*/
+					m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(xcas_sel - 7, ycas_sel, tipo, Pieza::BLANCO);
+
 					if (m_tablero->jaque(color)) {
 						cout << "JAQUE NEGRO" << endl;
 					}
@@ -492,14 +465,19 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 		{
 		case FALSE:
 		{
-			cout << "Posicion Inicial" << endl;
+			if (m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor() == Pieza::NEGRO) {
+				cout << "Posicion Inicial" << endl;
 
-			xorig = xcas_sel;
-			yorig = ycas_sel;
+				xorig = xcas_sel;
+				yorig = ycas_sel;
 
-			m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->coutPieza(xcas_sel, ycas_sel,
-				m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor(), m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo());
-			seleccion = TRUE;
+				m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->coutPieza(xcas_sel, ycas_sel,
+					m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor(), m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo());
+				seleccion = TRUE;
+			}
+			if (m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor() == Pieza::BLANCO) {
+				cout << "NO ES TU TURNO, MONGOLO" << endl;
+			}
 
 			break;
 		}
@@ -520,45 +498,17 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 					m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
 					m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
 
-					if (tipo == Pieza::PEON) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Peon(Vector(-xcas_sel + 2, ycas_sel), Pieza::NEGRO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Peon Negro" << endl;
-					}
-					if (tipo == Pieza::REY) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Rey(Vector(-xcas_sel, ycas_sel), Pieza::NEGRO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Rey Negro" << endl;
-					}
-					if (tipo == Pieza::ALFIL) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Alfil(Vector(-xcas_sel, ycas_sel), Pieza::NEGRO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Alfil Negro" << endl;
-					}
-					if (tipo == Pieza::CABALLO) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Caballo(Vector(-xcas_sel, ycas_sel), Pieza::NEGRO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Caballo Negro" << endl;
-					}
-					if (tipo == Pieza::TORRE) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Torre(Vector(-xcas_sel, ycas_sel), Pieza::NEGRO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Torre Negro" << endl;
-					}
-					if (tipo == Pieza::REINA) {
-						m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(-xcas_sel, ycas_sel), Pieza::NEGRO));
-						cout << "(" << xcas_sel << "," << ycas_sel << ")" << "Reina Negro" << endl;
-					}
+					m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(-xcas_sel, ycas_sel, tipo, Pieza::NEGRO);
+
 					if (m_tablero->jaque(color) == TRUE) {
 						cout << "JAQUE BLANCO" << endl;
 					}
 					m_tablero->turnos++;
 				}
-				else if (color == Pieza::BLANCO)
-				{
-					m_tablero->getCas()[xorig][yorig].~Casilla();
-					m_tablero->getCas()[xcas_sel][ycas_sel].setPieza(new Reina(Vector(xorig, yorig), Pieza::BLANCO));
-					cout << "Le toca mover al rival" << endl;
-				}
 			}
 
 			//Pieza anterior a NoPieza
-			m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
+			m_tablero->getCas()[xorig][yorig].creaPieza(xorig, yorig, -1, Pieza::NO_COLOR);
 			xorig = 0;
 			yorig = 0;
 			break;
