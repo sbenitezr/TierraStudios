@@ -37,6 +37,7 @@ protected:
 	bool seleccion = FALSE;
 	bool inicio = TRUE;
 	bool fin = FALSE;
+	bool paridad = FALSE;
 
 	enum Modo { INICIO, JUGAR, FINAL,PAUSA };
 
@@ -60,7 +61,6 @@ public:
 
 
 	void MouseButton(int x, int y, int button, bool down, bool shiftKey, bool ctrlKey);
-	void selCasilla(Vector p);
 
 	void setTamanio(int tam) { N = tam; }
 	int getTamanio() { return N; }

@@ -14,6 +14,7 @@ class Pieza {
 public:
 	enum tipo_t { CASILLA_VACIA = -1, PEON, CABALLO, TORRE, ALFIL, REINA, REY };
 	enum color_p { NO_COLOR = -1, BLANCO, NEGRO };
+	
 protected:
 	Vector pos;
 	tipo_t tipo;
