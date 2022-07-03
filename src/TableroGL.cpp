@@ -210,8 +210,8 @@ void TableroGL::draw() {
 			//Para definir el punto de vista
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-			if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, 1, 0); 
-			if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, -1, 0);
+			if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -23, centro_x, centro_y, centro_z, 0, 1, 0); 
+			if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -23, centro_x, centro_y, centro_z, 0, -1, 0);
 			glEnable(GL_LIGHTING);
 
 			//PINTADO DE PIEZAS
@@ -424,6 +424,7 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 			int tipo2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo();
 			int color = m_tablero->getCas()[xorig][yorig].getPieza()->getColor();
 			int color2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
+			Pieza::color_p color3 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
 
 			if (m_tablero->getCas()[xorig][yorig].getPieza()->mover(Vector(xorig, yorig), Vector(xcas_sel, ycas_sel), color, color2) == TRUE 
 				&& m_tablero->enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) {
@@ -436,9 +437,9 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 					m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(xcas_sel - 7, ycas_sel, tipo, Pieza::BLANCO);
 
 					if (m_tablero->jaque(color)) {
-						cout << "JAQUE NEGRO" << endl;
+						cout << "JAQUE BLANCO" << endl;
 						m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
-						m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(xcas_sel - 7, ycas_sel, tipo2, Pieza::BLANCO);
+						m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(xcas_sel, ycas_sel, tipo2, color3);
 						m_tablero->getCas()[xorig][yorig].~Casilla();
 						m_tablero->getCas()[xorig][yorig].creaPieza(xorig - 7, yorig, tipo, Pieza::BLANCO);
 						break;
@@ -487,6 +488,7 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 			int tipo2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo();
 			int color = m_tablero->getCas()[xorig][yorig].getPieza()->getColor();
 			int color2 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
+			Pieza::color_p color3 = m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor();
 
 			if (m_tablero->getCas()[xorig][yorig].getPieza()->mover(Vector(xorig, yorig), Vector(xcas_sel, ycas_sel), color, color2) == TRUE
 				&& m_tablero->enable(xorig, xcas_sel, yorig, ycas_sel, color, color2) == TRUE) {
@@ -496,13 +498,12 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 					m_tablero->getCas()[xorig][yorig].~Casilla();
 					m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
 					m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
-
 					m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(-xcas_sel, ycas_sel, tipo, Pieza::NEGRO);
 
 					if (m_tablero->jaque(color) == TRUE) {
-						//cout << "JAQUE BLANCO" << endl;
+						cout << "JAQUE" << endl;
 						m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
-						m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(xcas_sel - 7, ycas_sel, tipo2, Pieza::BLANCO);
+						m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(xcas_sel - 7, ycas_sel, tipo2, color3);
 						m_tablero->getCas()[xorig][yorig].~Casilla();
 						m_tablero->getCas()[xorig][yorig].creaPieza(-xorig, yorig, tipo, Pieza::NEGRO);
 						break;

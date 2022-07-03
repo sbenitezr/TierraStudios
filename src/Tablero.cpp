@@ -100,7 +100,7 @@ bool Tablero::mate(int col) {
 					for (int i2 = 0; i2 < 8; i2++) {
 						for (int j2 = 0; j2 < 8; j2++) {
 							color2 = getCas()[i2][j2].getPieza()->getColor();
-							if (color2 != col && (getCas()[x][y].getPieza()->mover(Vector(x, y), Vector(i2, j2), color, color2) == TRUE)) {
+							if (color2 != col && (getCas()[x][y].getPieza()->mover(Vector(x, y), Vector(i2, j2), color, color2) == TRUE) && color2 > -2) {
 								int tipoPieza = getCas()[i2][j2].getPieza()->getTipo();
 								Pieza::color_p color = getCas()[x][y].getPieza()->getColor();
 								Pieza::color_p color2 = getCas()[i2][j2].getPieza()->getColor();
@@ -135,9 +135,10 @@ bool Tablero::mate(int col) {
 									else if (color == 1) { getCas()[x][y].creaPieza(-x, y, tipo, color); }
 									else if (color == -1) { getCas()[x][y].creaPieza(x, y, tipo, color); }
 								}
+								//////////////////////////////////////////////////////////
 								/*if (col == 0) {
 
-									if ((color == 0)) { getCas()[i2][j2].creaPieza(7-12, j2, tipo, color); }
+									if ((color == 0)) { getCas()[i2][j2].creaPieza(-i2+5, j2, tipo, color); }
 									else if (color == 1) { getCas()[i2][j2].creaPieza(i2, j2, tipo, color); }
 									else if (color == -1) { getCas()[i2][j2].creaPieza(i2, j2, tipo, color); }
 
@@ -149,14 +150,14 @@ bool Tablero::mate(int col) {
 									getCas()[i2][j2].~Casilla();
 
 									if (col == 1) {
-										if (color2 == 0) { getCas()[i2][j2].creaPieza(7-12, j2, tipoPieza, color2); }
+										if (color2 == 0) { getCas()[i2][j2].creaPieza(-i2+5, j2, tipoPieza, color2); }
 										else if (color == 1) { getCas()[i2][j2].creaPieza(i2, j2, tipoPieza, color2); }
 										else if (color == -1) { getCas()[i2][j2].creaPieza(i2, j2, tipoPieza, color2); }
 									}
 
 									getCas()[x][y].~Casilla();
 
-									if ((color == 0)) { getCas()[x][y].creaPieza(7-x, y, tipo, color); }
+									if ((color == 0)) { getCas()[x][y].creaPieza(-x+5, y, tipo, color); }
 									else if (color == 1) { getCas()[x][y].creaPieza(x, y, tipo, color); }
 									else if (color == -1) { getCas()[x][y].creaPieza(x, y, tipo, color); }
 								}*/
