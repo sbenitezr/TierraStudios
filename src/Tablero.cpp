@@ -98,9 +98,7 @@ bool Tablero::mate(int col) {
 					for (int i2 = 0; i2 < 8; i2++) {
 						for (int j2 = 0; j2 < 8; j2++) {
 							color2 = getCas()[i2][j2].getPieza()->getColor();
-							if (color2 == Pieza::NO_COLOR || color2 != col) {
-
-								if ((getCas()[x][y].getPieza()->mover(Vector(x, y), Vector(i2, j2), color, color2) == TRUE)) {
+							if (color2 != col && (getCas()[x][y].getPieza()->mover(Vector(x, y), Vector(i2, j2), color, color2) == TRUE)) {
 									int tipoPieza = getCas()[i2][j2].getPieza()->getTipo();
 									Pieza::color_p color = getCas()[x][y].getPieza()->getColor();
 									Pieza::color_p color2 = getCas()[i2][j2].getPieza()->getColor();
@@ -117,11 +115,10 @@ bool Tablero::mate(int col) {
 									}
 									getCas()[i2][j2].~Casilla();
 									if (col == 0) { getCas()[i2][j2].creaPieza(i2, j2, tipoPieza, color2); }
-									if (col == 1) { getCas()[i2][j2].creaPieza(-i2 - 3, j2, tipoPieza, color2); }
+									if (col == 1) { getCas()[i2][j2].creaPieza(-i2 - 4, j2, tipoPieza, color2); }
 									getCas()[x][y].~Casilla();
 									if (col == 0) { getCas()[x][y].creaPieza(x, y, tipo, color); }
 									if (col == 1) { getCas()[x][y].creaPieza(-x, y, tipo, color); }
-								}
 							}
 						}
 					}
