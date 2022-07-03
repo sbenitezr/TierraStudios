@@ -196,10 +196,8 @@ void TableroGL::draw() {
 
 	else if (modo == JUGAR) 
 	{
-		if ((m_tablero->mate(paridad) == TRUE))
-		{
-			modo = FINAL;
-		}
+		if ((m_tablero->mate(paridad) == TRUE)) { modo = FINAL; }
+		
 		else{
 			centro_x = N * ancho / 2;
 			centro_y = -N * ancho / 2;
@@ -287,7 +285,6 @@ void TableroGL::draw() {
 
 			glDisable(GL_TEXTURE_2D);
 		}
-		
 	}
 
 	//PANTALLA DE SALIDA

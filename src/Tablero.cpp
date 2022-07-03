@@ -53,7 +53,7 @@ bool Tablero::jaque(int col) {
 		for (int j2 = 0; j2 < 8; j2++) {
 			color2 = getCas()[i2][j2].getPieza()->getColor();
 			tipo2 = getCas()[i2][j2].getPieza()->getTipo();
-			if (color2 == col && tipo2 == Pieza::REY && col > -1) {
+			if (color2 == col && tipo2 == Pieza::REY && color2 > -1) {
 				x2 = i2;
 				y2 = j2;
 			}
@@ -64,7 +64,9 @@ bool Tablero::jaque(int col) {
 		for (int j = 0; j < 8; j++) {
 			color = getCas()[i][j].getPieza()->getColor();
 			tipo = getCas()[i][j].getPieza()->getTipo();
-			if (color != col && col > -1) {
+			
+			if (color != col && (color > -1)) {
+				//cout <<"Estoy en ("<<i<<","<<j<<")"<<"y soy "<< color << endl;
 				x = i;
 				y = j;
 				if (getCas()[x][y].getPieza()->mover(Vector(x, y), Vector(x2, y2), color, color2) == TRUE) { count++; }
@@ -99,26 +101,65 @@ bool Tablero::mate(int col) {
 						for (int j2 = 0; j2 < 8; j2++) {
 							color2 = getCas()[i2][j2].getPieza()->getColor();
 							if (color2 != col && (getCas()[x][y].getPieza()->mover(Vector(x, y), Vector(i2, j2), color, color2) == TRUE)) {
-									int tipoPieza = getCas()[i2][j2].getPieza()->getTipo();
-									Pieza::color_p color = getCas()[x][y].getPieza()->getColor();
-									Pieza::color_p color2 = getCas()[i2][j2].getPieza()->getColor();
+								int tipoPieza = getCas()[i2][j2].getPieza()->getTipo();
+								Pieza::color_p color = getCas()[x][y].getPieza()->getColor();
+								Pieza::color_p color2 = getCas()[i2][j2].getPieza()->getColor();
 
 
-									getCas()[x][y].~Casilla();
-									getCas()[x][y].creaPieza(x, y, -1, Pieza::NO_COLOR);
-									getCas()[i2][j2].~Casilla();
-									getCas()[i2][j2].creaPieza(i2, j2, tipo, color);
+								getCas()[x][y].~Casilla();
+								getCas()[x][y].creaPieza(x, y, -1, Pieza::NO_COLOR);
+								getCas()[i2][j2].~Casilla();
+						
+								if (col == 1) {
+
+									if ((color == 0)) { getCas()[i2][j2].creaPieza(i2 - 7, j2, tipo, color); }
+									else if (color == 1) { getCas()[i2][j2].creaPieza(-i2, j2, tipo, color); }
+									else if (color == -1) { getCas()[i2][j2].creaPieza(i2, j2, tipo, color); }
+
 
 									if (jaque(col) == FALSE) {
-										cout << "Puedes mover el rey" << endl;
+										cout << "Puedes mover" << endl;
 										valido++;
 									}
 									getCas()[i2][j2].~Casilla();
-									if (col == 0) { getCas()[i2][j2].creaPieza(i2, j2, tipoPieza, color2); }
-									if (col == 1) { getCas()[i2][j2].creaPieza(-i2 - 4, j2, tipoPieza, color2); }
+
+									if (col == 1) {
+										if (color2 == 0) { getCas()[i2][j2].creaPieza(i2 - 7, j2, tipoPieza, color2); }
+										else if (color == 1) { getCas()[i2][j2].creaPieza(-i2, j2, tipoPieza, color2); }
+										else if (color == -1) { getCas()[i2][j2].creaPieza(i2, j2, tipoPieza, color2); }
+									}
+
 									getCas()[x][y].~Casilla();
-									if (col == 0) { getCas()[x][y].creaPieza(x, y, tipo, color); }
-									if (col == 1) { getCas()[x][y].creaPieza(-x, y, tipo, color); }
+
+									if ((color == 0)) { getCas()[x][y].creaPieza(x - 7, y, tipo, color); }
+									else if (color == 1) { getCas()[x][y].creaPieza(-x, y, tipo, color); }
+									else if (color == -1) { getCas()[x][y].creaPieza(x, y, tipo, color); }
+								}
+								/*if (col == 0) {
+
+									if ((color == 0)) { getCas()[i2][j2].creaPieza(7-12, j2, tipo, color); }
+									else if (color == 1) { getCas()[i2][j2].creaPieza(i2, j2, tipo, color); }
+									else if (color == -1) { getCas()[i2][j2].creaPieza(i2, j2, tipo, color); }
+
+
+									if (jaque(col) == FALSE) {
+										cout << "Puedes mover" << endl;
+										valido++;
+									}
+									getCas()[i2][j2].~Casilla();
+
+									if (col == 1) {
+										if (color2 == 0) { getCas()[i2][j2].creaPieza(7-12, j2, tipoPieza, color2); }
+										else if (color == 1) { getCas()[i2][j2].creaPieza(i2, j2, tipoPieza, color2); }
+										else if (color == -1) { getCas()[i2][j2].creaPieza(i2, j2, tipoPieza, color2); }
+									}
+
+									getCas()[x][y].~Casilla();
+
+									if ((color == 0)) { getCas()[x][y].creaPieza(7-x, y, tipo, color); }
+									else if (color == 1) { getCas()[x][y].creaPieza(x, y, tipo, color); }
+									else if (color == -1) { getCas()[x][y].creaPieza(x, y, tipo, color); }
+								}*/
 							}
 						}
 					}
@@ -126,7 +167,7 @@ bool Tablero::mate(int col) {
 			}
 		}
 		cout << "El numero de movimientos posile es:" << valido << endl;
-		if (valido <= 0) { return TRUE; }
+		if (valido == 0) { return TRUE; }
 		else { return FALSE; }
 	}
 	else { return FALSE; }
