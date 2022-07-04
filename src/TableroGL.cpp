@@ -210,8 +210,8 @@ void TableroGL::draw() {
 			//Para definir el punto de vista
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-			if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -23, centro_x, centro_y, centro_z, 0, 1, 0); 
-			if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -23, centro_x, centro_y, centro_z, 0, -1, 0);
+			if (m_tablero->turnos % 2 != 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, 1, 0); 
+			if (m_tablero->turnos % 2 == 0) gluLookAt(centro_x, centro_y, -14, centro_x, centro_y, centro_z, 0, -1, 0);
 			glEnable(GL_LIGHTING);
 
 			//PINTADO DE PIEZAS
