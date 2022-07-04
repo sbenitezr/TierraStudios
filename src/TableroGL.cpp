@@ -39,7 +39,7 @@ void TableroGL::tecla(unsigned char key)
 		}
 		if (key == '2') {
 			modo = JUGAR2;
-			ETSIDI::play("sonidos/mola mucho este modo de juego.wav");
+			ETSIDI::play("sonidos/pitido futbol.mp3");
 		}
 		if (key == 's' || key == 'S') 
 		{
@@ -62,7 +62,7 @@ void TableroGL::tecla(unsigned char key)
 	if (modo == JUGAR2)
 	{
 		modoAnterior = 2;
-		ETSIDI::playMusica("sonidos/Musica para el juego.mp3", true);
+		ETSIDI::playMusica("sonidos/estadio futbol.mp3", true);
 		if (key == 'p' || key == 'P')
 		{
 			modo = PAUSA;
@@ -302,54 +302,54 @@ void TableroGL::draw() {
 					else {
 						m_tablero->getCas()[i][j].setColor(1);
 						m_tablero->getCas()[i][j].draw();
-					}
+						}
 					glTranslatef(-i, j, 0);
 					}
 				}
-		}
+			}
 
 
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero2.png").id);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
-		glColor3f(1, 1, 1);
-		//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("imagenes/tablero2.png").id);
+			glDisable(GL_LIGHTING);
+			glBegin(GL_POLYGON);
+			glColor3f(1, 1, 1);
+			//EL CENTRO DE LA IMAGEN ES EL (0, 7.5)
 			//TIENE DIMENSIONES DE 20 ANCHO X 15 ALTO
-		glTexCoord2d(0, 1); glVertex2f(N * ancho + 4, -N * ancho - 4);
-		glTexCoord2d(1, 1); glVertex2f(N * ancho + 4, 4);
-		glTexCoord2d(1, 0); glVertex2f(-4, 4);
-		glTexCoord2d(0, 0); glVertex2f(-4, -N * ancho - 4);
-		glEnd();
-		//Dibuja un rectangulo transparente sobre el tablero para capturar el raton
-		//con gluUnProject
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		GLTools::Color(gltools::WHITE, 1.0f);
-		glTranslatef(centro_x, centro_y, centro_z);
-		glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
-		glTranslatef(-centro_x, -centro_y, -centro_z);
-		glEnable(GL_LIGHTING);
+			glTexCoord2d(0, 1); glVertex2f(N * ancho + 4, -N * ancho - 4);
+			glTexCoord2d(1, 1); glVertex2f(N * ancho + 4, 4);
+			glTexCoord2d(1, 0); glVertex2f(-4, 4);
+			glTexCoord2d(0, 0); glVertex2f(-4, -N * ancho - 4);
+			glEnd();
+			//Dibuja un rectangulo transparente sobre el tablero para capturar el raton
+			//con gluUnProject
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			GLTools::Color(gltools::WHITE, 1.0f);
+			glTranslatef(centro_x, centro_y, centro_z);
+			glRectf(N * ancho / 2.0f, N * ancho / 2.0f, -N * ancho / 2.0f, -N * ancho / 2.0f);
+			glTranslatef(-centro_x, -centro_y, -centro_z);
+			glEnable(GL_LIGHTING);
 
-		//Pintado de Turnos
-		ETSIDI::setTextColor(0, 0, 0);
-		ETSIDI::setFont("fuentes/1up.ttf", 18);
-		if (m_tablero->turnos % 2 == 0) ETSIDI::printxy("TURNO NEGRAS ", 0, -8);
-		if (m_tablero->turnos % 2 != 0) ETSIDI::printxy("TURNO BLANCAS ", 8, 0);
+			//Pintado de Turnos
+			ETSIDI::setTextColor(0, 0, 0);
+			ETSIDI::setFont("fuentes/1up.ttf", 18);
+			if (m_tablero->turnos % 2 == 0) ETSIDI::printxy("TURNO NEGRAS ", 0, -8);
+			if (m_tablero->turnos % 2 != 0) ETSIDI::printxy("TURNO BLANCAS ", 8, 0);
 
-		//Pintado de Jaque
-		ETSIDI::setTextColor(0, 0, 0);
-		ETSIDI::setFont("fuentes/1up.ttf", 10);
-		if (m_tablero->jaque(paridad) == 1 && paridad == 1) ETSIDI::printxy("JAQUE NEGRAS ", 5, -8);
-		if (m_tablero->jaque(paridad) == 1 && paridad == 0) ETSIDI::printxy("JAQUE BLANCAS ", 3, 0);
+			//Pintado de Jaque
+			ETSIDI::setTextColor(0, 0, 0);
+			ETSIDI::setFont("fuentes/1up.ttf", 10);
+			if (m_tablero->jaque(paridad) == 1 && paridad == 1) ETSIDI::printxy("JAQUE NEGRAS ", 5, -8);
+			if (m_tablero->jaque(paridad) == 1 && paridad == 0) ETSIDI::printxy("JAQUE BLANCAS ", 3, 0);
 
-		//Pintado de mate
-		ETSIDI::setTextColor(0, 0, 0);
-		ETSIDI::setFont("fuentes/1up.ttf", 10);
-		if (m_tablero->mate(paridad) == 1 && paridad == 1) ETSIDI::printxy("MATE NEGRAS ", 5, -8);
-		if (m_tablero->mate(paridad) == 1 && paridad == 0) ETSIDI::printxy("MATE BLANCAS ", 3, 0);
+			//Pintado de mate
+			ETSIDI::setTextColor(0, 0, 0);
+			ETSIDI::setFont("fuentes/1up.ttf", 10);
+			if (m_tablero->mate(paridad) == 1 && paridad == 1) ETSIDI::printxy("MATE NEGRAS ", 5, -8);
+			if (m_tablero->mate(paridad) == 1 && paridad == 0) ETSIDI::printxy("MATE BLANCAS ", 3, 0);
 
-		glDisable(GL_TEXTURE_2D);
+			glDisable(GL_TEXTURE_2D);
 		}
 	}
 
@@ -387,10 +387,10 @@ void TableroGL::draw() {
 	//PANTALLA DE SALIDA
 
 	else if (modo == FINAL) 
-	{
+		{
 
-	if (m_tablero->turnos % 2 == 0)  //GANAN NEGRAS
-	{
+		if (m_tablero->turnos % 2 == 0)  //GANAN NEGRAS
+		{
 		centro_x = 0;
 		centro_y = 7.5;
 		centro_z = 0;
@@ -415,9 +415,9 @@ void TableroGL::draw() {
 		glEnable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
 		ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
-	}
+		}
 	else //GANAN BLANCAS
-	{
+		{
 		centro_x = 0;
 		centro_y = 7.5;
 		centro_z = 0;
@@ -442,10 +442,8 @@ void TableroGL::draw() {
 		glEnable(GL_LIGHTING);
 		glDisable(GL_TEXTURE_2D);
 		ETSIDI::playMusica("sonidos/Musica Intro.mp3", true);
+		}
 	}
-
-	}
-	
 }
 
 void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool ctrlKey) {
@@ -532,6 +530,8 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 					m_tablero->getCas()[xorig][yorig].~Casilla();
 					m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
 					m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
+					if(modo == JUGAR1 && tipo2 > -1) ETSIDI::play("sonidos/comer.mp3");
+					if (modo == JUGAR2 && tipo2 > -1) ETSIDI::play("sonidos/comer futbol.mp3");
 					m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(xcas_sel - 7, ycas_sel, tipo, Pieza::BLANCO);
 					m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->coutPieza(xcas_sel, ycas_sel,
 						m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor(), m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo());
@@ -547,6 +547,11 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 					if (m_tablero->mate(color)) {
 						cout << "MATE BLANCAS" << endl;
 						break;
+					}
+					if ((xcas_sel == 0) && (tipo == 0)) {
+						m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
+						m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(xcas_sel - 7, ycas_sel, 4, (Pieza::color_p) color);
+						m_tablero->turnos++;
 					}
 					else { m_tablero->turnos++; }
 				}
@@ -602,6 +607,8 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 					m_tablero->getCas()[xorig][yorig].~Casilla();
 					m_tablero->getCas()[xorig][yorig].setPieza(new NoPieza(Vector(xorig, yorig)));
 					m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
+					if (modo == JUGAR1 && tipo2 > -1) ETSIDI::play("sonidos/comer.mp3");
+					if (modo == JUGAR2 && tipo2 > -1) ETSIDI::play("sonidos/comer futbol.mp3");
 					m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(-xcas_sel, ycas_sel, tipo, Pieza::NEGRO);
 					m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->coutPieza(xcas_sel, ycas_sel,
 						m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getColor(), m_tablero->getCas()[xcas_sel][ycas_sel].getPieza()->getTipo());
@@ -617,6 +624,11 @@ void TableroGL::MouseButton(int x, int y, int button, bool down, bool sKey, bool
 					if ((m_tablero->mate(color))) {
 						cout << "MATE NEGRAS" << endl;
 						break;
+					}
+					if ((xcas_sel == 7) && (tipo == 0)) {
+						m_tablero->getCas()[xcas_sel][ycas_sel].~Casilla();
+						m_tablero->getCas()[xcas_sel][ycas_sel].creaPieza(-xcas_sel, ycas_sel, 4, (Pieza::color_p)color);
+						m_tablero->turnos++;
 					}
 					else { m_tablero->turnos++; }
 				}

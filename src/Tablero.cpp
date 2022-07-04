@@ -117,7 +117,7 @@ bool Tablero::mate(int col) {
 
 									if (jaque(col) == FALSE) {
 										cout << "Puedes mover a: ";
-										getCas()[i2][j2].getPieza()->coutPieza(i2, j2, color, (Pieza::tipo_t)tipo); 
+										getCas()[i2][j2].getPieza()->coutPieza(i2 + 1, j2 + 1, color, (Pieza::tipo_t)tipo); 
 										cout << endl;
 										valido++;
 									}
@@ -144,7 +144,7 @@ bool Tablero::mate(int col) {
 
 									if (jaque(col) == FALSE) {
 										cout << "Puedes mover a: ";
-										getCas()[i2][j2].getPieza()->coutPieza(i2, j2, color, (Pieza::tipo_t)tipo);
+										getCas()[i2][j2].getPieza()->coutPieza(i2 + 1, j2 + 1, color, (Pieza::tipo_t)tipo);
 										cout << endl;
 										valido++;
 									}
