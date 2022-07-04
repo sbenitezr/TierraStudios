@@ -27,7 +27,7 @@ public:
 
 	void getNumCas(Vector& p) { p = this->pos; }
 
-	virtual void draw() = 0;
+	virtual void draw(int x) = 0;
 
 	tipo_t getTipo() { if (nullptr) return CASILLA_VACIA; else { return tipo; } }
 	color_p getColor() { if (nullptr) return NO_COLOR; else { return color; } }

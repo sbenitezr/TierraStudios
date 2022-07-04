@@ -7,12 +7,16 @@ class Reina :public Pieza {
 
 protected:
 	//Definicion de Sprite
-	SpriteSequence spritereinaN{ "imagenes/reina_negro.png", 1 };
-	SpriteSequence spritereinaB{ "imagenes/reina_blanco.png", 1 };
+	SpriteSequence spritereinaN{ "imagenes/reinaNegra.png", 1 };
+	SpriteSequence spritereinaB{ "imagenes/reinaBlanca.png", 1 };
+
+	//Definicion de Sprite
+	SpriteSequence spritereinaNU{ "imagenes/reinaNegraETSIDI.png", 1 };
+	SpriteSequence spritereinaBU{ "imagenes/reinaBlancoETSIDI.png", 1 };
 public:
 	Reina(Vector p, color_p c) { pos = p; tipo = REINA; color = c; }
 
-	void draw();
+	void draw(int x);
 	virtual bool mover(Vector pos1, Vector pos2, int color, int color2);
 	bool movt(Vector pos1, Vector pos2, int color, int color2);
 	bool mova(Vector pos1, Vector pos2, int color, int color2);

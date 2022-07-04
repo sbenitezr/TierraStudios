@@ -66,7 +66,6 @@ bool Tablero::jaque(int col) {
 			tipo = getCas()[i][j].getPieza()->getTipo();
 			
 			if (color != col && (color > -1)) {
-				//cout <<"Estoy en ("<<i<<","<<j<<")"<<"y soy "<< color << endl;
 				x = i;
 				y = j;
 				if (getCas()[x][y].getPieza()->mover(Vector(x, y), Vector(x2, y2), color, color2) == TRUE) { count++; }
@@ -120,6 +119,7 @@ bool Tablero::mate(int col) {
 										cout << "Puedes mover" << endl;
 										valido++;
 									}
+
 									getCas()[i2][j2].~Casilla();
 
 									if (color2 == 0) { getCas()[i2][j2].creaPieza(i2 - 7, j2, tipoPieza, color2); }
@@ -155,6 +155,7 @@ bool Tablero::mate(int col) {
 									if ((color == 0)) { getCas()[x][y].creaPieza(x - 7, y, tipo, color); }
 									else if (color == 1) { getCas()[x][y].creaPieza(-x, y, tipo, color); }
 									else if (color == -1) { getCas()[x][y].creaPieza(x, y, tipo, color); }
+						
 								}
 							}
 						}
@@ -163,7 +164,10 @@ bool Tablero::mate(int col) {
 			}
 		}
 		cout << "El numero de movimientos posile es:" << valido << endl;
-		if (valido == 0) {	return TRUE; }
+		if (valido == 0) {	
+			cout << "JAQUE MATE" << endl;
+			return TRUE; 
+		}
 		else { return FALSE; }
 	}
 	else { return FALSE; }

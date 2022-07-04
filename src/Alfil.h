@@ -7,11 +7,15 @@ class Alfil :public Pieza {
 protected:
 	//Definicion de Sprite
 	SpriteSequence spritealfilB{ "imagenes/alfil_blanco.png", 1 };
-	SpriteSequence spritealfilN{ "imagenes/alfil_negro.png", 1 };
+	SpriteSequence spritealfilN{ "imagenes/alfilNegro.png", 1 };
+
+	//Definicion de Sprite
+	SpriteSequence spritealfilBU{ "imagenes/alfilBlancoETSIDI.png", 1 };
+	SpriteSequence spritealfilNU{ "imagenes/alfilNegroETSIDI.png", 1 };
 public:
 	Alfil(Vector p, color_p c) { pos = p; tipo = ALFIL; color = c; }
 
-	void draw();
+	void draw(int x);
 	virtual bool mover(Vector pos1, Vector pos2, int color, int color2);
 	friend class TableroGL;
 

@@ -7,12 +7,16 @@ class Torre :public Pieza {
 
 protected:
 	//Definicion de Sprite
-	SpriteSequence spritetorreB{ "imagenes/torre_blanco.png", 1 };
-	SpriteSequence spritetorreN{ "imagenes/torre_negro.png", 1 };
+	SpriteSequence spritetorreB{ "imagenes/torreBlanca.png", 1 };
+	SpriteSequence spritetorreN{ "imagenes/torreNegra.png", 1 };
+
+	//Definicion de Sprite
+	SpriteSequence spritetorreBU{ "imagenes/torreBlancoETSIDI.png", 1 };
+	SpriteSequence spritetorreNU{ "imagenes/torreNegraETSIDI.png", 1 };
 public:
 	Torre(Vector p, color_p c) { pos = p; tipo = TORRE; color = c; }
 
-	void draw();
+	void draw(int x);
 	virtual bool mover(Vector pos1, Vector pos2, int color, int color2);
 	friend class Tablero;
 	virtual void coutPieza(int x, int y, color_p color, tipo_t tipo = TORRE) {
